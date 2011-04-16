@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
 	<div class="left leftfixed">
-		<div class="content">
+		
 					<div class="covers">
 						<div class="thumbs" style="display:  ;">
 							
@@ -306,13 +306,9 @@
 					</div>
 					
 
+					
+					
 
-						
-					
-					<div id="map_canvas" style="display: none;"></div>
-					
-					
-				</div>
 	</div>
 	<div class="left rightfixed">
 		<a href="#" onclick="$.get('testalbum.html', function(data){albums();})">test album</a>
