@@ -15,10 +15,10 @@
 			</c:if>
 		
 			<div class="thumb_box" style="float: left; /* */">
-				<a href="<t:context/>/p.html/photo/${p}" rel="lightbox-gal">
+				<a href="<t:context/>/p.html?type=0&amp;id=${p}" rel="lightbox-gal">
 					<div id="t${i.index}" class="thumb" style="background-image: url(http://tomcat.marioosh.net/gpg/images/ajax-loader2.gif); display: none; background-position: 50% 50%; "></div>
-					<div id="u${i.index}" class="thumb" style="float: none; background-image: url(<t:context/>/p.html/thumb/${p}); "></div>
-					<img style="display: none;" src="<t:context/>/p.html/thumb/${p}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+					<div id="u${i.index}" class="thumb" style="float: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p}); "></div>
+					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
 					<div class="thumb_options">
 						<div>

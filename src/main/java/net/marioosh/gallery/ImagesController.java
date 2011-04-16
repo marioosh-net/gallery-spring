@@ -1,10 +1,15 @@
 package net.marioosh.gallery;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import javax.imageio.ImageIO;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
+import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.Visibility;
@@ -28,7 +33,6 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-@RequestMapping("p.html")
 public class ImagesController {
 
 	private Logger log = Logger.getLogger(ImagesController.class);
@@ -40,20 +44,25 @@ public class ImagesController {
 	private PhotoDAO photoDAO;
 
 	@ResponseBody
-	@RequestMapping("/photo/{id}")
-	public String photo() {
-		return "";
+	@RequestMapping("p.html")
+	public BufferedImage photo(@RequestParam("id") Long id, @RequestParam("type") int type) throws IOException {
+		if(type == 0) {
+			// photo
+			Photo p = photoDAO.get(id);
+			InputStream in = new ByteArrayInputStream(p.getImg());
+			return ImageIO.read(in);
+		}
+		if(type == 1) {
+			// thumb
+			Photo p = photoDAO.get(id);
+			InputStream in = new ByteArrayInputStream(p.getThumb());
+			return ImageIO.read(in);
+		}
+		if(type == 2) {
+			// cover
+			Album a = albumDAO.get(id);
+		}
+		return null;
 	}
 
-	@ResponseBody
-	@RequestMapping("/thumb/{id}")
-	public String thumb() {
-		return "";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/cover/{id}")
-	public String cover() {
-		return "";
-	}
 }
