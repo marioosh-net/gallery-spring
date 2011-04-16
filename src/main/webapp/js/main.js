@@ -24,7 +24,13 @@ jQuery(document).ready(function(){
 	  jQuery('a.bu').click(function(){
 		  this.blur();
 	  });
+	  
+	  albums();
 });
+
+function albums() {
+	jQuery('#albums').load('albums.html');
+}
 
 function isuserexist(input) {
 

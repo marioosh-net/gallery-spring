@@ -10,7 +10,10 @@ import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
 import net.marioosh.gallery.model.entities.Photo;
+import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
+import net.marioosh.gallery.model.helpers.AlbumRowMapper;
 import net.marioosh.gallery.model.helpers.BrowseParams;
+import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoRowMapper;
 import net.marioosh.gallery.utils.WebUtils;
 import org.apache.log4j.Logger;
@@ -36,8 +39,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public void add(Album album) {
-		// TODO Auto-generated method stub
-		
+		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal()};
+		int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.INTEGER};
+		jdbcTemplate.update("insert into talbum (name, mod_date, visibility) values(?, ?, ?)", params, types);
 	}
 
 	@Override
@@ -48,20 +52,41 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
+		jdbcTemplate.update("delete from talbum where id = "+id);
 	}
 
 	@Override
-	public List<Album> findAll(BrowseParams browseParams) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Album> findAll(BrowseParams browseParams1) {
+		AlbumBrowseParams browseParams = (AlbumBrowseParams) browseParams1;
+
+		String sort = "id desc";
+		if(browseParams.getSort() != null) {
+			sort = browseParams.getSort().getField();
+		}
+		String limit = "";
+		if(browseParams.getRange() != null) {
+			 limit = "limit " + browseParams.getRange().getMax() + " offset " + browseParams.getRange().getStart(); 
+		}
+		String s = "";
+		if(browseParams.getVisibility() != null) {
+			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+		}
+		String sql = "select * from talbum where 1 = 1 "+s+" order by "+sort + " " + limit;
+		log.debug(sql);
+		
+		return jdbcTemplate.query(sql, new AlbumRowMapper());
+
 	}
 
 	@Override
 	public Album get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from talbum where id = ?";
+		try {
+			Album album = (Album)jdbcTemplate.queryForObject(sql, new Object[] { id }, new AlbumRowMapper());
+			return album;
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	@Override

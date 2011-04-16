@@ -22,6 +22,13 @@ public class Album {
 
 	private Visibility visibility = Visibility.ADMIN;
 
+	public Album(String name) {
+		this.name = name;
+	}
+	
+	public Album() {
+	}
+	
 	public Long getId() {
 		return id;
 	}
