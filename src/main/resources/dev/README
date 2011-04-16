@@ -1,0 +1,12 @@
+Controller/Command Object/Validator
+	You can only have one command object per controller. This command object 
+	can only have one validator associated with it (which implements org.springframework.validation.Validator)
+	
+@Valid - wywola sie validator zwiazny z command object
+
+Command (Form Backing) Object
+Spring uses the notion of a command object, which essentially is a JavaBean style class
+that gets populated with the data from an HTML form’s fields.This same object is also
+passed to our validators (discussed next) for data validation, and if the validations pass, it
+is passed to the onSubmit method (in controller related classes) for processing of valid
+data.

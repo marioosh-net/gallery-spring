@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:security="http://www.springframework.org/schema/security" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx 
+     http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	 http://www.springframework.org/schema/mvc
+	 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+     http://www.springframework.org/schema/security
+     http://www.springframework.org/schema/security/spring-security-3.0.3.xsd	      
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- Auto-detecting components -->
+	<!-- dla wykrytych komponentow tworzone sa beany -->
+	<!-- bedziemy korzystac z adnotacji @Component, @Controller, @Repository, @Service ... -->
+	<context:component-scan base-package="net.marioosh.gallery" />
+
+	<!-- Activates various annotations to be detected in bean classes: Spring's @Required and @Autowired, as well 
+ 	as JSR 250's @PostConstruct, @PreDestroy and @Resource (if available), JAX-WS's @WebServiceRef (if available), EJB3's @EJB (if available), 
+ 	and JPA's @PersistenceContext and @PersistenceUnit (if available).  -->
+	<context:annotation-config />
+
+	<!-- view resolver -->
+	<!-- dziala: np. simpleView -> /WEB-INF/pages/simpleView.jsp -->
+	<!-- jesli nie zdefiniujemy zadnego domyslny -> simply forwards to a URL matching the name of the view specified -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+	<!-- data source -->
+	<!-- springonly / marioosh.net 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://marioosh.net:3306/springonly" />
+		<property name="username" value="springonly" />
+		<property name="password" value="springonly" />
+	</bean>
+	-->
+	<!-- linkownia_small / localhost 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/linkownia_small?useUnicode=true" />
+		<property name="username" value="linkownia" />
+		<property name="password" value="linkownia" />		
+	</bean>
+	-->
+	<!-- postgresql / localhost -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://marioosh.net:5432/gallery?charSet=UTF-8" />
+		<property name="username" value="gallery" />
+		<property name="password" value="gallery" />
+	</bean>
+
+	<!-- JSR-303 Validator / Bean Validator -->
+	<!-- A JSR-303 provider, such as Hibernate Validator, is expected to be present in the classpath and will be detected automatically -->
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/> -->
+	<!-- -->
+	<!-- wykryj automatycznie JSR-303 Provider'a np. hibernate validator'a i utworz validatora o nazwie "validator" -->
+	<mvc:annotation-driven />
+
+	<!-- message source -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<!-- Spring Security -->
+	<security:http auto-config="true" use-expressions="true">
+		<security:form-login authentication-failure-url="/index.html?loginfail=1" />
+		<security:logout logout-success-url="/index.html" logout-url="/logout.html" />
+		<security:remember-me key="rmelinkownia" />
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:password-encoder hash="md5"/>
+			<security:user-service>
+				<security:user name="admin" 	password="200ceb26807d6bf99fd6f4f0d1ca54d4" authorities="ROLE_ADMIN" />
+				<security:user name="marioosh" 	password="be13ce201255d46567b2ee2eec4535a4" authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<!-- teraz dziala adnotacja @Secured -->
+	<security:global-method-security secured-annotations="enabled" />
+	
+	<!-- simple controller -->
+	<mvc:view-controller path="/test.html" view-name="test"/>
+	<mvc:view-controller path="/test2.html" view-name="test2"/>
+
+</beans>
