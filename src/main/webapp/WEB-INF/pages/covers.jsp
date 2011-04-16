@@ -16,8 +16,8 @@
 			<div class="thumb_box">
 				<a href="<t:context/>/index.html?a=${a.id}" class="thumb_link">
 						<div id="t${i.index}" class="thumb" style="background-image: url(http://tomcat.marioosh.net/gpg/images/ajax-loader2.gif); display: none; background-position: 50% 50%; "></div>
-						<div id="u${i.index}" class="thumb thumb_box_cover" style="float: none; background-image: url(<t:context/>/thumb/${a.id}); "></div>
-						<img style="display: none;" src="/gpg/photo/bca028b02702208edd445a150dcddab01" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+						<div id="u${i.index}" class="thumb thumb_box_cover" style="float: none; background-image: url(<t:context/>/p.html/cover/${a.id}); "></div>
+						<img style="display: none;" src="<t:context/>/p.html/cover/${a.id}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 						<div class="album_cover_info" style="display: block;">
 							<div>
 								${a.name}
