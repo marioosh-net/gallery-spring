@@ -82,6 +82,11 @@ public class PhotoDAOImpl implements PhotoDAO {
 		if(browseParams.getVisibility() != null) {
 			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
 		}
+		
+		if(browseParams.getAlbumId() != null) {
+			s += " and album_id = " + browseParams.getAlbumId();
+		}
+		
 		String sql = "select * from tphoto where 1 = 1 "+s+" order by "+sort + " " + limit;
 		
 		// return jdbcTemplate.query(sql, new PhotoRowMapper());
@@ -112,6 +117,10 @@ public class PhotoDAOImpl implements PhotoDAO {
 		
 		if(browseParams.getVisibility() != null) {
 			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+		}
+
+		if(browseParams.getAlbumId() != null) {
+			s += " and album_id = " + browseParams.getAlbumId();
 		}
 		
 		String sql = "select count(*) from tphoto where 1 = 1 "+s;

@@ -25,9 +25,12 @@ jQuery(document).ready(function(){
 		  this.blur();
 	  });
 	  
-	  albums();
+	  /*albums();*/
 });
 
+function covers() {
+	jQuery('#covers').load('covers.html');
+}
 function albums() {
 	jQuery('#albums').load('albums.html');
 }

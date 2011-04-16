@@ -6,6 +6,7 @@ public class PhotoBrowseParams implements BrowseParams {
 	private PhotoSortField sort;
 	private String name;
 	private Visibility visibility = Visibility.PUBLIC;
+	private Long albumId;
 
 	@Override
 	public Range getRange() {
@@ -41,5 +42,13 @@ public class PhotoBrowseParams implements BrowseParams {
 	
 	public void setVisibility(Visibility visibility) {
 		this.visibility = visibility;
+	}
+	
+	public Long getAlbumId() {
+		return albumId;
+	}
+	
+	public void setAlbumId(Long albumId) {
+		this.albumId = albumId;
 	}
 }

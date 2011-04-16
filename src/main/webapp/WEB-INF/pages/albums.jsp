@@ -3,6 +3,6 @@
 
 <c:forEach items="${albums}" var="album">
 	<div>
-		<a href="#">${album.name}</a>&#160;<a href="#" onclick="$.get('deletealbum.html?id=${album.id}',function(){albums();})">X</a>
+		<a href="<t:context/>/index.html?a=${album.id}">${album.name}</a>&#160;<a href="deletealbum.html?id=${album.id}">X</a>
 	</div>
 </c:forEach>

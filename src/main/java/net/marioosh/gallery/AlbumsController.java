@@ -32,29 +32,7 @@ public class AlbumsController {
 	
 	@Autowired
 	private PhotoDAO photoDAO;
-	
-	@RequestMapping("/albums.html")
-	public ModelAndView albums() {
-		AlbumBrowseParams bp = new AlbumBrowseParams(); 
-		return new ModelAndView("albums", "albums", albumDAO.findAll(bp));
-	}
-
-	@ResponseBody
-	@RequestMapping("/testalbum.html")
-	public String testalbum() {
-		Album a = new Album(UndefinedUtils.randomWord() + " " + UndefinedUtils.randomWord() + " "+ UndefinedUtils.randomWord());
-		a.setVisibility(Visibility.PUBLIC);
-		albumDAO.add(a);
-		return "Album \""+a.getName()+"\" added.";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/deletealbum.html")
-	public String deleteAlbum(@RequestParam("id") Long id) {
-		albumDAO.delete(id);
-		return "0";
-	}
-	
+		
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
 		return new ModelAndView("error", "message", ex.getMessage());
