@@ -1,90 +1,76 @@
-function hidepanels(id, fun) {
-	/*jQuery('#newform')[0].reset();
-	jQuery('#editform')[0].reset();*/
-	
-	jQuery('.panel').each(function(index) {
-		if(jQuery(this).attr('id') != id) {
-			jQuery(this).hide('fast');
-		}
-	});
-	jQuery('#'+id).toggle('fast', fun);
-}
-function deleteLink(id) {
-	jQuery('.ajax_'+id).show();
-	jQuery.get('delete.html?id='+id, function(data){
-		jQuery('.ajax_'+id).hide();
-		if(data == '0') {
-			jQuery('div.link-item_'+id).remove();				
-			toplinks();
-		}
-		jQuery('#debug-content').html(data);
-	}, 'text');
-}
-function deleteSearch(id) {
-	jQuery.get('delete-search.html?id='+id, function(data){
-		if(data == '0') {
-			jQuery('div.search-item_'+id).remove();				
-			searches();
-		}
-		jQuery('#debug-content').html(data);
-	}, 'text');
-}	
-function openLink(id, url) {
-	jQuery.get('open.html?id='+id, function(data) {
-		jQuery('div.count_'+id).html(data);
-		toplinks();
-	}, 'text');
-	/*window.open(url , "open", "height=400,width=600");*/
-	window.open(url);
-}
-function edit(id) {
-	jQuery('#editform')[0].reset();/* clear form */
-			
-	jQuery.post('edit.html', {'id': id}, function(data) {
-		jQuery('#id').val(data['id']);
-		jQuery('#name').val(data['name']);
-		jQuery('#address2').val(data['address']);
-		jQuery('#description').val(data['description']);
-		jQuery('#debug-content').html('NAME:'+data['name']+'<br/>DESC:'+data['description']);
-		/*hidepanels('edit', function() {jQuery('#address2').focus();});*/
-		
-		if(jQuery('#edit').css('display') != 'none') {
-			jQuery('.panel').each(function(index) {
-				jQuery(this).hide('fast', function(){
-					jQuery('#edit').show('fast');
-				});
-			});
-		} else {
-			hidepanels('edit', function() {jQuery('#address2').focus();});
-		}
-	}, 'json');
-}
-/* odswiez linka, pociagnij name, description */
-function refresh(id) {
-	jQuery('.ajax_'+id).show();
-	jQuery.post('refresh.html', {'id': id}, function(data) {
-		jQuery('.ajax_'+id).hide();
-		jQuery('#debug-content').html('NAME:'+data['name']+'<br/>DESC:'+data['description']);
-		var item = jQuery('.link-item_'+id);
-		jQuery(item).find('.descr').html(data['description']);
-		if(jQuery.trim(data['name']) != '') {
-			jQuery(item).find('.name').html(data['name']);
-		}
-	}, 'json');
-}	
-function toplinks() {
-	jQuery('#toplinks').load('toplinks.html');
-}
-function searches() {
-	jQuery('#searches').load('searches.html');
-}	
 jQuery(document).ready(function(){
-	toplinks();
-	searches();
-	
-	$("input.enter").keydown(function(event) {
-		if(event.keyCode == 13) {
-			$(this).closest('form').submit();
+	  /*var footerHeight = jQuery('#footer').height();
+	  jQuery('#main').css('padding-bottom', footerHeight);
+	  jQuery('#footer').css('margin-top', -footerHeight);*/
+
+	  /* modal dialogs */
+	  jQuery(".modalInput").overlay({
+			mask: {
+				color: '#aaa',
+				loadSpeed: 'fast',
+				opacity: 0.5
+			},
+			speed: 'fast',
+			closeOnClick: true
+			/* cos zamiast rel triggera 
+			,target: '#yesno' */
+	  });
+	  jQuery('.modalInput').click(function(){
+		  var modal = jQuery(this).attr('rel');
+		  jQuery(modal).find('.yes').eq(0).attr('href', jQuery(this).attr('rev'));
+	  });
+	  /* modal dialogs END */
+	  
+	  jQuery('a.bu').click(function(){
+		  this.blur();
+	  });
+});
+
+function isuserexist(input) {
+
+	var email = jQuery(input).val();
+	jQuery('#status1').show();
+	jQuery.ajax({
+		url:	'ajax/isuserexist.html',
+		data: {
+			email: email
+		},
+		beforeSend: function() {
+			jQuery('#loginexist').hide();
+		},
+		success: function(data){
+			jQuery('#status1').hide();
+			if(data == '1') {
+				jQuery('#loginexist').show();
+				/*jQuery('#useremail').focus();
+				jQuery('#useremail').select();*/
+			} else {
+				jQuery('#loginexist').hide();
+			}			
 		}
 	});
-});
+}
+
+function ispasswordgood(input, id) {
+
+	var password = jQuery(input).val();
+	jQuery('#status2').show();
+	jQuery.ajax({
+		url:	'ajax/ispasswordgood.html',
+		data: {
+			password: password,
+			id: id
+		},
+		beforeSend: function() {
+			jQuery('#badpassword').hide();
+		},
+		success: function(data){
+			jQuery('#status2').hide();
+			if(data == '1') {
+				jQuery('#badpassword').hide();
+			} else {
+				jQuery('#badpassword').show();
+			}			
+		}
+	});
+}

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
@@ -20,5 +21,9 @@ public class MainController {
 	
 	@Autowired
 	private PhotoDAO photoDAO;
-	
+
+	@RequestMapping("/index.html")
+	public String index() {
+		return "index";
+	}
 }
