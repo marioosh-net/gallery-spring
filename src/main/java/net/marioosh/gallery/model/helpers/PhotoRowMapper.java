@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 public class PhotoRowMapper implements RowMapper<Photo> {
 
 	public Photo mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Photo photo = new Photo(rs.getInt("id"), rs.getString("name"), rs.getInt("visibility"));
+		Photo photo = new Photo(rs.getLong("id"), rs.getString("name"), Visibility.PUBLIC);
 		photo.setDescription(rs.getString("description"));
 		return photo;
 	}

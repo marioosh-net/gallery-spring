@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.marioosh.spring</groupId>
-	<artifactId>linkownia-springonly</artifactId>
+	<artifactId>gallery</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>linkownia-springonly</name>
+	<name>gallery</name>
 	<url>http://marioosh.net</url>
 
 	<profiles>
@@ -64,7 +64,7 @@
 	</profiles>
 
 	<build>
-		<finalName>linkownia-springonly</finalName>
+		<finalName>gallery</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

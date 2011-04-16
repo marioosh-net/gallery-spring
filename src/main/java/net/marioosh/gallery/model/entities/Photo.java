@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Photo {
 
-	private String id;
+	private Long id;
 
 	private String name;
 
@@ -34,18 +34,20 @@ public class Photo {
 
 	private String description;
 
-	public Photo(String id, String name, Visibility visibility) {
+	public Photo(Long id, String name, Visibility visibility) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.visibility = visibility;
 	}
 
-	public String getId() {
+	
+	public Long getId() {
 		return id;
 	}
-
-	public void setId(String id) {
+	
+	
+	public void setId(Long id) {
 		this.id = id;
 	}
 
