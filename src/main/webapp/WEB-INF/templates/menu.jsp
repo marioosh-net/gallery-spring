@@ -12,14 +12,13 @@
 </div>
 
 <div class="right">
-	<security:authorize ifAnyGranted="ROLE_ADMIN">	
+	<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 		<span class="username"><security:authentication property="principal.username" /></span>
 		<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
 	</security:authorize>
-	<security:authorize ifAnyGranted="ROLE_USER">	
-		<a class="username" href="<t:context/>/user/profile.html"><span class="username"><security:authentication property="principal.username" /></span></a>
-		<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
-	</security:authorize>	
+	<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
+		<%@include file="/WEB-INF/templates/login.jsp" %>
+	</security:authorize>
 </div>
 
 <div class="clear"></div>
