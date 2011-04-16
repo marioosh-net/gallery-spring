@@ -5,6 +5,7 @@ import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.BrowseParams;
 
 public interface PhotoDAO {
+	public List<Long> findAllId(BrowseParams browseParams);
 	public List<Photo> findAll(BrowseParams browseParams);
 	public int countAll(BrowseParams browseParams);
 	public Photo get(Long id);

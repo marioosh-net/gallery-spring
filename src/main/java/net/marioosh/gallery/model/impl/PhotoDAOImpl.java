@@ -8,9 +8,9 @@ import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.BrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
+import net.marioosh.gallery.model.helpers.PhotoRowMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,13 +29,10 @@ public class PhotoDAOImpl implements PhotoDAO {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-	/**
-	 * BeanPropertyRowMapper - mapuje nazwy kolumn w bazie na nazwy pol w beanie
-	 */
 	public Photo get(Long id) {
 		String sql = "select * from tphoto where id = ?";
 		try {
-			Photo photo = (Photo)jdbcTemplate.queryForObject(sql, new Object[] { id }, new BeanPropertyRowMapper<Photo>(Photo.class));
+			Photo photo = (Photo)jdbcTemplate.queryForObject(sql, new Object[] { id }, new PhotoRowMapper());
 			return photo;
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			return null;
@@ -43,13 +40,56 @@ public class PhotoDAOImpl implements PhotoDAO {
 	}	
 	
 	public void add(Photo photo) {
-		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb) values(?, ?, ?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb());
+		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb, visibility) values(?, ?, ?, ?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb(), photo.getVisibility().ordinal());
 	}
 	
 	public void delete(Long id) {
 		jdbcTemplate.update("delete from tphoto where id = "+id);
 	}
 
+	@Override
+	public List<Long> findAllId(BrowseParams browseParams1) {
+		PhotoBrowseParams browseParams = (PhotoBrowseParams) browseParams1;
+
+		String sort = "id desc";
+		if(browseParams.getSort() != null) {
+			sort = browseParams.getSort().getField();
+		}
+		String limit = "";
+		if(browseParams.getRange() != null) {
+			 limit = "limit " + browseParams.getRange().getMax() + " offset " + browseParams.getRange().getStart(); 
+		}
+		
+		String s = "";
+		if(browseParams.getName() != null) {
+			String q = browseParams.getName();
+			q = q.replaceAll("[ ]{2,}", " ");
+			s = "and ";
+			int i = 0;
+			for(String p: q.split(" ")) {
+				if(i == 0) {
+					s += "upper(name) like upper('%" + p + "%') ";
+				} else {
+					s += "or upper(name) like upper('%" + p + "%') ";
+				}
+				i++;
+			}
+		}		
+		
+		if(browseParams.getVisibility() != null) {
+			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+		}
+		
+		if(browseParams.getAlbumId() != null) {
+			s += " and album_id = " + browseParams.getAlbumId();
+		}
+		
+		String sql = "select id from tphoto where 1 = 1 "+s+" order by "+sort + " " + limit;
+		
+		// return jdbcTemplate.query(sql, new PhotoRowMapper());
+		return jdbcTemplate.queryForList(sql, Long.class);
+	}
+	
 	public List<Photo> findAll(BrowseParams browseParams1) {
 		
 		PhotoBrowseParams browseParams = (PhotoBrowseParams) browseParams1;
@@ -90,7 +130,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		String sql = "select * from tphoto where 1 = 1 "+s+" order by "+sort + " " + limit;
 		
 		// return jdbcTemplate.query(sql, new PhotoRowMapper());
-		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Photo>(Photo.class));
+		return jdbcTemplate.query(sql, new PhotoRowMapper());
 		
 	}
 

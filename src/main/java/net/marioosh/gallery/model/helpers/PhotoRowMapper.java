@@ -15,9 +15,23 @@ import org.springframework.jdbc.core.RowMapper;
 public class PhotoRowMapper implements RowMapper<Photo> {
 
 	public Photo mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Photo photo = new Photo(rs.getLong("id"), rs.getString("name"), Visibility.PUBLIC);
+		Photo photo = new Photo();
+		int vi = rs.getInt("visibility");
+		for(Visibility v: Visibility.values()) {
+			if(v.ordinal() == vi) {
+				photo.setVisibility(v);
+			}
+		}
+		photo.setName(rs.getString("name"));
+		photo.setFilePath(rs.getString("file_path"));
+		photo.setModDate(rs.getDate("mod_date"));
+		photo.setId(rs.getLong("id"));
+		photo.setImg(rs.getBytes("img"));
+		photo.setThumb(rs.getBytes("thumb"));
+		photo.setAlbumId(rs.getLong("album_id"));
 		photo.setDescription(rs.getString("description"));
 		return photo;
+		
 	}
 
 }

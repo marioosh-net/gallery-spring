@@ -3,7 +3,7 @@
 
 <div class="photos">
 	<div class="thumbs">
-		<c:forEach items="${photos}" var="photo" varStatus="i">
+		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}">
 				<div class="thumb_box">
 					<a href="<t:context/>/index.html?pp=">
@@ -13,6 +13,24 @@
 					</a>
 				</div>				
 			</c:if>
+		
+			<div class="thumb_box" style="float: left; /* */">
+				<a href="<t:context/>/photo/${p}" rel="lightbox-gal">
+					<div id="t${i.index}" class="thumb" style="background-image: url(http://tomcat.marioosh.net/gpg/images/ajax-loader2.gif); display: none; background-position: 50% 50%; "></div>
+					<div id="u${i.index}" class="thumb" style="float: none; background-image: url(<t:context/>/thumb/${p}); "></div>
+					<img style="display: none;" src="<t:context/>/thumb/${p}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+				</a>
+					<div class="thumb_options">
+						<div>
+							<img src="/gpg/images/key.png">&nbsp;
+							<a id="photos2:0:vis2" href="#" onclick="mojarra.ab(this,event,'action','@form','photos',{'onevent':onevent1});return false" class="">admin</a>
+						</div>				
+						<div>
+							<img src="/gpg/images/list_remove_btn.gif">&nbsp;
+							<a id="photos2:0:j_idt197" href="#" onclick="mojarra.ab(this,event,'action','@form','photos content',{'onevent':onevent1});return false">Delete</a>											
+						</div>						
+					</div>
+			</div>
 		
 		</c:forEach>
 		<div class="thumb_box">

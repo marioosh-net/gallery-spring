@@ -48,7 +48,7 @@ public class MainController {
 		if(albumId != null) {
 			PhotoBrowseParams bp1 = new PhotoBrowseParams();
 			bp1.setAlbumId(albumId);
-			model.addAttribute("photos", photoDAO.findAll(bp1));
+			model.addAttribute("photos", photoDAO.findAllId(bp1));
 		}
 		AlbumBrowseParams bp = new AlbumBrowseParams(); 
 		model.addAttribute("albums", albumDAO.findAll(bp));		
