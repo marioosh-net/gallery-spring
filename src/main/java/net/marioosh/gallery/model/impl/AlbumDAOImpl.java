@@ -95,4 +95,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 		return 0;
 	}
 
+	@Override
+	public List<Long> listAllId() {
+		String sql = "select id from talbum";
+		return jdbcTemplate.queryForList(sql, Long.class); 
+	}
+
 }

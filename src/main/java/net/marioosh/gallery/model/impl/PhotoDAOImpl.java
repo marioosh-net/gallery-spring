@@ -43,7 +43,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 	}	
 	
 	public void add(Photo photo) {
-		jdbcTemplate.update("insert into tphoto (name, description, modDate) values(?, ?, ?)", photo.getName(), photo.getDescription(), new Date());
+		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id) values(?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId());
 	}
 	
 	public void delete(Long id) {
@@ -128,11 +128,17 @@ public class PhotoDAOImpl implements PhotoDAO {
 	}
 	
 	public int update(Photo photo) {
-		Object[] params = {photo.getName(), photo.getDescription(), photo.getModDate(), photo.getId()};
-		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT};
-		int rows = jdbcTemplate.update("update tphoto set name = ?, description = ?, modDate = ? where id = ?", params, types);
+		Object[] params = {photo.getName(), photo.getDescription(), photo.getModDate(), photo.getId(), photo.getAlbumId()};
+		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT, Types.BIGINT};
+		int rows = jdbcTemplate.update("update tphoto set name = ?, description = ?, mod_date = ?, album_id = ? where id = ?", params, types);
 		log.debug("Updated "+rows +" rows.");
 		return rows;
 	}
 
+	@Override
+	public List<Long> listAllId() {
+		String sql = "select id from tphoto";
+		return jdbcTemplate.queryForList(sql, Long.class); 
+	}
+	
 }

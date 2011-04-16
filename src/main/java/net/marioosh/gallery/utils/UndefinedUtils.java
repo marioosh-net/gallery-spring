@@ -147,4 +147,13 @@ public class UndefinedUtils {
 		return x[random];
 	}
 
+	public static String randomWords(int maxcount) {
+		int c = (int)(Math.random() * maxcount) + 1;
+		String text = randomWord();
+		while(--c > 0) {
+			text += " " + randomWord();
+		}
+		return text;
+	}
+	
 }

@@ -2,6 +2,7 @@ package net.marioosh.gallery.model.entities;
 
 import java.util.Date;
 import net.marioosh.gallery.model.helpers.Visibility;
+import net.marioosh.gallery.utils.PhotoUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Photo {
@@ -11,7 +12,7 @@ public class Photo {
 	private String name;
 
 	@NotEmpty
-	private String albumId;
+	private Long albumId;
 
 	private Date modDate;
 	
@@ -34,6 +35,9 @@ public class Photo {
 
 	private String description;
 
+	public Photo() {	
+	}
+	
 	public Photo(Long id, String name, Visibility visibility) {
 		super();
 		this.id = id;
@@ -59,20 +63,21 @@ public class Photo {
 		this.name = name;
 	}
 
-	public String getAlbumId() {
+	public Long getAlbumId() {
 		return albumId;
 	}
-
-	public void setAlbumId(String albumId) {
+	
+	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
-
+	
 	public byte[] getImg() {
 		return img;
 	}
 
 	public void setImg(byte[] img) {
 		this.img = img;
+		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 85, 85));
 	}
 
 	public byte[] getThumb() {

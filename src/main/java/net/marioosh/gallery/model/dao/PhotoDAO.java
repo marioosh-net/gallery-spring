@@ -10,5 +10,6 @@ public interface PhotoDAO {
 	public Photo get(Long id);
 	public void add(Photo Photo);
 	public void delete(Long id);
-	public int update(Photo Photo);	
+	public int update(Photo Photo);
+	public List<Long> listAllId();
 }

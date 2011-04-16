@@ -10,5 +10,6 @@ public interface AlbumDAO {
 	public Album get(Long id);
 	public void add(Album album);
 	public void delete(Long id);
-	public int update(Album album);	
+	public int update(Album album);
+	public List<Long> listAllId();
 }
