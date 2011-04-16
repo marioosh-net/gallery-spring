@@ -43,7 +43,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 	}	
 	
 	public void add(Photo photo) {
-		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id) values(?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId());
+		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb) values(?, ?, ?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb());
 	}
 	
 	public void delete(Long id) {
