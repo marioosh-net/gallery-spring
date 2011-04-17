@@ -20,6 +20,7 @@
 					<div id="u${i.index}" class="thumb" style="float: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p}); "></div>
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
+				<security:authorize ifAllGranted="ROLE_ADMIN">
 					<div class="thumb_options">
 						<div>
 							<img src="/gpg/images/key.png">&nbsp;
@@ -30,6 +31,7 @@
 							<a id="photos2:0:j_idt197" href="#" onclick="mojarra.ab(this,event,'action','@form','photos content',{'onevent':onevent1});return false">Delete</a>											
 						</div>						
 					</div>
+				</security:authorize>
 			</div>
 		
 		</c:forEach>
