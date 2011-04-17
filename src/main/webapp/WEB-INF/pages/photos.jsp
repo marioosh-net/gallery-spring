@@ -4,7 +4,7 @@
 <c:forEach items="${ppages}" var="p" varStatus="i">
 	<c:if test="${i.index == 0}">Pages:&#160;</c:if>
 	<span>
-		<c:if test="${p[0] != ppage}"><a href="index.html?a=${album.id}&amp;p=${apage}&amp;pp=${p[0]}">${p[0]}</a></c:if>
+		<c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">${p[0]}</a></c:if>
 		<c:if test="${p[0] == ppage}">${p[0]}</c:if>
 		&#160;
 	</span>
@@ -15,7 +15,7 @@
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}">
 				<div class="thumb_box">
-					<a href="<t:context/>/index.html?a=${album.id}&amp;p=${apage}&amp;pp=${ppage - 1}">
+					<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage - 1}">
 						<div class="thumb prevp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 							<br>P<br>R<br>E<br>V<br>
 						</div>
@@ -45,7 +45,7 @@
 		
 		</c:forEach>
 		<div class="thumb_box">
-			<a href="<t:context/>/index.html?a=${album.id}&amp;p=${apage}&amp;pp=${ppage + 1}">
+			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage + 1}">
 				<div class="thumb nextp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>N<br>E<br>X<br>T<br>
 				</div>

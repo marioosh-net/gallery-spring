@@ -47,7 +47,7 @@ public class MainController {
 	*/
 	
 	@RequestMapping("/index.html")
-	public String index(@RequestParam(value="a", required=false) Long albumId, @RequestParam(value="p",required=false, defaultValue="-1") int p, @RequestParam(value="pp",required=false, defaultValue="-1") int pp, Model model) {
+	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="-1") int p, @RequestParam(value="pp",required=false, defaultValue="-1") int pp, Model model) {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		AlbumBrowseParams bp = new AlbumBrowseParams();
 
@@ -64,7 +64,7 @@ public class MainController {
 			}
 		}
 		
-		if(albumId != null) {
+		if(albumId != 0) {
 			if(pp == -1) {
 				pp = 1;
 			}			
@@ -73,10 +73,15 @@ public class MainController {
 			int pcount = albumDAO.countAll(bp1);
 			model.addAttribute("photos", photoDAO.findAllId(bp1));
 			model.addAttribute("album", albumDAO.get(albumId));
+			model.addAttribute("aid", albumId);
 			model.addAttribute("pcount",pcount);
 			int[][] ppages = pages(pcount, 19);
 			model.addAttribute("ppages", ppages);
 			model.addAttribute("ppagesCount", ppages.length);
+			model.addAttribute("ppage", pp);
+		} else {
+			model.addAttribute("aid", 0);
+			pp = 1;
 			model.addAttribute("ppage", pp);
 		}
 		 
