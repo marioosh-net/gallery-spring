@@ -2,6 +2,10 @@
 
 <div class="left">
 	<a href="<t:context/>/index.html"><spring:message code="menu.home"/></a>
+	<c:if test="${album != null}">
+		&#8250;
+		<a href="">${album.name}</a>
+	</c:if>
 </div>
 
 <div class="right">

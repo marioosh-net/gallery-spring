@@ -66,6 +66,7 @@ public class MainController {
 		if(albumId != null) {
 			bp1.setAlbumId(albumId);
 			model.addAttribute("photos", photoDAO.findAllId(bp1));
+			model.addAttribute("album", albumDAO.get(albumId));
 		}
 		 
 		model.addAttribute("albums", albumDAO.findAll(bp));		
