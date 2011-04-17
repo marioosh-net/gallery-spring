@@ -14,9 +14,12 @@ import net.marioosh.gallery.model.helpers.BrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoRowMapper;
 import net.marioosh.gallery.model.helpers.PhotoRowMapperInputStream;
+import net.marioosh.gallery.model.helpers.Visibility;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository("photoDAO")
@@ -188,9 +191,18 @@ public class PhotoDAOImpl implements PhotoDAO {
 	
 	@Override
 	public InputStream getStream(Long id, int type) throws SQLException {
-		String sql = "select img from tphoto where id = ?";
+		String s = " and visibility = " + Visibility.PUBLIC.ordinal() + " ";
+		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			if(a.getAuthority().equals("ROLE_ADMIN")) {
+				s += " and visibility = " + Visibility.ADMIN.ordinal() + " ";
+			}
+			if(a.getAuthority().equals("ROLE_USER")) {
+				s += " and visibility = " + Visibility.ADMIN.ordinal() + " ";
+			}
+		}
+		String sql = "select img from tphoto where id = ?" + s;
 		if(type == 1) {
-			sql = "select thumb from tphoto where id = ?";
+			sql = "select thumb from tphoto where id = ?" + s;
 		}
 		InputStream in = (InputStream)jdbcTemplate.queryForObject(sql, new Object[] { id }, new PhotoRowMapperInputStream());
 		return in;

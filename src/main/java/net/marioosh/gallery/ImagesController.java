@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -37,7 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-public class ImagesController {
+public class ImagesController implements ServletContextAware {
 
 	private Logger log = Logger.getLogger(ImagesController.class);
 
@@ -47,37 +49,40 @@ public class ImagesController {
 	@Autowired
 	private PhotoDAO photoDAO;
 
+	private ServletContext servletContext;
+
 	//@ResponseBody
 	@RequestMapping("p.html")
-	public void photo(@RequestParam("id") Long id, @RequestParam("type") int type, HttpServletResponse response) throws IOException, SQLException {
+	public void photo(@RequestParam("id") Long id, @RequestParam("type") int type, HttpServletResponse response) throws IOException {
+		try {
 		if(type == 0) {
 			// photo
-			//outImage(response, photoDAO.getStream(id, type));
 			IOUtils.copy(photoDAO.getStream(id, type), response.getOutputStream());
 		}
 		if(type == 1) {
 			// thumb
-			//outImage(response, photoDAO.getStream(id, type));
 			IOUtils.copy(photoDAO.getStream(id, type), response.getOutputStream());
 		}
 		if(type == 2) {
 			// cover
-			Long idp = albumDAO.getCover(id);
-			// outImage(response, photoDAO.getStream(idp, type));			
-			IOUtils.copy(photoDAO.getStream(idp, 1), response.getOutputStream());
+			IOUtils.copy(photoDAO.getStream(albumDAO.getCover(id), 1), response.getOutputStream());
+		}
+		} catch (Exception e) {
+			InputStream in = servletContext.getResourceAsStream("/images/no_image.jpg");
+			IOUtils.copy(in, response.getOutputStream());
 		}
 	}
 
-	private void outImage(HttpServletResponse response, InputStream in) throws IOException {
-		OutputStream out = response.getOutputStream();
-		response.setContentType("image/jpeg");
-		byte[] b = new byte[8024];
-		int length = 0;
-		while ((length = in.read(b)) > 0) {
-			out.write(b, 0, length);
-		}
-		out.close();
-		response.getOutputStream().flush();		
+	/*
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException(Exception ex) throws IOException {
+		return new ModelAndView("error", "message", ex.getMessage());
 	}
+	*/
+
+	@Override
+	public void setServletContext(ServletContext arg0) {
+		this.servletContext = arg0;
+	}	
 	
 }
