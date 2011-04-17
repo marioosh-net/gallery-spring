@@ -7,6 +7,7 @@ import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
 import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
+import net.marioosh.gallery.model.helpers.Range;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
 import org.apache.log4j.Logger;
@@ -46,7 +47,7 @@ public class MainController {
 	*/
 	
 	@RequestMapping("/index.html")
-	public String index(@RequestParam(value="a", required=false) Long albumId, Model model) {
+	public String index(@RequestParam(value="a", required=false) Long albumId, @RequestParam(value="p",required=false, defaultValue="-1") int p, @RequestParam(value="pp",required=false, defaultValue="-1") int pp, Model model) {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		AlbumBrowseParams bp = new AlbumBrowseParams();
 
@@ -64,12 +65,32 @@ public class MainController {
 		}
 		
 		if(albumId != null) {
-			bp1.setAlbumId(albumId);
+			if(pp == -1) {
+				pp = 1;
+			}			
+			bp1.setAlbumId(albumId);		
+			bp1.setRange(new Range((pp-1)*19,19));
+			int pcount = albumDAO.countAll(bp1);
 			model.addAttribute("photos", photoDAO.findAllId(bp1));
 			model.addAttribute("album", albumDAO.get(albumId));
+			model.addAttribute("pcount",pcount);
+			int[][] ppages = pages(pcount, 19);
+			model.addAttribute("ppages", ppages);
+			model.addAttribute("ppagesCount", ppages.length);
+			model.addAttribute("ppage", pp);
 		}
 		 
-		model.addAttribute("albums", albumDAO.findAll(bp));		
+		if(p == -1) {
+			p = 1;
+		}		
+		bp.setRange(new Range((p-1)*20,20));
+		int acount = albumDAO.countAll(bp);
+		model.addAttribute("albums", albumDAO.findAll(bp));
+		model.addAttribute("acount",acount);
+		int[][] apages = pages(acount, 20);
+		model.addAttribute("apages", apages);
+		model.addAttribute("apagesCount", apages.length);
+		model.addAttribute("apage", p);
 		return "index";
 	}
 	
@@ -105,5 +126,16 @@ public class MainController {
 	public ModelAndView handleException(Exception ex) throws IOException {
 		return new ModelAndView("error", "message", ex.getMessage());
 	}	
+
+	private int[][] pages(int count, int perPage) {
+		int pages = count / perPage + (count % perPage == 0 ? 0 : 1);
+		int[][] p = new int[pages][3];
+		for(int i = 0; i < p.length; i++) {
+			p[i][0] = i + 1; 
+			p[i][1] = i * perPage; 
+			p[i][2] = ((i+1) * perPage) - 1;
+		}
+		return p;
+	}
 
 }
