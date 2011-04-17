@@ -8,8 +8,10 @@
 	<meta name="Keywords" lang="en" content="payments">
 	<!-- jQuery Library + ALL jQuery Tools -->
 	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="<t:context/>/js/slimbox2.js"></script>		
 	<script type="text/javascript" src="<t:context/>/js/main.js"></script>
 	<link rel="stylesheet" type="text/css" href="<t:context/>/css/main.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="<t:context/>/css/sb/slimbox2.css" /> 
 	<title><spring:message code="label.appname"/></title>
 </head>
 <body id="body">

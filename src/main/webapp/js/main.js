@@ -34,52 +34,13 @@ function covers() {
 function albums() {
 	jQuery('#albums').load('albums.html');
 }
-
-function isuserexist(input) {
-
-	var email = jQuery(input).val();
-	jQuery('#status1').show();
-	jQuery.ajax({
-		url:	'ajax/isuserexist.html',
-		data: {
-			email: email
-		},
-		beforeSend: function() {
-			jQuery('#loginexist').hide();
-		},
-		success: function(data){
-			jQuery('#status1').hide();
-			if(data == '1') {
-				jQuery('#loginexist').show();
-				/*jQuery('#useremail').focus();
-				jQuery('#useremail').select();*/
-			} else {
-				jQuery('#loginexist').hide();
-			}			
-		}
-	});
-}
-
-function ispasswordgood(input, id) {
-
-	var password = jQuery(input).val();
-	jQuery('#status2').show();
-	jQuery.ajax({
-		url:	'ajax/ispasswordgood.html',
-		data: {
-			password: password,
-			id: id
-		},
-		beforeSend: function() {
-			jQuery('#badpassword').hide();
-		},
-		success: function(data){
-			jQuery('#status2').hide();
-			if(data == '1') {
-				jQuery('#badpassword').hide();
-			} else {
-				jQuery('#badpassword').show();
-			}			
-		}
+function slimboxstart() {
+	jQuery("a[rel^='lightbox-gal']").slimbox({
+			resizeDuration: 200,
+			initialWidth: 50,
+			initialHeight: 50,
+			loop: true
+		}, null, function(el) {
+		return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
 	});
 }
