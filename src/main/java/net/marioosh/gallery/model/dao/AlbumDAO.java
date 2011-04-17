@@ -13,4 +13,6 @@ public interface AlbumDAO {
 	public int update(Album album);
 	public List<Long> listAllId();
 	public Long getCover(Long albumId);
+	public boolean isAlbumExist(String name);
+	public Album getByName(String name);
 }

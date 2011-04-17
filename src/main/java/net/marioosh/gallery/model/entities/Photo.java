@@ -1,8 +1,13 @@
 package net.marioosh.gallery.model.entities;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.PhotoUtils;
+import org.apache.commons.io.IOUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Photo {
@@ -79,6 +84,13 @@ public class Photo {
 		this.img = img;
 		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 85, 85));
 	}
+	
+	public void setImg(File f) throws IOException {
+		FileInputStream in = new FileInputStream(f);
+		this.img = PhotoUtils.makeResized(in);
+		in = new FileInputStream(f);
+		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 85, 85));		
+	}
 
 	public byte[] getThumb() {
 		return thumb;
@@ -94,6 +106,10 @@ public class Photo {
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	
+	public void setFilePath(File file) {
+		setFilePath(file.getAbsolutePath());
 	}
 
 	public Visibility getVisibility() {

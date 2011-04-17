@@ -106,4 +106,19 @@ public class AlbumDAOImpl implements AlbumDAO {
 		String sql = "select id from tphoto where album_id = ? limit 1";
 		return jdbcTemplate.queryForLong(sql, albumId);
 	}
+	
+	@Override
+	public boolean isAlbumExist(String name) {
+		String sql = "select id from talbum where name = ?";
+		if(jdbcTemplate.queryForLong(sql) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public Album getByName(String name) {
+		String sql = "select id from talbum where name = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{name}, new AlbumRowMapper());
+	}
 }
