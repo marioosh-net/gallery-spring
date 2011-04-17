@@ -13,6 +13,7 @@ import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.BrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoRowMapper;
+import net.marioosh.gallery.model.helpers.PhotoRowMapperInputStream;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -191,10 +192,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		if(type == 1) {
 			sql = "select thumb from tphoto where id = ?";
 		}
-		
-		PreparedStatement ps = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
-		ps.setLong(1, id);
-		ResultSet rs = ps.executeQuery();
-		return rs.getBinaryStream(1);
+		InputStream in = (InputStream)jdbcTemplate.queryForObject(sql, new Object[] { id }, new PhotoRowMapperInputStream());
+		return in;
 	}
 }
