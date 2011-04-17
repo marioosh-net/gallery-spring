@@ -11,6 +11,8 @@ import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
@@ -45,12 +47,27 @@ public class MainController {
 	
 	@RequestMapping("/index.html")
 	public String index(@RequestParam(value="a", required=false) Long albumId, Model model) {
+		PhotoBrowseParams bp1 = new PhotoBrowseParams();
+		AlbumBrowseParams bp = new AlbumBrowseParams();
+
+		bp1.setVisibility(Visibility.PUBLIC);
+		bp.setVisibility(Visibility.PUBLIC);
+		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			if(a.getAuthority().equals("ROLE_ADMIN")) {
+				bp1.setVisibility(Visibility.ADMIN);
+				bp.setVisibility(Visibility.ADMIN);
+			}
+			if(a.getAuthority().equals("ROLE_USER")) {
+				bp1.setVisibility(Visibility.USER);
+				bp.setVisibility(Visibility.USER);
+			}
+		}
+		
 		if(albumId != null) {
-			PhotoBrowseParams bp1 = new PhotoBrowseParams();
 			bp1.setAlbumId(albumId);
 			model.addAttribute("photos", photoDAO.findAllId(bp1));
 		}
-		AlbumBrowseParams bp = new AlbumBrowseParams(); 
+		 
 		model.addAttribute("albums", albumDAO.findAll(bp));		
 		return "index";
 	}

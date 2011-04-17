@@ -29,6 +29,9 @@
 	<!-- APPENDERY END -->
 
 	<!-- LOGGERY -->
+	<logger name="org.hibernate">
+		<level value="warn" />
+	</logger>
 	<logger name="org.springframework">
 		<level value="debug" />
 	</logger>
@@ -44,6 +47,36 @@
 	<logger name="org.springframework.aop.framework.Cglib2AopProxy">
 		<level value="error" />
 	</logger>
+	<logger name="org.springframework.security.web.FilterChainProxy">
+		<level value="error"/>
+	</logger>
+	<logger name="org.springframework.beans.factory.xml.PluggableSchemaResolver">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.web.servlet.mvc.annotation">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.security">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.orm">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.core.io">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.context.annotation">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.beans.factory">
+		<level value="info"/>
+	</logger>
+	<logger name="org.quartz.core">
+		<level value="info"/>
+	</logger>
+	<logger name="org.springframework.core.convert.support">
+		<level value="info"/>
+	</logger>
 	<!-- LOGGERY END -->
 
 	<!-- ROOT LOGGER -->
@@ -51,7 +84,7 @@
 	<root>
 		<!-- domyslnie od poziomu debug w gore bedzie logowane wszystko w pliku -->
 		<level value="debug" />
-		<appender-ref ref="file_all" />
+		<!-- <appender-ref ref="file_all" /> -->
 		<appender-ref ref="console" />
 	</root>
 	<!-- ROOT LOGGER END -->

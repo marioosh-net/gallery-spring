@@ -69,7 +69,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 		}
 		String s = "";
 		if(browseParams.getVisibility() != null) {
-			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
 		}
 		String sql = "select * from talbum where 1 = 1 "+s+" order by "+sort + " " + limit;
 		log.debug(sql);

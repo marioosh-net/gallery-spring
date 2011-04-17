@@ -85,7 +85,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}		
 		
 		if(browseParams.getVisibility() != null) {
-			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
 		}
 		
 		if(browseParams.getAlbumId() != null) {
@@ -93,6 +93,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}
 		
 		String sql = "select id from tphoto where 1 = 1 "+s+" order by "+sort + " " + limit;
+		log.debug("SQL: "+sql);
 		
 		// return jdbcTemplate.query(sql, new PhotoRowMapper());
 		return jdbcTemplate.queryForList(sql, Long.class);
@@ -128,7 +129,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}		
 		
 		if(browseParams.getVisibility() != null) {
-			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
 		}
 		
 		if(browseParams.getAlbumId() != null) {
@@ -136,6 +137,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}
 		
 		String sql = "select * from tphoto where 1 = 1 "+s+" order by "+sort + " " + limit;
+		log.debug("SQL: "+sql);
 		
 		// return jdbcTemplate.query(sql, new PhotoRowMapper());
 		return jdbcTemplate.query(sql, new PhotoRowMapper());
@@ -164,7 +166,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		// String s = browseParams.getSearch() != null ? "and (upper(address) like upper('%"+browseParams.getSearch()+"%') or upper(name) like upper('%"+browseParams.getSearch()+"%'))" : "";
 		
 		if(browseParams.getVisibility() != null) {
-			s += "and visibility = " + browseParams.getVisibility().ordinal(); 
+			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
 		}
 
 		if(browseParams.getAlbumId() != null) {
@@ -191,15 +193,20 @@ public class PhotoDAOImpl implements PhotoDAO {
 	
 	@Override
 	public InputStream getStream(Long id, int type) throws SQLException {
-		String s = " and visibility = " + Visibility.PUBLIC.ordinal() + " ";
+		
+		/**
+		 * zabezpieczenie przed nieuprawnionym dostepem do obrazkow niepublicznych
+		 */
+		String s = " and visibility <= " + Visibility.PUBLIC.ordinal() + " ";
 		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
 			if(a.getAuthority().equals("ROLE_ADMIN")) {
-				s += " and visibility = " + Visibility.ADMIN.ordinal() + " ";
+				s = " and visibility <= " + Visibility.ADMIN.ordinal() + " ";
 			}
 			if(a.getAuthority().equals("ROLE_USER")) {
-				s += " and visibility = " + Visibility.ADMIN.ordinal() + " ";
+				s = " and visibility <= " + Visibility.USER.ordinal() + " ";
 			}
 		}
+		
 		String sql = "select img from tphoto where id = ?" + s;
 		if(type == 1) {
 			sql = "select thumb from tphoto where id = ?" + s;
