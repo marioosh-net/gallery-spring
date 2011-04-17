@@ -1,5 +1,9 @@
 package net.marioosh.gallery.model.impl;
 
+import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
 import java.util.List;
@@ -181,4 +185,16 @@ public class PhotoDAOImpl implements PhotoDAO {
 		return jdbcTemplate.queryForList(sql, Long.class); 
 	}
 	
+	@Override
+	public InputStream getStream(Long id, int type) throws SQLException {
+		String sql = "select img from tphoto where id = ?";
+		if(type == 1) {
+			sql = "select thumb from tphoto where id = ?";
+		}
+		
+		PreparedStatement ps = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		return rs.getBinaryStream(1);
+	}
 }

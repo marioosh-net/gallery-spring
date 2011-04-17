@@ -101,4 +101,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 		return jdbcTemplate.queryForList(sql, Long.class); 
 	}
 
+	@Override
+	public Long getCover(Long albumId) {
+		String sql = "select id from tphoto where album_id = ? limit 1";
+		return jdbcTemplate.queryForLong(sql, albumId);
+	}
 }

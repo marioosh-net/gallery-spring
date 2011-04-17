@@ -12,4 +12,5 @@ public interface AlbumDAO {
 	public void delete(Long id);
 	public int update(Album album);
 	public List<Long> listAllId();
+	public Long getCover(Long albumId);
 }

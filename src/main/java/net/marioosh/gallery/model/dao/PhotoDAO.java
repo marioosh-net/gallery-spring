@@ -1,5 +1,7 @@
 package net.marioosh.gallery.model.dao;
 
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.BrowseParams;
@@ -13,4 +15,5 @@ public interface PhotoDAO {
 	public void delete(Long id);
 	public int update(Photo Photo);
 	public List<Long> listAllId();
+	public InputStream getStream(Long id, int type) throws SQLException;
 }

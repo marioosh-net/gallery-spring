@@ -4,8 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
@@ -43,26 +45,42 @@ public class ImagesController {
 	@Autowired
 	private PhotoDAO photoDAO;
 
-	@ResponseBody
+	//@ResponseBody
 	@RequestMapping("p.html")
-	public BufferedImage photo(@RequestParam("id") Long id, @RequestParam("type") int type) throws IOException {
+	public void photo(@RequestParam("id") Long id, @RequestParam("type") int type, HttpServletResponse response) throws IOException {
 		if(type == 0) {
 			// photo
 			Photo p = photoDAO.get(id);
 			InputStream in = new ByteArrayInputStream(p.getImg());
-			return ImageIO.read(in);
+			outImage(response, in);
+			//return ImageIO.read(in);
 		}
 		if(type == 1) {
 			// thumb
 			Photo p = photoDAO.get(id);
 			InputStream in = new ByteArrayInputStream(p.getThumb());
-			return ImageIO.read(in);
+			outImage(response, in);
+			// return ImageIO.read(in);
 		}
 		if(type == 2) {
 			// cover
-			Album a = albumDAO.get(id);
+			Long idp = albumDAO.getCover(id);
+			Photo p = photoDAO.get(idp);
+			InputStream in = new ByteArrayInputStream(p.getThumb());
+			outImage(response, in);			
 		}
-		return null;
 	}
 
+	private void outImage(HttpServletResponse response, InputStream in) throws IOException {
+		OutputStream out = response.getOutputStream();
+		response.setContentType("image/jpeg");
+		byte[] b = new byte[8024];
+		int length = 0;
+		while ((length = in.read(b)) > 0) {
+			out.write(b, 0, length);
+		}
+		out.close();
+		response.getOutputStream().flush();		
+	}
+	
 }
