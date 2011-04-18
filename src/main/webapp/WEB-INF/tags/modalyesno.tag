@@ -9,7 +9,7 @@
 		</div>
 		<div class="buttons" style="margin-left: 100px; margin-top: 10px;">
 		<a class="close bu" href="#"><span><spring:message code="button.no"/></span></a>	
-		<a class="close yes bu" href="#"><span><spring:message code="button.yes"/></span></a>
+		<a class="close yes bu" href="#" onclick=""><span><spring:message code="button.yes"/></span></a>
 		</div>
 	</div>
 </div>

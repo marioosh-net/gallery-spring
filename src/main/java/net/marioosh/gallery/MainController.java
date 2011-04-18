@@ -73,13 +73,13 @@ public class MainController {
 				pp = 1;
 			}			
 			bp1.setAlbumId(albumId);		
-			bp1.setRange(new Range((pp-1)*19,19));
+			bp1.setRange(new Range((pp-1)*26,26));
 			int pcount = photoDAO.countAll(bp1);
 			model.addAttribute("photos", photoDAO.findAllId(bp1));
 			model.addAttribute("album", albumDAO.get(albumId));
 			model.addAttribute("aid", albumId);
 			model.addAttribute("pcount",pcount);
-			int[][] ppages = pages(pcount, 19);
+			int[][] ppages = pages(pcount, 26);
 			model.addAttribute("ppages", ppages);
 			model.addAttribute("ppagesCount", ppages.length);
 			model.addAttribute("ppage", pp);
@@ -130,6 +130,18 @@ public class MainController {
 	public String deleteAlbum(@RequestParam("id") Long id) {
 		albumDAO.delete(id);
 		return "redirect:/index.html";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@ResponseBody
+	@RequestMapping("/deletephoto.html")
+	public String deletePhoto(@RequestParam("id") Long id) {
+		try {
+			photoDAO.delete(id);
+		} catch (Exception e) {
+			return "1";
+		}
+		return "0";
 	}
 
 	@Secured("ROLE_ADMIN")

@@ -134,7 +134,21 @@ form {
 #album .left {
 	padding-right: 10px;
 }
+#album .ainfo {
+	color: #666;
+}
+#album .ainfo .album-date {
+	color: silver;
+}
 /* album info END*/
+
+/* album funcs */
+#main-funcs {
+}
+#main-funcs a {
+	display: block;
+}
+/* album funcs END */
 
 /** layout END **/
 
@@ -330,6 +344,9 @@ label {
 }
 .rightbox {
 	margin-top: 5px;
+}
+img.icon {
+	margin-right: 2px;
 }
 /* other END */
 

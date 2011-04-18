@@ -15,10 +15,15 @@ jQuery(document).ready(function(){
 			/* cos zamiast rel triggera 
 			,target: '#yesno' */
 	  });
-	  jQuery('.modalInput').click(function(){
+	  jQuery('.modalInputHref').click(function(){
 		  var modal = jQuery(this).attr('rel');
 		  jQuery(modal).find('.yes').eq(0).attr('href', jQuery(this).attr('rev'));
 	  });
+	  jQuery('.modalInputClick').click(function(){
+		  var modal = jQuery(this).attr('rel');
+		  jQuery(modal).find('.yes').eq(0).click(new Function(jQuery(this).attr('rev')));
+	  });
+	  
 	  /* modal dialogs END */
 	  
 	  jQuery('a.bu').click(function(){
@@ -33,6 +38,9 @@ function covers() {
 }
 function albums() {
 	jQuery('#albums').load('albums.html');
+}
+function photos() {
+	jQuery('#photos').load('photos.html');
 }
 function slimboxstart() {
 	jQuery("a[rel^='lightbox-gal']").slimbox({

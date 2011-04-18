@@ -23,6 +23,10 @@
 				<a href="<t:context/>/load.html">load</a>
 				<a href="<t:context/>/unload.html">unload</a>
 				<a href="<t:context/>/cleardb.html">cleardb</a>
+				<a href="#" onclick="jQuery.get('<t:context/>/testalbum.html', function(data){albums();covers();})">test album</a>
+				<a href="#" onclick="jQuery.get('<t:context/>/makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
+				<a href="#" onclick="jQuery.get('<t:context/>/makephotos.html', function(data){albums();covers();})">make photos</a>
+				<a href="#" onclick="jQuery.get('<t:context/>/shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>				
 			</div>
 		</security:authorize>
 		
@@ -31,9 +35,14 @@
 			<div class="left">
 				<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
 			</div>
-			<div class="left">
-				<div id="album-name">${album.name}</div>
-				<div id="album-date">${album.modDate}</div>
+			<div class="left ainfo">
+				<div class="album-name">${album.name}</div>
+				<div class="album-date">${album.modDate}</div>
+				<div>
+					<security:authorize ifAnyGranted="ROLE_ADMIN">
+						<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+					</security:authorize>
+				</div>
 			</div>
 			<div class="clear"></div>
 		</div>

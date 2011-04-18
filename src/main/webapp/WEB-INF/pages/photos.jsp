@@ -39,17 +39,21 @@
 					<div class="thumb_options">
 						<div>
 							<img src="images/key.png">&nbsp;
-							<a id="photos2:0:vis2" href="#" onclick="mojarra.ab(this,event,'action','@form','photos',{'onevent':onevent1});return false" class="">admin</a>
+							<a id="photos2:0:vis2" href="#" onclick="mojarra.ab(this,event,'action','@form','photos',{'onevent':onevent1});return false" class="">visibility</a>
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
-							<a id="photos2:0:j_idt197" href="#" onclick="mojarra.ab(this,event,'action','@form','photos content',{'onevent':onevent1});return false">Delete</a>											
+							<a href="#" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p}',function(data){if(data == '0'){ photos();}});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
 						</div>						
 					</div>
 				</security:authorize>
 			</div>
 		
 		</c:forEach>
+		<t:modalyesno id="yesnophoto">
+			<spring:message code="text.confirmDeletePhoto" />
+		</t:modalyesno>
+		
 		<div class="thumb_box">
 			<c:if test="${ppage == ppagesCount}">
 			<a href="#" class="inactive">
