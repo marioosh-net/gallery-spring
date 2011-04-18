@@ -33,7 +33,7 @@
 			</c:if>
 			
 			<div class="thumb_box">
-				<a href="<t:context/>/index.html?a=${a.id}" class="thumb_link">
+				<a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}" class="thumb_link">
 						<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader4.gif); background-position: 50% 50%; "></div>
 						<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/p.html?type=2&amp;id=${a.id}); "></div>
 						<img style="display: none;" src="<t:context/>/p.html?type=2&amp;id=${a.id}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">

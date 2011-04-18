@@ -520,6 +520,7 @@ a.thumb_link {
 
 .inactive {
 	color: silver;
+	cursor: default;
 }
 .inactive:hover {
 	color: silver;	
