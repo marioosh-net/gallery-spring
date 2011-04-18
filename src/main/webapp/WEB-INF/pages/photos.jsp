@@ -12,15 +12,16 @@
 
 <div class="photos">
 	<div class="thumbs">
+		<div class="thumb_box">
+			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage == 1 ? ppage : ppage - 1}">
+				<div class="thumb prevp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
+					<br>P<br>R<br>E<br>V<br>
+				</div>
+			</a>
+		</div>				
+	
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}">
-				<div class="thumb_box">
-					<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage - 1}">
-						<div class="thumb prevp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
-							<br>P<br>R<br>E<br>V<br>
-						</div>
-					</a>
-				</div>				
 			</c:if>
 		
 			<div class="thumb_box" style="float: left; /* */">
@@ -45,7 +46,7 @@
 		
 		</c:forEach>
 		<div class="thumb_box">
-			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage + 1}">
+			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage == ppagesCount ? ppage : ppage + 1}">
 				<div class="thumb nextp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>N<br>E<br>X<br>T<br>
 				</div>
@@ -59,7 +60,8 @@
 	<script type="text/javascript">
 	slimboxstart();
 	</script>
-						
+	
+	<!-- 					
 	<div style="clear: both;"></div>
 
 	<div class="photos_pages"><span id="j_idt39:0:j_idt40" name="j_idt39:0:j_idt40">1</span>&nbsp;
@@ -69,6 +71,7 @@
 		<a id="j_idt39:4:j_idt40" href="#" onclick="mojarra.ab(this,event,'action','@form','@form',{'onevent':onevent1});return false">15</a>&nbsp;
 	</div>
 	<div style="clear: both;"></div>
-	
+	-->
+	 
 	<div style="clear: both;"></div>
 </div>

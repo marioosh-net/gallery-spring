@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
+<c:forEach items="${apages}" var="p" varStatus="i">
+	<c:if test="${i.index == 0}">Pages:&#160;</c:if>
+	<span>
+		<c:if test="${p[0] != apage}"><a href="index.html?a=${aid}&amp;pp=${ppage}&amp;p=${p[0]}">${p[0]}</a></c:if>
+		<c:if test="${p[0] == apage}">${p[0]}</c:if>
+		&#160;
+	</span>
+</c:forEach>
+
 <div class="covers">
 	<div class="thumbs">
 		<c:forEach items="${albums}" var="a" varStatus="i">
 			<c:if test="${i.index == 0}">
 				<div class="thumb_box">
-					<a href="<t:context/>/index.html?p=">
+					<a href="<t:context/>/index.html?a=${aid}&amp;pp=${ppage}&amp;p=${apage - 1}">
 						<div class="thumb prevp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 							<br>P<br>R<br>E<br>V<br>
 						</div>
@@ -29,7 +38,7 @@
 			</div>
 		</c:forEach>
 		<div class="thumb_box">
-			<a href="<t:context/>/index.html?p=">
+			<a href="<t:context/>/index.html?a=${aid}&amp;pp=${ppage}&amp;p=${apage + 1}">
 				<div class="thumb nextp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>N<br>E<br>X<br>T<br>
 				</div></a>
