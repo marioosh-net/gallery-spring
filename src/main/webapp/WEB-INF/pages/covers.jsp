@@ -22,6 +22,11 @@
 					</a>
 				</div>				
 			</c:if>
+			
+			<c:if test="${(i.index%7 == 6 and i.index != 0)}">
+				<div class="clear"></div>
+			</c:if>
+			
 			<div class="thumb_box">
 				<a href="<t:context/>/index.html?a=${a.id}" class="thumb_link">
 						<div id="t${i.index}" class="thumb" style="background-image: url(http://tomcat.marioosh.net/gpg/images/ajax-loader2.gif); display: none; background-position: 50% 50%; "></div>

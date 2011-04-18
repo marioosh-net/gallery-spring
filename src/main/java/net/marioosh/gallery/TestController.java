@@ -32,6 +32,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -115,9 +116,9 @@ public class TestController implements ResourceLoaderAware {
 	}
 	
 	@RequestMapping("/makephotos.html")
-	public void newPhotos(Integer count) {
+	public void newPhotos(@RequestParam(value="count", defaultValue="0", required=false) Integer count) {
 		try {
-			makePhotos("http://www.impawards.com/2009/std.html", count);
+			makePhotos("http://www.impawards.com/2009/std.html", count != 0 ? count : null);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

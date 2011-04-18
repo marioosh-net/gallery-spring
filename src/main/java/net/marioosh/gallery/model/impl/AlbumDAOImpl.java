@@ -52,6 +52,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public void delete(Long id) {
+		jdbcTemplate.update("delete from tphoto where album_id = "+id);
 		jdbcTemplate.update("delete from talbum where id = "+id);
 	}
 
