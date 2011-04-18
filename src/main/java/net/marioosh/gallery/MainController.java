@@ -1,7 +1,9 @@
 package net.marioosh.gallery;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
@@ -75,7 +77,10 @@ public class MainController {
 			bp1.setAlbumId(albumId);		
 			bp1.setRange(new Range((pp-1)*26,26));
 			int pcount = photoDAO.countAll(bp1);
-			model.addAttribute("photos", photoDAO.findAllId(bp1));
+			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility"});
+			log.debug("LIST: "+l);
+			// photoDAO.findAllId(bp1)
+			model.addAttribute("photos", l);
 			model.addAttribute("album", albumDAO.get(albumId));
 			model.addAttribute("aid", albumId);
 			model.addAttribute("pcount",pcount);

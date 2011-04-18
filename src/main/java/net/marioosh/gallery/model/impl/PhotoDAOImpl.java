@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Photo;
@@ -213,5 +214,54 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}
 		InputStream in = (InputStream)jdbcTemplate.queryForObject(sql, new Object[] { id }, new PhotoRowMapperInputStream());
 		return in;
+	}
+	
+	@Override
+	public List<Map<String, Object>> findAll(BrowseParams browseParams1, String[] columns) {
+		PhotoBrowseParams browseParams = (PhotoBrowseParams) browseParams1;
+
+		String sort = "id desc";
+		if(browseParams.getSort() != null) {
+			sort = browseParams.getSort().getField();
+		}
+		String limit = "";
+		if(browseParams.getRange() != null) {
+			 limit = "limit " + browseParams.getRange().getMax() + " offset " + browseParams.getRange().getStart(); 
+		}
+		
+		String s = "";
+		if(browseParams.getName() != null) {
+			String q = browseParams.getName();
+			q = q.replaceAll("[ ]{2,}", " ");
+			s = "and ";
+			int i = 0;
+			for(String p: q.split(" ")) {
+				if(i == 0) {
+					s += "upper(name) like upper('%" + p + "%') ";
+				} else {
+					s += "or upper(name) like upper('%" + p + "%') ";
+				}
+				i++;
+			}
+		}		
+		
+		if(browseParams.getVisibility() != null) {
+			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
+		}
+		
+		if(browseParams.getAlbumId() != null) {
+			s += " and album_id = " + browseParams.getAlbumId();
+		}
+		
+		String c ="";
+		int i = 0;
+		for(String columnName: columns) {
+			c += (i++ > 0 ? "," : " ") + columnName;
+		}
+		String sql = "select "+c+" from tphoto where 1 = 1 "+s+" order by "+sort + " " + limit;
+		log.debug("SQL: "+sql);
+		
+		// return jdbcTemplate.query(sql, new PhotoRowMapper());
+		return jdbcTemplate.queryForList(sql);// (sql, new PhotoRowMapper());
 	}
 }
