@@ -178,7 +178,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 	}
 	
 	public int update(Photo photo) {
-		Object[] params = {photo.getName(), photo.getDescription(), photo.getModDate(), photo.getId(), photo.getAlbumId()};
+		Object[] params = {photo.getName(), photo.getDescription(), photo.getModDate(), photo.getAlbumId(), photo.getId()};
 		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT, Types.BIGINT};
 		int rows = jdbcTemplate.update("update tphoto set name = ?, description = ?, mod_date = ?, album_id = ? where id = ?", params, types);
 		log.debug("Updated "+rows +" rows.");

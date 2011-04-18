@@ -45,9 +45,18 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
-	public int countAll(BrowseParams browseParams) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int countAll(BrowseParams browseParams1) {
+		AlbumBrowseParams browseParams = (AlbumBrowseParams) browseParams1;
+
+		String s = "";
+		if(browseParams.getVisibility() != null) {
+			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
+		}
+		String sql = "select count(id) from talbum where 1 = 1 "+s;
+		log.debug(sql);
+		
+		return jdbcTemplate.queryForInt(sql);
+
 	}
 
 	@Override

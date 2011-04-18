@@ -33,6 +33,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -148,7 +149,9 @@ public class TestController implements ResourceLoaderAware {
 	 * pomieszaj fotki miedzy albumami
 	 * @throws EntityVersionException 
 	 */
-	public void shuffle() {
+	@ResponseBody
+	@RequestMapping("/shuffle.html")
+	public String shuffle() {
 		long start = System.currentTimeMillis();
 		log.debug("shuffle()...");
 		int x = 0;
@@ -162,6 +165,7 @@ public class TestController implements ResourceLoaderAware {
 		log.debug("shuffled "+x+" files.");
 		long stop = System.currentTimeMillis();
 		log.debug((stop - start) + "ms");
+		return "0";
 	}
 	
 	public void clearDB() {

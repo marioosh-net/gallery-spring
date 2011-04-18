@@ -13,8 +13,13 @@
 <div class="photos">
 	<div class="thumbs">
 		<div class="thumb_box">
+			<c:if test="${ppage == 1}">
+			<a href="#" class="inactive">
+			</c:if>
+			<c:if test="${ppage != 1}">
 			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage == 1 ? ppage : ppage - 1}">
-				<div class="thumb prevp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
+			</c:if>
+				<div class="thumb prevp ${ppage == 1 ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>P<br>R<br>E<br>V<br>
 				</div>
 			</a>
@@ -26,8 +31,8 @@
 		
 			<div class="thumb_box" style="float: left; /* */">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p}" rel="lightbox-gal">
-					<div id="t${i.index}" class="thumb" style="background-image: url(http://tomcat.marioosh.net/gpg/images/ajax-loader2.gif); display: none; background-position: 50% 50%; "></div>
-					<div id="u${i.index}" class="thumb" style="float: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p}); "></div>
+					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader4.gif); background-position: 50% 50%; "></div>
+					<div id="u${i.index}" class="thumb" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p}); "></div>
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
 				<security:authorize ifAllGranted="ROLE_ADMIN">
@@ -46,8 +51,13 @@
 		
 		</c:forEach>
 		<div class="thumb_box">
+			<c:if test="${ppage == ppagesCount}">
+			<a href="#" class="inactive">
+			</c:if>
+			<c:if test="${ppage != ppagesCount}">
 			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage == ppagesCount ? ppage : ppage + 1}">
-				<div class="thumb nextp" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
+			</c:if>
+				<div class="thumb nextp ${ppage == ppagesCount ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>N<br>E<br>X<br>T<br>
 				</div>
 			</a>

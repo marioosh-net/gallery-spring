@@ -70,7 +70,7 @@ form {
 	/*height: 25px;*/
 }
 #menu .fixedwidth {
-	border-bottom: 3px solid  #000;
+	border-bottom: 1px solid  #000;
 	padding: 5px;
 }
 #menu .left a {
@@ -514,7 +514,18 @@ a.thumb_link {
 }
 
 .prevp, .nextp {
-	text-align: center; 
+	text-align: center;
+	font-size: 10px; 
+}
+
+.inactive {
+	color: silver;
+}
+.inactive:hover {
+	color: silver;	
+}
+a.inactive {
+	text-decoration: none;
 }
 
 .over {

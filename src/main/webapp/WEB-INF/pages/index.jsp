@@ -16,9 +16,6 @@
 		</div>
 	</div>
 	<div class="left rightfixed">
-		<a href="#" onclick="$.get('testalbum.html', function(data){albums();covers();})">test album</a>
-		<a href="#" onclick="$.get('makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
-		<a href="#" onclick="$.get('makephotos.html', function(data){albums();covers();})">make photos</a>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
