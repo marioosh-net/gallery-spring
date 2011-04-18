@@ -44,3 +44,17 @@ function slimboxstart() {
 		return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
 	});
 }
+
+/* programowo otworz overlay dla elementu wskazanego przez selector */
+function openOverlay(selector) {
+	jQuery(selector).overlay({
+		mask: {
+			color: '#aaa',
+			loadSpeed: 'fast',
+			opacity: 0.5
+		},
+		speed: 'fast',
+		closeOnClick: true,
+		load: true
+	});
+}

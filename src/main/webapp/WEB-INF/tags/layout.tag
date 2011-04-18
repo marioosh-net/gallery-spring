@@ -3,9 +3,9 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="description" content="PAYAP" />
-	<meta name="Keywords" lang="pl" content="płatności">
-	<meta name="Keywords" lang="en" content="payments">
+	<meta name="description" content="gallery" />
+	<meta name="Keywords" lang="pl" content="galeria">
+	<meta name="Keywords" lang="en" content="gallery">
 	<!-- jQuery Library + ALL jQuery Tools -->
 	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="<t:context/>/js/slimbox2.js"></script>		

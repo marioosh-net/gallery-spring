@@ -235,6 +235,9 @@ a.bu:active span {
 	overflow: hidden;
 	width: 100%;
 }
+.modal .modal-message {
+	margin-bottom: 6px;
+}
 /* button END */
 
 /* other */
