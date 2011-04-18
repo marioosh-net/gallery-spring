@@ -126,6 +126,16 @@ form {
 }
 /* footer END */
 
+/* album info */
+#album {
+	font-size: 12px;
+	width: 300px;
+}
+#album .left {
+	padding-right: 10px;
+}
+/* album info END*/
+
 /** layout END **/
 
 
@@ -317,6 +327,9 @@ label {
 }
 .error-message {
 	margin-bottom: 10px;
+}
+.rightbox {
+	margin-top: 5px;
 }
 /* other END */
 

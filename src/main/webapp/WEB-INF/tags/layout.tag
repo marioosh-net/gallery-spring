@@ -26,7 +26,7 @@
 	<div id="wrapper">
 		<div id="header">
 			<div class="fixedwidth">
-				<div class="left" style="padding-top: 25px;">
+				<div class="left" style="padding-top: 0px;">
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
 				</div>
 				<div class="right">

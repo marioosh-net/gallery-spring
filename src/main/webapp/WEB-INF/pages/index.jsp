@@ -19,14 +19,27 @@
 		<%@include file="/WEB-INF/templates/login.jsp" %>
 		
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
-			<div id="main-funcs">
+			<div id="main-funcs" class="rightbox">
 				<a href="<t:context/>/load.html">load</a>
 				<a href="<t:context/>/unload.html">unload</a>
 				<a href="<t:context/>/cleardb.html">cleardb</a>
 			</div>
 		</security:authorize>
 		
-		<div id="albums">
+		<c:if test="${album != null}">
+		<div id="album" class="rightbox">
+			<div class="left">
+				<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
+			</div>
+			<div class="left">
+				<div id="album-name">${album.name}</div>
+				<div id="album-date">${album.modDate}</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		</c:if>
+		
+		<div id="albums" class="rightbox">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
 		</div>
