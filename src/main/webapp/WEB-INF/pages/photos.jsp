@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
 <c:forEach items="${ppages}" var="p" varStatus="i">
-	<c:if test="${i.index == 0}">Pages:&#160;</c:if>
+	<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>
 	<span>
 		<c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">${p[0]}</a></c:if>
 		<c:if test="${p[0] == ppage}">${p[0]}</c:if>

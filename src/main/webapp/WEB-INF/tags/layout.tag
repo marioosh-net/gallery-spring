@@ -30,7 +30,7 @@
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
 				</div>
 				<div class="right">
-					<a href="?lang=de">DE</a>|<a href="?lang=en">EN</a>
+					<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
 				</div>
 				<div class="clear"></div>
 			</div>		
