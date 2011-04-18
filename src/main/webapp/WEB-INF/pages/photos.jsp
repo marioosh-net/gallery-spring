@@ -30,7 +30,7 @@
 			</c:if>
 		
 			<div class="thumb_box" style="float: left; /* */">
-				<a href="<t:context/>/p.html?type=0&amp;id=${p}" rel="lightbox-gal">
+				<a href="<t:context/>/p.html?type=0&amp;id=${p}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p}' target='_blank'>${p}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader4.gif); background-position: 50% 50%; "></div>
 					<div id="u${i.index}" class="thumb" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p}); "></div>
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
@@ -38,11 +38,11 @@
 				<security:authorize ifAllGranted="ROLE_ADMIN">
 					<div class="thumb_options">
 						<div>
-							<img src="/gpg/images/key.png">&nbsp;
+							<img src="images/key.png">&nbsp;
 							<a id="photos2:0:vis2" href="#" onclick="mojarra.ab(this,event,'action','@form','photos',{'onevent':onevent1});return false" class="">admin</a>
 						</div>				
 						<div>
-							<img src="/gpg/images/list_remove_btn.gif">&nbsp;
+							<img src="images/list_remove_btn.gif">&nbsp;
 							<a id="photos2:0:j_idt197" href="#" onclick="mojarra.ab(this,event,'action','@form','photos content',{'onevent':onevent1});return false">Delete</a>											
 						</div>						
 					</div>

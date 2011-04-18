@@ -22,6 +22,6 @@
 
 <c:forEach items="${albums}" var="a">
 	<div>
-		<a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}">${a.name}</a>&#160;<a href="deletealbum.html?id=${a.id}">X</a>
+		<a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}" style="${a.id == aid ? 'font-weight: bold;' : ''}">${a.name}</a>&#160;<a href="deletealbum.html?id=${a.id}">X</a>
 	</div>
 </c:forEach>
