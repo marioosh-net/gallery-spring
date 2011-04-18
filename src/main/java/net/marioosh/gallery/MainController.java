@@ -12,6 +12,7 @@ import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -124,24 +125,28 @@ public class MainController {
 	}
 	
 	/*@ResponseBody*/
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/deletealbum.html")
 	public String deleteAlbum(@RequestParam("id") Long id) {
 		albumDAO.delete(id);
 		return "redirect:/index.html";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/cleardb.html")
 	public String clearDB() {
 		albumDAO.deleteAll();
 		return "redirect:/index.html";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/load.html")
 	public String load() {
 		fileService.load();
 		return "redirect:/index.html";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/unload.html")
 	public String unload() {
 		fileService.unload();
