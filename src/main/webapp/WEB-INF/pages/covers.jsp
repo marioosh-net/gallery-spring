@@ -54,7 +54,7 @@
 			<c:if test="${apage != apagesCount}">
 			<a href="<t:context/>/index.html?a=${aid}&amp;pp=${ppage}&amp;p=${apage == apagesCount ? apage : apage + 1}">
 			</c:if>
-				<div class="thumb nextp ${apage == apagesCount ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
+				<div class="thumb nextp ${apage == apagesCount or apagesCount == 0 ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>N<br>E<br>X<br>T<br>
 				</div></a>
 			</a>

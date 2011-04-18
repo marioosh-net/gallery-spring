@@ -88,11 +88,11 @@ public class MainController {
 		if(p < 0) {
 			p = 1;
 		}		
-		bp.setRange(new Range((p-1)*20,20));
+		bp.setRange(new Range((p-1)*19,19));
 		int acount = albumDAO.countAll(bp);
 		model.addAttribute("albums", albumDAO.findAll(bp));
 		model.addAttribute("acount",acount);
-		int[][] apages = pages(acount, 20);
+		int[][] apages = pages(acount, 19);
 		model.addAttribute("apages", apages);
 		model.addAttribute("apagesCount", apages.length);
 		model.addAttribute("apage", p);

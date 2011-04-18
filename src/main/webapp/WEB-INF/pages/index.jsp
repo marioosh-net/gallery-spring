@@ -3,12 +3,12 @@
 <t:layout>
 	<div class="left leftfixed">
 		<div id="mini">
-			<c:if test="${param.a != null}">
+			<c:if test="${param.a != null and param.a != 0}">
 				<div id="photos">
 					<%@ include file="/WEB-INF/pages/photos.jsp" %>
 				</div>
 			</c:if>
-			<c:if test="${param.a == null}">
+			<c:if test="${param.a == null or param.a == 0}">
 				<div id="covers">
 					<%@ include file="/WEB-INF/pages/covers.jsp" %>
 				</div>
@@ -16,6 +16,7 @@
 		</div>
 	</div>
 	<div class="left rightfixed">
+		<%@include file="/WEB-INF/templates/login.jsp" %>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
