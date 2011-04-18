@@ -1,5 +1,8 @@
 package net.marioosh.gallery.model.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +21,12 @@ import net.marioosh.gallery.model.helpers.PhotoRowMapper;
 import net.marioosh.gallery.utils.WebUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository("albumDAO")
@@ -38,10 +45,28 @@ public class AlbumDAOImpl implements AlbumDAO {
     }
 
 	@Override
-	public void add(Album album) {
+	public Long add(final Album album) {
 		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal()};
 		int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.INTEGER};
 		jdbcTemplate.update("insert into talbum (name, mod_date, visibility) values(?, ?, ?)", params, types);
+		return null;
+		/*
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement("insert into talbum (name, mod_date, visibility) values(?, ?, ?)", new String[] {"id"});
+				ps.setString(1, album.getName());
+				ps.setDate(2, new java.sql.Date(new Date().getTime()));
+				ps.setInt(3, album.getVisibility().ordinal());
+				return ps;
+			}
+			
+		}, keyHolder);
+		return (Long) keyHolder.getKey();
+		*/
 	}
 
 	@Override
@@ -94,7 +119,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 		try {
 			Album album = (Album)jdbcTemplate.queryForObject(sql, new Object[] { id }, new AlbumRowMapper());
 			return album;
-		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
@@ -119,8 +144,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 	
 	@Override
 	public boolean isAlbumExist(String name) {
-		String sql = "select id from talbum where name = ?";
-		if(jdbcTemplate.queryForLong(sql) > 0) {
+		String sql = "select count(id) from talbum where name = ?";
+		if(jdbcTemplate.queryForLong(sql, new Object[]{name}, new int[]{Types.VARCHAR}) > 0) {
 			return true;
 		}
 		return false;
@@ -128,7 +153,20 @@ public class AlbumDAOImpl implements AlbumDAO {
 	
 	@Override
 	public Album getByName(String name) {
-		String sql = "select id from talbum where name = ?";
-		return jdbcTemplate.queryForObject(sql, new Object[]{name}, new AlbumRowMapper());
+		String sql = "select * from talbum where name = ?";
+		try {
+			Album a = jdbcTemplate.queryForObject(sql, new Object[]{name}, new AlbumRowMapper());
+			log.debug("getByName: " + a);
+			return a;
+		} catch (EmptyResultDataAccessException e) {
+			log.debug("getByName: null");
+			return null;
+		}
+	}
+	
+	@Override
+	public void deleteAll() {
+		jdbcTemplate.update("delete from tphoto");
+		jdbcTemplate.update("delete from talbum");		
 	}
 }

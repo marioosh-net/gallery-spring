@@ -108,6 +108,10 @@
 	</bean>
 	-->
 	
+	<bean id="fileService" class="net.marioosh.gallery.FileService">
+		<property name="rootPath" value="C:\moje\download\photos"/>
+		<property name="destPath" value="C:\moje\download\photos_out"/>
+	</bean>
 
 
 	<!-- Spring Web Flow 

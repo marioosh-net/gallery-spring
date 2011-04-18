@@ -136,14 +136,17 @@ public class FileService implements Serializable, ApplicationContextAware {
 				String contentType = new MimetypesFileTypeMap().getContentType(f);
 				if(contentType.equals("image/jpeg") || contentType.equals("image/jpg")) {
 					Album a = albumDAO.getByName(file.getName());
+					Long albumId = 0L; 
 					if(a == null) {
 						a = new Album();
 						a.setModDate(new Date());
 						a.setName(file.getName());		
 						a.setPath(file.getAbsolutePath());
 						a.setVisibility(Visibility.ADMIN);
-						albumDAO.add(a);
-						log.info("2 Album " + file.getName() + " created.");					
+						albumId = albumDAO.add(a);
+						log.info("2 Album ["+albumId+"]" + file.getName() + " created.");					
+					} else {
+						albumId = a.getId();
 					}
 					FileInputStream in = new FileInputStream(f);
 					String hash = DigestUtils.md5Hex(in);
@@ -152,7 +155,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					if(true) {
 						Photo p = new Photo();
 						// p.setHash(hash);
-						p.setAlbumId(a.getId());
+						p.setAlbumId(albumId);
 						p.setModDate(new Date());
 
 						// !!!
@@ -160,7 +163,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 						p.setFilePath(f);
 						
 						p.setVisibility(Visibility.ADMIN);
-						p.setName(f.getName());						
+						p.setName(f.getName());				
+						log.debug("AID"+albumId);
 						photoDAO.add(p);				
 						log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "'.");
 					/*} else {

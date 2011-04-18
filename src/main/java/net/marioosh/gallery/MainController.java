@@ -36,6 +36,9 @@ public class MainController {
 	private AlbumDAO albumDAO;
 	
 	@Autowired
+	private FileService fileService;
+	
+	@Autowired
 	private PhotoDAO photoDAO;
 
 	/*
@@ -124,6 +127,24 @@ public class MainController {
 	@RequestMapping("/deletealbum.html")
 	public String deleteAlbum(@RequestParam("id") Long id) {
 		albumDAO.delete(id);
+		return "redirect:/index.html";
+	}
+
+	@RequestMapping("/cleardb.html")
+	public String clearDB() {
+		albumDAO.deleteAll();
+		return "redirect:/index.html";
+	}
+	
+	@RequestMapping("/load.html")
+	public String load() {
+		fileService.load();
+		return "redirect:/index.html";
+	}
+	
+	@RequestMapping("/unload.html")
+	public String unload() {
+		fileService.unload();
 		return "redirect:/index.html";
 	}
 	
