@@ -29,7 +29,7 @@
 			<c:if test="${i.index == 0}">
 			</c:if>
 		
-			<div class="thumb_box" style="float: left; /* */">
+			<div id="th${i.index}" class="thumb_box" style="float: left; /* */">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p}' target='_blank'>${p}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader4.gif); background-position: 50% 50%; "></div>
 					<div id="u${i.index}" class="thumb" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p}); "></div>
@@ -43,7 +43,8 @@
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
-							<a href="#" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p}',function(data){if(data == '0'){ photos();}});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
+							<a href="#" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
+							<!-- <a href="#" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> -->
 						</div>						
 					</div>
 				</security:authorize>

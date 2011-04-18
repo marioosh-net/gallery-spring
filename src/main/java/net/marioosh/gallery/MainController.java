@@ -145,6 +145,13 @@ public class MainController {
 	}
 
 	@Secured("ROLE_ADMIN")
+	@RequestMapping("/deletephoto2.html")
+	public String deletePhoto2(@RequestParam("id") Long id) {
+		photoDAO.delete(id);
+		return "redirect:/index.html";
+	}
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/cleardb.html")
 	public String clearDB() {
 		albumDAO.deleteAll();
