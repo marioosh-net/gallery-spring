@@ -10,7 +10,7 @@ body,html {
 	height: 100%;
 }
 div {
-	overflow: hidden; /* IE6: div height */
+	/* overflow: hidden; /* IE6: div height */
 }
 a {
 	text-decoration: none;
