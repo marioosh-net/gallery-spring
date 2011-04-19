@@ -54,6 +54,7 @@ public class ImagesController implements ServletContextAware {
 	//@ResponseBody
 	@RequestMapping("p.html")
 	public void photo(@RequestParam("id") Long id, @RequestParam("type") int type, HttpServletResponse response) throws IOException {
+		response.setContentType("image/jpeg");
 		try {
 		if(type == 0) {
 			// photo
