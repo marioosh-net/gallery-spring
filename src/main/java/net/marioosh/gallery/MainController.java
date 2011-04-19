@@ -11,7 +11,9 @@ import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
 import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
+import net.marioosh.gallery.model.helpers.AlbumSortField;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
+import net.marioosh.gallery.model.helpers.PhotoSortField;
 import net.marioosh.gallery.model.helpers.Range;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
@@ -92,6 +94,7 @@ public class MainController {
 			}			
 			bp1.setAlbumId(albumId);		
 			bp1.setRange(new Range((pp-1)*26,26));
+			bp1.setSort(PhotoSortField.NAME);
 			int pcount = photoDAO.countAll(bp1);
 			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
 			log.debug("LIST: "+l);
@@ -108,6 +111,7 @@ public class MainController {
 			// getnij wszystkie z albumu
 			if(l.size() > 0) {
 			bp1.setRange(null);
+			bp1.setSort(PhotoSortField.NAME);
 			List<Map<String, Object>> l2 = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
 			Iterator<Map<String, Object>> i = l2.iterator();
 			List<Map<String, Object>> before = new ArrayList<Map<String, Object>>();
@@ -142,6 +146,7 @@ public class MainController {
 			p = 1;
 		}		
 		bp.setRange(new Range((p-1)*19,19));
+		bp.setSort(AlbumSortField.NAME);
 		int acount = albumDAO.countAll(bp);
 		model.addAttribute("albums", albumDAO.findAll(bp));
 		model.addAttribute("acount",acount);
