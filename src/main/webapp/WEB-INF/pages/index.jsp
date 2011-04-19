@@ -1,8 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
-	<div class="left leftfixed">
+	<div class="left leftfixed">		
 		
+		<!-- albums list -->
+		<div id="albums" class="rightbox">
+			<%@ include file="/WEB-INF/pages/albums.jsp" %>
+			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
+		</div>		
+	</div>
+	
+	
+	<div class="left rightfixed">
+		<div id="header">
+				<div class="left" style="padding-top: 10px;">
+					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
+				</div>
+				<div class="right">
+					<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
+					<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
+						<span class="username"><security:authentication property="principal.username" /></span>
+						<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
+					</security:authorize>
+					<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
+						<!-- login panel -->
+						<%@include file="/WEB-INF/templates/login.jsp" %>
+					</security:authorize>					
+				</div>
+				<div class="clear"></div>	
+		</div>
+	
+		<div id="menu">
+			<%@include file="/WEB-INF/templates/menu.jsp" %>
+		</div>
+		
+		<security:authorize ifAnyGranted="ROLE_ADMIN">
 		<!-- album info -->
 		<c:if test="${album != null}">
 			<div id="album" class="rightbox">
@@ -32,6 +64,7 @@
 				<div class="clear"></div>
 			</div>
 		</c:if>
+		</security:authorize>
 
 		<!-- admin global functions -->
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
@@ -49,36 +82,6 @@
 				<spring:message code="text.areYouSure"/>
 			</t:modalyesno>
 		</security:authorize>
-		
-		<!-- albums list -->
-		<div id="albums" class="rightbox">
-			<%@ include file="/WEB-INF/pages/albums.jsp" %>
-			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
-		</div>		
-	</div>
-	<div class="left rightfixed">
-		<div id="header">
-				<div class="left" style="padding-top: 10px;">
-					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
-				</div>
-				<div class="right">
-					<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
-	<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
-		<span class="username"><security:authentication property="principal.username" /></span>
-		<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
-	</security:authorize>
-	<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
-		<!-- login panel -->
-		<%@include file="/WEB-INF/templates/login.jsp" %>
-	</security:authorize>
-					
-				</div>
-				<div class="clear"></div>	
-		</div>
-	
-		<div id="menu">
-			<%@include file="/WEB-INF/templates/menu.jsp" %>
-		</div>
 		
 		<div id="mini">
 			<c:if test="${param.a != null and param.a != 0}">
