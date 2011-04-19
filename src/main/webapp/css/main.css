@@ -6,7 +6,7 @@ body,html {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin: 0px;
 	padding: 0px;
-	font-size: 14px;
+	font-size: 12px;
 	height: 100%;
 }
 div {
@@ -58,7 +58,6 @@ form {
 }
 #header a {
 	color: #fff;
-	font-size: 0.8em;
 }
 #header a:hover {
 	color: #fff;
@@ -122,13 +121,11 @@ form {
 }
 #footer .fixedwidth {
 	padding: 5px;
-	font-size: 0.8em;
 }
 /* footer END */
 
 /* album info */
 #album {
-	font-size: 12px;
 	width: 300px;
 }
 #album .left {

@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
+<c:if test="${ppagesCount > 1}">
 <c:forEach items="${ppages}" var="p" varStatus="i">
 	<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>
-	<span>
-		<c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">${p[0]}</a></c:if>
-		<c:if test="${p[0] == ppage}">${p[0]}</c:if>
-		&#160;
-	</span>
+	<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}">[${p[0]}]</c:if></span>
 </c:forEach>
+</c:if>
 
 <div class="photos">
 	<div class="thumbs">
@@ -91,3 +89,10 @@
 	
 	<div style="clear: both;"></div>
 </div>
+
+<c:if test="${ppagesCount > 1}">
+<c:forEach items="${ppages}" var="p" varStatus="i">
+	<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>
+	<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}">[${p[0]}]</c:if></span>
+</c:forEach>
+</c:if>

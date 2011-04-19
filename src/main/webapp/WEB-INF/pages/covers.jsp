@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
+<!--
 <c:forEach items="${apages}" var="p" varStatus="i">
 	<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>
 	<span>
@@ -9,10 +10,12 @@
 		&#160;
 	</span>
 </c:forEach>
+-->
 
 <div class="covers">
 	<div class="thumbs">
 		<c:forEach items="${albums}" var="a" varStatus="i">
+			<!--
 			<c:if test="${i.index == 0}">
 				<div class="thumb_box">
 					<c:if test="${apage == 1}">
@@ -27,8 +30,9 @@
 					</a>
 				</div>				
 			</c:if>
+			-->
 			
-			<c:if test="${(i.index%7 == 6 and i.index != 0)}">
+			<c:if test="${(i.index%7 == 0 and i.index != 0)}">
 				<div class="clear"></div>
 			</c:if>
 			
@@ -37,16 +41,19 @@
 						<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader4.gif); background-position: 50% 50%; "></div>
 						<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/p.html?type=2&amp;id=${a.id}); "></div>
 						<img style="display: none;" src="<t:context/>/p.html?type=2&amp;id=${a.id}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+						<!--
 						<div class="album_cover_info" style="display: block;">
 							<div>
 								${a.name}
 							</div>
 							<div><span style="color: silver;">${a.modDate}</span>
 							</div>
-						</div>				
+						</div>
+						-->				
 				</a>
 			</div>
 		</c:forEach>
+		<!--
 		<div class="thumb_box">
 			<c:if test="${apage == apagesCount}">
 			<a href="#" class="inactive">
@@ -58,7 +65,8 @@
 					<br>N<br>E<br>X<br>T<br>
 				</div></a>
 			</a>
-		</div>		
+		</div>
+		-->		
 		
 	</div>
 

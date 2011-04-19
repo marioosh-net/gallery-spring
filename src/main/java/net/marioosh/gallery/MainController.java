@@ -145,7 +145,7 @@ public class MainController {
 		if(p < 0) {
 			p = 1;
 		}		
-		bp.setRange(new Range((p-1)*19,19));
+		// bp.setRange(new Range((p-1)*19,19));
 		bp.setSort(AlbumSortField.NAME);
 		int acount = albumDAO.countAll(bp);
 		model.addAttribute("albums", albumDAO.findAll(bp));
