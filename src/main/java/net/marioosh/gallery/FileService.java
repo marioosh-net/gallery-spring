@@ -126,8 +126,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 					a.setName(f.getName());		
 					a.setPath(f.getAbsolutePath());
 					a.setVisibility(Visibility.ADMIN);
-					albumDAO.add(a);
-					log.info("1 Album '" + f.getName() + "' created.");
+					a.setHash(DigestUtils.md5Hex(a.getPath()));
+					Long albumId = albumDAO.add(a);
+					log.info("1 Album '" + f.getName() + "' ["+albumId+"] created.");
 				}
 				// przerob podkatalogi
 				loadFiles(f, createEmptyAlbums);
@@ -143,8 +144,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 						a.setName(file.getName());		
 						a.setPath(file.getAbsolutePath());
 						a.setVisibility(Visibility.ADMIN);
+						a.setHash(DigestUtils.md5Hex(a.getPath()));
 						albumId = albumDAO.add(a);
-						log.info("2 Album ["+albumId+"]" + file.getName() + " created.");					
+						log.info("2 Album '" + file.getName() + "' ["+albumId+"] created.");					
 					} else {
 						albumId = a.getId();
 					}
@@ -154,7 +156,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					//if(p1 == null) {
 					if(true) {
 						Photo p = new Photo();
-						// p.setHash(hash);
+						p.setHash(hash);
 						p.setAlbumId(albumId);
 						p.setModDate(new Date());
 
@@ -164,9 +166,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 						
 						p.setVisibility(Visibility.ADMIN);
 						p.setName(f.getName());				
-						log.debug("AID"+albumId);
 						photoDAO.add(p);				
-						log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "'.");
+						log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' ["+a.getId()+"].");
 					/*} else {
 						log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
 						p1.setAlbumId(a.getId());

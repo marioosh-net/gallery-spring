@@ -2,6 +2,7 @@ package net.marioosh.gallery;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import net.marioosh.gallery.model.dao.AlbumDAO;
@@ -88,6 +89,32 @@ public class MainController {
 			model.addAttribute("ppages", ppages);
 			model.addAttribute("ppagesCount", ppages.length);
 			model.addAttribute("ppage", pp);
+			
+			// getnij wszystkie z albumu
+			bp1.setRange(null);
+			List<Map<String, Object>> l2 = photoDAO.findAll(bp1, new String[]{"id","visibility"});
+			Iterator<Map<String, Object>> i = l2.iterator();
+			List<Map<String, Object>> before = new ArrayList<Map<String, Object>>();
+			List<Map<String, Object>> after = new ArrayList<Map<String, Object>>();
+			boolean s = false;
+			int j = 0;
+			Map<String, Object> first = l.get(0);
+			while(i.hasNext()) {
+				Map<String, Object> str = i.next();
+				if(first != null && str.get("id").equals(first.get("id"))) {
+					// od tego momentu nalezy wywalic z remainingHashes getElemsPerPage() elementow
+					s = true;
+				}
+				if(!s) {
+					before.add(str);
+				}
+				if(s && ++j > 26) {
+					after.add(str);
+				}
+			}
+			model.addAttribute("before", before);
+			model.addAttribute("after", after);
+			
 		} else {
 			model.addAttribute("aid", 0);
 			pp = 1;
@@ -179,7 +206,12 @@ public class MainController {
 	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
-		return new ModelAndView("error", "message", ex.getMessage());
+		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			if(a.getAuthority().equals("ROLE_ADMIN")) {
+				return new ModelAndView("error", "message", ex.getMessage());
+			}
+		}
+		return new ModelAndView("error");
 	}	
 
 	private int[][] pages(int count, int perPage) {

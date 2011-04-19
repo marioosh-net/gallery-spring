@@ -21,6 +21,8 @@ public class Album {
 	private String path;
 
 	private Visibility visibility = Visibility.ADMIN;
+	
+	private String hash;
 
 	public Album(String name) {
 		this.name = name;
@@ -69,4 +71,11 @@ public class Album {
 		this.visibility = visibility;
 	}
 
+	public String getHash() {
+		return hash;
+	}
+	
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
 }

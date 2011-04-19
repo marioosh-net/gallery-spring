@@ -48,8 +48,12 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}
 	}	
 	
-	public void add(Photo photo) {
-		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb, visibility) values(?, ?, ?, ?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb(), photo.getVisibility().ordinal());
+	public Long add(Photo photo) {
+		//jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb, visibility) values(?, ?, ?, ?, ?, ?, ?)", photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb(), photo.getVisibility().ordinal());
+		Object[] params = {photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb(), photo.getVisibility().ordinal(), photo.getFilePath(), photo.getHash()};
+		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT, Types.BINARY, Types.BINARY, Types.INTEGER, Types.VARCHAR, Types.VARCHAR};
+		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb, visibility, file_path, hash) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", params, types);
+		return jdbcTemplate.queryForLong("select currval('main_seq')");		
 	}
 	
 	public void delete(Long id) {
@@ -179,9 +183,14 @@ public class PhotoDAOImpl implements PhotoDAO {
 	}
 	
 	public int update(Photo photo) {
+		Object[] params = {photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb(), photo.getVisibility().ordinal(), photo.getFilePath(), photo.getHash(), photo.getId()};
+		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT, Types.BINARY, Types.BINARY, Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.BIGINT};
+		int rows = jdbcTemplate.update("update tphoto set name = ?, description = ?, mod_date = ?, album_id = ?, img = ?, thumb = ?, visibility = ?, file_path = ?, hash = ? where id = ?", params, types);
+		/*
 		Object[] params = {photo.getName(), photo.getDescription(), photo.getModDate(), photo.getAlbumId(), photo.getId()};
 		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT, Types.BIGINT};
 		int rows = jdbcTemplate.update("update tphoto set name = ?, description = ?, mod_date = ?, album_id = ? where id = ?", params, types);
+		*/
 		log.debug("Updated "+rows +" rows.");
 		return rows;
 	}

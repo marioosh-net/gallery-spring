@@ -25,6 +25,11 @@
 			</a>
 		</div>				
 	
+		<!-- before -->
+		<c:forEach items="${before}" var="p" varStatus="i">
+			<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['id']}</a>"></a>
+		</c:forEach>
+		<!-- before END-->
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}">
 			</c:if>
@@ -51,6 +56,12 @@
 			</div>
 		
 		</c:forEach>
+		<!-- after -->
+		<c:forEach items="${after}" var="p" varStatus="i">
+			<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['id']}</a>"></a>		
+		</c:forEach>
+		<!-- after END -->
+				
 		<t:modalyesno id="yesnophoto">
 			<spring:message code="text.confirmDeletePhoto" />
 		</t:modalyesno>

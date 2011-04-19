@@ -39,6 +39,8 @@ public class Photo {
 	private Visibility visibility = Visibility.ADMIN;
 
 	private String description;
+	
+	private String hash;
 
 	public Photo() {	
 	}
@@ -134,5 +136,13 @@ public class Photo {
 	
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
+	}
+	
+	public String getHash() {
+		return hash;
+	}
+	
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 }

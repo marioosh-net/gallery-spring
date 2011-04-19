@@ -46,11 +46,14 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public Long add(final Album album) {
-		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal()};
-		int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.INTEGER};
-		jdbcTemplate.update("insert into talbum (name, mod_date, visibility) values(?, ?, ?)", params, types);
-		return null;
-		/*
+		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal(), album.getPath(), album.getHash()};
+		int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.INTEGER, Types.VARCHAR, Types.VARCHAR};
+		jdbcTemplate.update("insert into talbum (name, mod_date, visibility, path, hash) values(?, ?, ?, ?, ?)", params, types);
+		
+		return jdbcTemplate.queryForLong("select currval('main_seq')");
+		// return null;
+		
+		/* baza pg 8.2 lub nowsza i jdbc driver 8.4-701 lub nowszy 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 
@@ -126,8 +129,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public int update(Album album) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal(), album.getPath(), album.getHash(), album.getId()};
+		int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.BIGINT};
+		int rows = jdbcTemplate.update("update talbum set name = ?, mod_date = ?, visibility = ?, path = ?, hash = ? where id = ?", params, types);
+		return rows;
 	}
 
 	@Override

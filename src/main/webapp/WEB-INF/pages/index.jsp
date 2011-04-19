@@ -16,42 +16,50 @@
 		</div>
 	</div>
 	<div class="left rightfixed">
+		<!-- login panel -->
 		<%@include file="/WEB-INF/templates/login.jsp" %>
 		
+		<!-- admin global functions -->
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs" class="rightbox">
-				<a href="<t:context/>/load.html">load</a>
-				<a href="<t:context/>/unload.html">unload</a>
-				<a href="<t:context/>/cleardb.html">cleardb</a>
-				<a href="#" onclick="jQuery.get('<t:context/>/testalbum.html', function(data){albums();covers();})">test album</a>
-				<a href="#" onclick="jQuery.get('<t:context/>/makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
-				<a href="#" onclick="jQuery.get('<t:context/>/makephotos.html', function(data){albums();covers();})">make photos</a>
-				<a href="#" onclick="jQuery.get('<t:context/>/shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>				
+				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>
+				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/unload.html">unload</a>
+				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/cleardb.html">cleardb</a>
+				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/testalbum.html', function(data){albums();covers();})">test album</a>
+				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
+				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html', function(data){albums();covers();})">make photos</a>
+				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>				
 			</div>
+			<t:modalyesno id="yesnoadmin">
+				<spring:message code="text.areYouSure"/>
+			</t:modalyesno>
 		</security:authorize>
 		
+		<!-- album info -->
 		<c:if test="${album != null}">
-		<div id="album" class="rightbox">
-			<div class="left">
-				<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
-			</div>
-			<div class="left ainfo">
-				<div class="album-name">${album.name}</div>
-				<div class="album-date">${album.modDate}</div>
-				<div>
-					<security:authorize ifAnyGranted="ROLE_ADMIN">
-						<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
-					</security:authorize>
+			<div id="album" class="rightbox">
+				<div class="left">
+					<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
 				</div>
+				<div class="left ainfo">
+					<div class="album-name">${album.name}</div>
+					<div class="album-date">${album.modDate}</div>
+					<div>
+						<security:authorize ifAnyGranted="ROLE_ADMIN">
+							<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+						</security:authorize>
+					</div>
+				</div>
+				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
-		</div>
 		</c:if>
 		
+		<!-- albums list -->
 		<div id="albums" class="rightbox">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
 		</div>
+		
 	</div>
 	<div class="clear"></div>
 </t:layout>

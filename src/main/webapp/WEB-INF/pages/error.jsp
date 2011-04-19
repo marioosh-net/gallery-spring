@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
 	<div class="error-message">
-		ERROR: ${message}
+		ERROR ${message}
 	</div>
 	<div>
 		<a href="<t:context/>/index.html"><spring:message code="page.home"/></a>

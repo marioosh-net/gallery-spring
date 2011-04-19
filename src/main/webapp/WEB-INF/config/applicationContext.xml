@@ -109,10 +109,12 @@
 	-->
 	
 	<bean id="fileService" class="net.marioosh.gallery.FileService">
-		<!-- <property name="rootPath" value="C:\moje\download\photos"/>
-		<property name="destPath" value="C:\moje\download\photos_out"/>-->
+		<property name="rootPath" value="C:\moje\download\photos"/>
+		<property name="destPath" value="C:\moje\download\photos_out"/>
+		<!--
 		<property name="rootPath" value="/home/marioosh/my/photos_cameras/copy"/>
 		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
+		-->
 	</bean>
 
 
@@ -126,7 +128,7 @@
 	<!-- postgresql / localhost -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://gentoo3:5432/gallery?charSet=UTF-8" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/gallery?charSet=UTF-8" />
 		<property name="username" value="gallery" />
 		<property name="password" value="gallery" />
 	</bean>
