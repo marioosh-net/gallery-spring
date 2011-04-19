@@ -171,6 +171,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 			fa.mkdirs();
 			log.debug("Create directory: '" + fa.getAbsolutePath() + "'");
 			PhotoBrowseParams browseParams1 = new PhotoBrowseParams();
+			browseParams1.setVisibility(Visibility.ADMIN);
 			browseParams1.setAlbumId(a.getId());
 			for(Photo p: photoDAO.findAll(browseParams1)) {
 				File fp = new File(new File(basePath, a.getName()).getPath(), p.getName());
