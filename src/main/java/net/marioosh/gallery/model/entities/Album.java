@@ -39,6 +39,13 @@ public class Album extends AbstractEntity {
 		this.id = id;
 	}
 
+	public String getShortName() {
+		if(name != null && name.length() > 45) {
+			return name.substring(0, 44)+"...";
+		}
+		return name;
+	}
+	
 	public String getName() {
 		return name;
 	}

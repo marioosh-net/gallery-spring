@@ -48,7 +48,7 @@ form {
 }
 .fixedwidth {
 	/*float: none;*/
-	width: 900px;
+	width: 1000px;
 	margin: 0 auto;
 	text-align: left;
 }
@@ -70,6 +70,7 @@ form {
 /* menu */
 #menu {
 	/*height: 25px;*/
+	margin: 3px;
 }
 #menu .fixedwidth {
 	border-bottom: 1px solid  #000;
@@ -79,7 +80,8 @@ form {
 	/*padding-right: 10px;*/
 }
 #menu a, #menu a:hover {
-	color: #000;
+	font-size: 14px;
+	color: #fff;
 	font-weight: normal;
 }
 #menu a.username, #menu span.username {
@@ -90,7 +92,7 @@ form {
 
 /* content */
 #content {
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	margin-bottom: 10px;
 }
 #content .panel {
@@ -297,10 +299,10 @@ a.bu:active span {
 }
 .leftfixed {
 	margin-right: 15px; 
-	width: 680px;
+	width: 300px;
 }
 .rightfixed {
-	width: 200px;
+	width: 680px;
 }
 .leftfixed50 {
 	margin-right: 15px; 
@@ -343,10 +345,40 @@ label {
 	margin-bottom: 10px;
 }
 .rightbox {
-	margin-top: 5px;
+	/*margin-top: 5px;*/
 }
 img.icon {
 	margin-right: 2px;
+}
+
+#albums {
+	color: #fff;
+}
+#albums a {
+	color: #fff;
+}
+#albums a {
+	text-decoration: none;
+}
+.oneset, .setsheader {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin: 0px;
+	display: block;
+	background-color: #666;
+	cursor: pointer;
+	border-top: 1px solid #111;
+}
+.oneset:hover {
+	background-color: #AAA;
+}
+.setsheader {
+	background-color: #444;
+	font-size: 18px;
+	padding-top: 20px;
+	padding-bottom: 5px;
 }
 /* other END */
 
@@ -576,6 +608,13 @@ a.inactive {
 	margin-bottom: 15px;
 }
 
+#jf {
+}
+#jf input {
+	font-size: 10px;
+	height: 16px;
+	width: 80px;
+}
 #login_logout {
 	color: #fff;
 	margin-left: 3px;

@@ -23,26 +23,9 @@
 </head>
 <body id="body">
 	<%@include file="/WEB-INF/templates/debug.jsp" %>
-	<div id="wrapper">
-		<div id="header">
-			<div class="fixedwidth">
-				<div class="left" style="padding-top: 0px;">
-					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
-				</div>
-				<div class="right">
-					<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
-				</div>
-				<div class="clear"></div>
-			</div>		
-		</div>
-	
+	<div id="wrapper">	
 		<div id="main">
-			<div id="menu">
-				<div class="fixedwidth">
-					<%@include file="/WEB-INF/templates/menu.jsp" %>
-				</div>
-			</div>
-			
+		
 			<div id="content">		
 				<div class="fixedwidth">
 					<jsp:doBody/>

@@ -23,11 +23,10 @@
 </div>
 <div class="clear"></div>
 -->
-
+<a href="." style="color: #888888; text-decoration: none;"><div class="setsheader">PHOTOSETS</div></a>
 <c:forEach items="${albums}" var="a">
-	<div>
-		<a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}" style="${a.id == aid ? 'font-weight: bold;' : ''}">${a.name}</a>&#160;<security:authorize ifAnyGranted="ROLE_ADMIN"><a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${a.id}"><img src="images/list_remove_btn.gif"/></a></security:authorize>
-	</div>
+	<a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}"><div class="oneset" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}</div></a>
+	<!-- <security:authorize ifAnyGranted="ROLE_ADMIN">&#160;<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${a.id}"><img src="images/list_remove_btn.gif"/></a></security:authorize> -->
 </c:forEach>
 
 
