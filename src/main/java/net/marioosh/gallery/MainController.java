@@ -93,7 +93,7 @@ public class MainController {
 			bp1.setAlbumId(albumId);		
 			bp1.setRange(new Range((pp-1)*26,26));
 			int pcount = photoDAO.countAll(bp1);
-			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility"});
+			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
 			log.debug("LIST: "+l);
 			// photoDAO.findAllId(bp1)
 			model.addAttribute("photos", l);
@@ -108,7 +108,7 @@ public class MainController {
 			// getnij wszystkie z albumu
 			if(l.size() > 0) {
 			bp1.setRange(null);
-			List<Map<String, Object>> l2 = photoDAO.findAll(bp1, new String[]{"id","visibility"});
+			List<Map<String, Object>> l2 = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
 			Iterator<Map<String, Object>> i = l2.iterator();
 			List<Map<String, Object>> before = new ArrayList<Map<String, Object>>();
 			List<Map<String, Object>> after = new ArrayList<Map<String, Object>>();
