@@ -8,6 +8,9 @@ body,html {
 	padding: 0px;
 	font-size: 12px;
 	height: 100%;
+
+	background-color: #000;
+	color: #888;
 }
 div {
 	/* overflow: hidden; /* IE6: div height */
@@ -45,7 +48,7 @@ form {
 }
 .fixedwidth {
 	/*float: none;*/
-	width: 875px;
+	width: 900px;
 	margin: 0 auto;
 	text-align: left;
 }
@@ -294,7 +297,7 @@ a.bu:active span {
 }
 .leftfixed {
 	margin-right: 15px; 
-	width: 655px;
+	width: 680px;
 }
 .rightfixed {
 	width: 200px;
@@ -387,7 +390,7 @@ body:before {
 
 .photos {
 	/*background-color: #455268;*/
-	margin:2px;
+	/*margin:2px;*/
 	/*padding-bottom: 5px;*/
 	/*padding-top: 20px;*/
 }
@@ -444,7 +447,7 @@ ul.albums_list {
 	margin: 3px;		
 }
 .thumb {
-	border: 1px solid silver;
+	border: 3px solid #fff;
 	/*border: 3px solid #fff;*/ 
 	background-repeat: no-repeat; 
 	width: 85px; 
