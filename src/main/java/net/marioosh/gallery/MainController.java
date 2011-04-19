@@ -2,6 +2,7 @@ package net.marioosh.gallery;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class MainController {
 	@RequestMapping(value="/index.html", method=RequestMethod.POST)
 	public String saveAlbum(@ModelAttribute("album") Album album, HttpServletRequest request) {
 		log.debug(album);
+		album.setModDate(new Date());
 		albumDAO.update(album);
 		return "redirect:/index.html?"+request.getQueryString();
 	}
