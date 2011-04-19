@@ -214,6 +214,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 					for(Map<String,Object> m: l) {
 						if(m.get("name") != null && m.get("name").equals(strLine)) {
 							photoDAO.updateVisibility((Long)m.get("id"), Visibility.PUBLIC);
+							a.setVisibility(Visibility.PUBLIC);
+							albumDAO.update(a);
 							break;
 						}
 					}
