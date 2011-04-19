@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import net.marioosh.gallery.model.helpers.Visibility;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class Album {
+public class Album extends AbstractEntity {
 
 	private Long id;
 

@@ -18,6 +18,7 @@ import net.marioosh.gallery.model.helpers.AlbumRowMapper;
 import net.marioosh.gallery.model.helpers.BrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoRowMapper;
+import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.WebUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository("albumDAO")
@@ -143,7 +146,17 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public Long getCover(Long albumId) {
-		String sql = "select id from tphoto where album_id = ? limit 1";
+		String s = " and visibility <= " + Visibility.PUBLIC.ordinal() + " ";
+		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			if(a.getAuthority().equals("ROLE_ADMIN")) {
+				s = " and visibility <= " + Visibility.ADMIN.ordinal() + " ";
+			}
+			if(a.getAuthority().equals("ROLE_USER")) {
+				s = " and visibility <= " + Visibility.USER.ordinal() + " ";
+			}
+		}
+		
+		String sql = "select id from tphoto where album_id = ? " + s + " limit 1";
 		return jdbcTemplate.queryForLong(sql, albumId);
 	}
 	

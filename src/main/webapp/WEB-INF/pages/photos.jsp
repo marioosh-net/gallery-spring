@@ -44,7 +44,7 @@
 					<div class="thumb_options">
 						<div>
 							<img src="images/key.png">&nbsp;
-							<a id="photos2:0:vis2" href="#" onclick="mojarra.ab(this,event,'action','@form','photos',{'onevent':onevent1});return false" class="">${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
+							<a id="v${i.index}" href="#" onclick="jQuery.get('changevisibility.html?id=${p['id']}',function(data){ jQuery('#v${i.index}').text(data); });" >${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;

@@ -273,4 +273,21 @@ public class PhotoDAOImpl implements PhotoDAO {
 		// return jdbcTemplate.query(sql, new PhotoRowMapper());
 		return jdbcTemplate.queryForList(sql);// (sql, new PhotoRowMapper());
 	}
+	
+	@Override
+	public Visibility nextVisbility(Long id) {
+    	Photo p = get(id);
+    	int v = p.getVisibility().ordinal();
+    	int count = Visibility.values().length;
+    	int next = ++v%count;
+    	if(p != null) {
+    		p.setVisibility(Visibility.values()[next]);
+    	}
+    	try {
+			update(p);
+		} catch (Exception e) {
+			log.debug(e.getMessage(), e);
+		}
+		return Visibility.values()[next];
+    }
 }

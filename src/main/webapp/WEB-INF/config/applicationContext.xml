@@ -86,6 +86,12 @@
 	<mvc:view-controller path="/error.html" view-name="error"/>
 
 	<bean id="settings" class="net.marioosh.gallery.Settings">
+		<property name="rootPath" value="C:\moje\download\photos"/>
+		<property name="destPath" value="C:\moje\download\photos_out"/>
+		<!--
+		<property name="rootPath" value="/home/marioosh/my/photos_cameras/copy"/>
+		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
+		-->
 	</bean>
 
 	<!-- scheduler
@@ -109,12 +115,6 @@
 	-->
 	
 	<bean id="fileService" class="net.marioosh.gallery.FileService">
-		<property name="rootPath" value="C:\moje\download\photos"/>
-		<property name="destPath" value="C:\moje\download\photos_out"/>
-		<!--
-		<property name="rootPath" value="/home/marioosh/my/photos_cameras/copy"/>
-		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
-		-->
 	</bean>
 
 

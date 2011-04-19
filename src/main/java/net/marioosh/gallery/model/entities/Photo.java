@@ -10,7 +10,7 @@ import net.marioosh.gallery.utils.PhotoUtils;
 import org.apache.commons.io.IOUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class Photo {
+public class Photo extends AbstractEntity {
 
 	private Long id;
 

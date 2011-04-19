@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.BrowseParams;
+import net.marioosh.gallery.model.helpers.Visibility;
 
 public interface PhotoDAO {
 	public List<Long> findAllId(BrowseParams browseParams);
@@ -18,4 +19,5 @@ public interface PhotoDAO {
 	public int update(Photo Photo);
 	public List<Long> listAllId();
 	public InputStream getStream(Long id, int type) throws SQLException;
+	public Visibility nextVisbility(Long id);
 }

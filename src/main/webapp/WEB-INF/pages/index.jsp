@@ -19,6 +19,36 @@
 		<!-- login panel -->
 		<%@include file="/WEB-INF/templates/login.jsp" %>
 		
+		<!-- album info -->
+		<c:if test="${album != null}">
+			<div id="album" class="rightbox">
+				<div class="left">
+					<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
+				</div>
+				<div class="left ainfo">
+					<div class="album-name">${album.name}</div>
+					<div class="album-date">${album.modDate}</div>
+					<div>
+						<security:authorize ifAnyGranted="ROLE_ADMIN">
+							<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+							<form:form modelAttribute="album" cssClass="sform" id="al">
+								<form:hidden path="id"/>
+								<form:hidden path="hash"/>
+								<form:hidden path="path"/>
+								<form:input path="name"/><br/>
+								<form:select path="visibility">
+									<form:options itemLabel="name"/>
+								</form:select><br/>
+								<a href="#" onclick="jQuery('#al').submit();">Save</a>
+								<input type="submit" class="hiddensubmit"/>
+							</form:form>
+						</security:authorize>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</c:if>
+
 		<!-- admin global functions -->
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs" class="rightbox">
@@ -34,25 +64,6 @@
 				<spring:message code="text.areYouSure"/>
 			</t:modalyesno>
 		</security:authorize>
-		
-		<!-- album info -->
-		<c:if test="${album != null}">
-			<div id="album" class="rightbox">
-				<div class="left">
-					<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
-				</div>
-				<div class="left ainfo">
-					<div class="album-name">${album.name}</div>
-					<div class="album-date">${album.modDate}</div>
-					<div>
-						<security:authorize ifAnyGranted="ROLE_ADMIN">
-							<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
-						</security:authorize>
-					</div>
-				</div>
-				<div class="clear"></div>
-			</div>
-		</c:if>
 		
 		<!-- albums list -->
 		<div id="albums" class="rightbox">

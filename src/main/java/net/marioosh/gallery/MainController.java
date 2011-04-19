@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
@@ -24,6 +25,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,6 +46,9 @@ public class MainController {
 	
 	@Autowired
 	private PhotoDAO photoDAO;
+	
+	@Autowired
+	private Settings settings;
 
 	/*
 	@ModelAttribute("albums")
@@ -53,7 +58,15 @@ public class MainController {
 	}
 	*/
 	
-	@RequestMapping("/index.html")
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/index.html", method=RequestMethod.POST)
+	public String saveAlbum(@ModelAttribute("album") Album album, HttpServletRequest request) {
+		log.debug(album);
+		albumDAO.update(album);
+		return "redirect:/index.html?"+request.getQueryString();
+	}
+	
+	@RequestMapping(value="/index.html", method=RequestMethod.GET)
 	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		AlbumBrowseParams bp = new AlbumBrowseParams();
@@ -91,6 +104,7 @@ public class MainController {
 			model.addAttribute("ppage", pp);
 			
 			// getnij wszystkie z albumu
+			if(l.size() > 0) {
 			bp1.setRange(null);
 			List<Map<String, Object>> l2 = photoDAO.findAll(bp1, new String[]{"id","visibility"});
 			Iterator<Map<String, Object>> i = l2.iterator();
@@ -114,6 +128,7 @@ public class MainController {
 			}
 			model.addAttribute("before", before);
 			model.addAttribute("after", after);
+			}
 			
 		} else {
 			model.addAttribute("aid", 0);
@@ -202,6 +217,18 @@ public class MainController {
 	public String unload() {
 		fileService.unload();
 		return "redirect:/index.html";
+	}
+
+	@Secured("ROLE_ADMIN")
+	@ResponseBody
+	@RequestMapping("/changevisibility.html")	
+	public String visibility(@RequestParam("id") Long id) {
+		try {
+			Visibility v = photoDAO.nextVisbility(id);
+			return v.getName();
+		} catch(Exception e) {
+			return "1";
+		}
 	}
 	
 	@ExceptionHandler(Exception.class)

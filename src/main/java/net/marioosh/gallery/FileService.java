@@ -32,16 +32,6 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	private Logger log = Logger.getLogger(getClass());
 
-	/**
-	 * zrodlo obrazkow wczytywanych do bazy
-	 */
-	private String rootPath;
-	
-	/**
-	 * docelowy katalog dla zrzutu obrazkow z bazy
-	 */
-	private String destPath;
-
 	private ApplicationContext appContext;
 	
 	@Autowired
@@ -49,15 +39,10 @@ public class FileService implements Serializable, ApplicationContextAware {
 	
 	@Autowired
 	private PhotoDAO photoDAO;
-		
-	public void setRootPath(String rootPath) {
-		this.rootPath = rootPath;
-	}
 	
-	public void setDestPath(String destPath) {
-		this.destPath = destPath;
-	}
-
+	@Autowired
+	private Settings settings;
+		
 	@Override
 	public void setApplicationContext(ApplicationContext appContext)
 			throws BeansException {
@@ -70,13 +55,11 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	/**
 	 * utworz albumy w bazie na podstawie systemu plikow na dysku
-	 * 
-	 * @param rootPath
 	 */
 	public void load() {
 		long start = System.currentTimeMillis();
 		log.info("load()");
-		Resource root = appContext.getResource("file:"+rootPath);
+		Resource root = appContext.getResource("file:"+settings.getRootPath());
 		try {
 			if(root.getFile() != null && root.getFile().isDirectory()) {
 				loadFiles(root.getFile(), true);
@@ -92,7 +75,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	
 	public void unload() {
 		log.info("unload()");
-		Resource root = appContext.getResource("file:" + destPath);
+		Resource root = appContext.getResource("file:" + settings.getDestPath());
 		try {
 			if(root.getFile() != null && root.getFile().isDirectory()) {
 				unloadFiles(root.getFile(), true);
