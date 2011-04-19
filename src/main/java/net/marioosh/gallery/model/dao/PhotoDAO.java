@@ -20,4 +20,5 @@ public interface PhotoDAO {
 	public List<Long> listAllId();
 	public InputStream getStream(Long id, int type) throws SQLException;
 	public Visibility nextVisbility(Long id);
+	public void updateVisibility(Long id, Visibility visibility);
 }

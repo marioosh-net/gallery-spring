@@ -53,7 +53,8 @@ public class PhotoDAOImpl implements PhotoDAO {
 		Object[] params = {photo.getName(), photo.getDescription(), new Date(), photo.getAlbumId(), photo.getImg(), photo.getThumb(), photo.getVisibility().ordinal(), photo.getFilePath(), photo.getHash()};
 		int[] types = {Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT, Types.BINARY, Types.BINARY, Types.INTEGER, Types.VARCHAR, Types.VARCHAR};
 		jdbcTemplate.update("insert into tphoto (name, description, mod_date, album_id, img, thumb, visibility, file_path, hash) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", params, types);
-		return jdbcTemplate.queryForLong("select currval('main_seq')");		
+		// return jdbcTemplate.queryForLong("select currval('main_seq')");
+		return null;
 	}
 	
 	public void delete(Long id) {
@@ -290,4 +291,10 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}
 		return Visibility.values()[next];
     }
+	
+	@Override
+	public void updateVisibility(Long id, Visibility visibility) {
+		String sql = "update tphoto set visibility = ? where id = ?";
+		jdbcTemplate.update(sql, visibility.ordinal(), id);
+	}
 }

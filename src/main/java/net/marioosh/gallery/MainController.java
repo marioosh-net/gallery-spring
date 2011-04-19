@@ -206,11 +206,23 @@ public class MainController {
 		albumDAO.deleteAll();
 		return "redirect:/index.html";
 	}
+
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/makepublic.html")
+	public String makePublic() {
+		for(Long id: albumDAO.listAllId()) {
+			fileService.makePublic(id);
+		}
+		return "redirect:/index.html";
+	}
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/load.html")
 	public String load() {
 		fileService.load();
+		for(Long id: albumDAO.listAllId()) {
+			fileService.makePublic(id);
+		}
 		return "redirect:/index.html";
 	}
 	
