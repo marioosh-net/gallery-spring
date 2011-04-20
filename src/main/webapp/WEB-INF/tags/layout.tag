@@ -31,7 +31,7 @@
 				</div>
 			</div>
 		</div>
-        <div id="push"></div>
+        <!-- <div id="push"></div> -->
 	</div>
 	<!--
 	<div id="footer">
