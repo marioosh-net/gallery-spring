@@ -2,4 +2,7 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
 	404: Page not found.
+	<div>
+		<a href="<t:context/>/index.html"><spring:message code="page.home"/></a>
+	</div>	
 </t:layout> 

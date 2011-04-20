@@ -25,7 +25,6 @@
 	<%@include file="/WEB-INF/templates/debug.jsp" %>
 	<div id="wrapper">	
 		<div id="main">
-		
 			<div id="content">		
 				<div class="fixedwidth">
 					<jsp:doBody/>
@@ -34,11 +33,12 @@
 		</div>
         <div id="push"></div>
 	</div>
-	
+	<!--
 	<div id="footer">
 		<div class="fixedwidth">
 			<spring:message code="text.footer" />
 		</div>
-	</div>	
+	</div>
+	-->	
 </body>
 </html>
