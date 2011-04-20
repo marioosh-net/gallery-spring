@@ -392,6 +392,24 @@ img.icon {
 	padding-top: 20px;
 	padding-bottom: 5px;
 }
+.full {
+	font-size: 13px;
+	font-weight: bold; 
+	background-color: #000000; 
+	color: #ffffff; 
+	display: block; 
+	position: relative; 
+	width: 14px; 
+	bottom: 21px; 
+	left: 70px; 
+	margin: 0px; 
+	padding:0px; 
+	z-index: 100; 
+	border: none; 
+	padding: 0px; 
+	margin: 0px; 
+	cursor: pointer;
+}
 /* other END */
 
 
@@ -490,7 +508,9 @@ ul.albums_list {
 }
 .thumb_box {
 	float: left;
-	margin: 3px;		
+	margin: 3px;
+	overflow: hidden;
+	height: 91px;			
 }
 .thumb {
 	border: 3px solid #fff;

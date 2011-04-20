@@ -53,6 +53,9 @@ public class MainController {
 	@Autowired
 	private Settings settings;
 
+	@Autowired
+	private UtilService utilService;
+	
 	/*
 	@ModelAttribute("albums")
 	public List<Album> getAlbums() {
@@ -75,8 +78,8 @@ public class MainController {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		AlbumBrowseParams bp = new AlbumBrowseParams();
 
-		bp1.setVisibility(getCurrentVisibility());
-		bp.setVisibility(getCurrentVisibility());
+		bp1.setVisibility(utilService.getCurrentVisibility());
+		bp.setVisibility(utilService.getCurrentVisibility());
 		
 		if(albumId != 0) {
 			if(pp < 0) {
@@ -145,7 +148,7 @@ public class MainController {
 		for(Album a: albums) {
 			PhotoBrowseParams bp2 = new PhotoBrowseParams();
 			bp2.setAlbumId(a.getId());
-			bp2.setVisibility(getCurrentVisibility());
+			bp2.setVisibility(utilService.getCurrentVisibility());
 			ac[i++] = photoDAO.countAll(bp2);
 		}
 		model.addAttribute("ac",ac);
@@ -271,15 +274,4 @@ public class MainController {
 		return p;
 	}
 
-	private Visibility getCurrentVisibility() {
-		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-			if(a.getAuthority().equals("ROLE_ADMIN")) {
-				return Visibility.ADMIN;
-			}
-			if(a.getAuthority().equals("ROLE_USER")) {
-				return Visibility.ADMIN;
-			}
-		}
-		return Visibility.PUBLIC;
-	}
 }

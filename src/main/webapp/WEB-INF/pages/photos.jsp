@@ -42,6 +42,8 @@
 					<div id="u${i.index}" class="thumb" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p['id']}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
+				<a href="<t:context/>/p.html?type=3&amp;id=${p['id']}" title="full size" target="_blank"><img class="full" src="images/n3.png" alt="full size"></a>
+				
 				<security:authorize ifAllGranted="ROLE_ADMIN">
 					<div class="thumb_options">
 						<div>

@@ -297,4 +297,15 @@ public class PhotoDAOImpl implements PhotoDAO {
 		String sql = "update tphoto set visibility = ? where id = ?";
 		jdbcTemplate.update(sql, visibility.ordinal(), id);
 	}
+	
+	@Override
+	public Map<String, Object> get(Long id, String[] columns) {
+		String c ="";
+		int i = 0;
+		for(String columnName: columns) {
+			c += (i++ > 0 ? "," : " ") + columnName;
+		}
+		String sql = "select "+c+" from tphoto where id = ?";
+		return jdbcTemplate.queryForMap(sql, id);
+	}
 }

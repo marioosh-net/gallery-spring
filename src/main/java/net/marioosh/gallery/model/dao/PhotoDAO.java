@@ -14,6 +14,7 @@ public interface PhotoDAO {
 	public List<Map<String, Object>> findAll(BrowseParams browseParams, String[] columns);
 	public int countAll(BrowseParams browseParams);
 	public Photo get(Long id);
+	public Map<String, Object> get(Long id, String[] columns);
 	public Long add(Photo Photo);
 	public void delete(Long id);
 	public int update(Photo Photo);
