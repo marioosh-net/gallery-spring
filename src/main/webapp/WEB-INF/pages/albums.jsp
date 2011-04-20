@@ -25,7 +25,8 @@
 --%>
 <a href="." style="color: #888888; text-decoration: none;"><div class="setsheader">PHOTOSETS</div></a>
 <c:forEach items="${albums}" var="a" varStatus="i">
-	<a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}"><div class="oneset" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a>
+	<%-- <a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}"><div class="oneset" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a> --%>
+	<a href="#" onclick="jQuery('#photos').load('<t:context/>/photos.html?a=${a.id}');"><div class="oneset" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a>
 	<%-- <security:authorize ifAnyGranted="ROLE_ADMIN">&#160;<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${a.id}"><img src="images/list_remove_btn.gif"/></a></security:authorize> --%>
 </c:forEach>
 
