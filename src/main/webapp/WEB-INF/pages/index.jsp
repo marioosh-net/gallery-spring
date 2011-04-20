@@ -17,7 +17,6 @@
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
 				</div>
 				<div class="right">
-					<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
 					<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 						<span class="username"><security:authentication property="principal.username" /></span>
 						<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
@@ -95,6 +94,15 @@
 				</div>
 			</c:if>
 		</div>	
+		
+		<div id="footer-right">
+			<div class="left"></div>
+			<div class="right">
+				<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
+			</div>
+			<div class="clear"></div>
+			
+		</div>
 	</div>
 	<div class="clear"></div>
 </t:layout>
