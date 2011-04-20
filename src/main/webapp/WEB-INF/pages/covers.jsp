@@ -11,6 +11,13 @@
 	</span>
 </c:forEach>
 -->
+<c:if test="${apagesCount > 1}">
+	<div class="pages">
+		<c:forEach items="${apages}" var="p" varStatus="i">
+			<span><c:if test="${p[0] != apage}"><a href="index.html?a=${aid}&amp;pp=${ppage}&amp;p=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == apage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>		
+		</c:forEach>
+	</div>
+</c:if>
 
 <div class="covers">
 	<div class="thumbs">

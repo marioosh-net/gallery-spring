@@ -10,7 +10,7 @@
 	</div>
 	
 	
-	<div class="left rightfixed" style="position: fixed; margin-left: 310px;">
+	<div class="left rightfixed" style="/*position: fixed; margin-left: 310px;*/">
 		<div id="header">
 				<div class="left" style="padding-top: 10px;">
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>

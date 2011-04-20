@@ -56,6 +56,8 @@
 				        <configuration>
 				        	<!-- nie przykrywaj mi skompresowanych yuicompressorem .js i .css -->
 				        	<warSourceExcludes>**/*.css,**/*.js</warSourceExcludes>
+				        	<!-- zrob mi jara z classes -->
+				        	<archiveClasses>true</archiveClasses>
 				        </configuration>
 					</plugin>			
 				</plugins>	
