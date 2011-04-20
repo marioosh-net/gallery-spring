@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
-<!--
+<%--
 <security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 	<a href="/logout.html"><spring:message code="button.logout"/></a>
 </security:authorize>
--->
+--%>
 <security:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
 	<form:form cssClass="sform" id="jf" name="f" action="j_spring_security_check" method="post">
 		<c:if test="${!empty param.loginfail}">

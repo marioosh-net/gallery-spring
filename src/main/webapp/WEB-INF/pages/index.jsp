@@ -2,10 +2,10 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
 	<div class="left leftfixed">		
-		<!-- albums list -->
+		<%-- albums list --%>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
-			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
+			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> --%>
 		</div>		
 	</div>
 	
@@ -43,7 +43,7 @@
 		</div>
 		
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
-		<!-- album info -->
+		<%-- album info --%>
 		<c:if test="${album != null}">
 			<div id="album">
 				<div class="left thumb">
@@ -79,7 +79,7 @@
 		</c:if>
 		</security:authorize>
 
-		<!-- admin global functions -->
+		<%-- admin global functions --%>
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>

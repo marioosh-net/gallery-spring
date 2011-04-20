@@ -4,7 +4,7 @@
 <c:if test="${ppagesCount > 1}">
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
-			<!--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>-->
+			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
 			<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
 		</c:forEach>
 	</div>
@@ -12,7 +12,7 @@
 
 <div class="photos">
 	<div class="thumbs">
-		<!--
+		<%--
 		<div class="thumb_box">
 			<c:if test="${ppage == 1}">
 			<a href="#" class="inactive">
@@ -25,13 +25,13 @@
 				</div>
 			</a>
 		</div>
-		-->				
+		--%>				
 	
-		<!-- before -->
+		<%-- before --%>
 		<c:forEach items="${before}" var="p" varStatus="i">
 			<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>"></a>
 		</c:forEach>
-		<!-- before END-->
+		<%-- before END--%>
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}">
 			</c:if>
@@ -53,24 +53,24 @@
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
 							<a href="#" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
-							<!-- <a href="#" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> -->
+							<%-- <a href="#" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
 						</div>						
 					</div>
 				</security:authorize>
 			</div>
 		
 		</c:forEach>
-		<!-- after -->
+		<%-- after --%>
 		<c:forEach items="${after}" var="p" varStatus="i">
 			<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>"></a>		
 		</c:forEach>
-		<!-- after END -->
+		<%-- after END --%>
 				
 		<t:modalyesno id="yesnophoto">
 			<spring:message code="text.confirmDeletePhoto" />
 		</t:modalyesno>
 		
-		<!--
+		<%--
 		<div class="thumb_box">
 			<c:if test="${ppage == ppagesCount}">
 			<a href="#" class="inactive">
@@ -83,17 +83,17 @@
 				</div>
 			</a>
 		</div>
-		-->
+		--%>
 		
 	</div>
 	
-	<!-- reszta fotek z albumu do slimboxa -->
+	<%-- reszta fotek z albumu do slimboxa --%>
 	
-	<!-- 		
+	<%-- 		
 	<script type="text/javascript">
 	slimboxstart();
 	</script>
-	-->
+	--%>
 	
 	<div style="clear: both;"></div>
 </div>
@@ -101,7 +101,7 @@
 <c:if test="${ppagesCount > 1}">
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
-			<!--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>-->
+			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
 			<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
 		</c:forEach>
 	</div>

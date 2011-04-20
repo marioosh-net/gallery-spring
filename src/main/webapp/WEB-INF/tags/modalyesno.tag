@@ -1,7 +1,7 @@
 <%@ tag description="Body Wrapper" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <%@ attribute name="id" required="true" type="java.lang.String" %>
-<!-- confirm modal dialog -->	
+<%-- confirm modal dialog --%>	
 <div class="modal" id="${id}">
 	<div style="text-align: center;">
 		<div>
