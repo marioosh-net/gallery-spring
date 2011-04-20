@@ -93,7 +93,7 @@ public class MainController {
 				pp = 1;
 			}			
 			bp1.setAlbumId(albumId);		
-			bp1.setRange(new Range((pp-1)*26,26));
+			bp1.setRange(new Range((pp-1)*28,28));
 			bp1.setSort(PhotoSortField.NAME);
 			int pcount = photoDAO.countAll(bp1);
 			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
@@ -103,7 +103,7 @@ public class MainController {
 			model.addAttribute("album", albumDAO.get(albumId));
 			model.addAttribute("aid", albumId);
 			model.addAttribute("pcount",pcount);
-			int[][] ppages = pages(pcount, 26);
+			int[][] ppages = pages(pcount, 28);
 			model.addAttribute("ppages", ppages);
 			model.addAttribute("ppagesCount", ppages.length);
 			model.addAttribute("ppage", pp);
@@ -128,7 +128,7 @@ public class MainController {
 				if(!s) {
 					before.add(str);
 				}
-				if(s && ++j > 26) {
+				if(s && ++j > 28) {
 					after.add(str);
 				}
 			}

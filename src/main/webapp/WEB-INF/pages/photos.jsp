@@ -10,6 +10,7 @@
 
 <div class="photos">
 	<div class="thumbs">
+		<!--
 		<div class="thumb_box">
 			<c:if test="${ppage == 1}">
 			<a href="#" class="inactive">
@@ -21,7 +22,8 @@
 					<br>P<br>R<br>E<br>V<br>
 				</div>
 			</a>
-		</div>				
+		</div>
+		-->				
 	
 		<!-- before -->
 		<c:forEach items="${before}" var="p" varStatus="i">
@@ -64,6 +66,7 @@
 			<spring:message code="text.confirmDeletePhoto" />
 		</t:modalyesno>
 		
+		<!--
 		<div class="thumb_box">
 			<c:if test="${ppage == ppagesCount}">
 			<a href="#" class="inactive">
@@ -76,6 +79,7 @@
 				</div>
 			</a>
 		</div>
+		-->
 		
 	</div>
 	
