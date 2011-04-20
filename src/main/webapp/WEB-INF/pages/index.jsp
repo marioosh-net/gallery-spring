@@ -16,7 +16,7 @@
 				<div class="left" style="padding-top: 10px;">
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
 				</div>
-				<div class="right">
+				<div class="right" style="margin-top: 10px;">
 					<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 						<span class="username"><security:authentication property="principal.username" /></span>
 						<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
