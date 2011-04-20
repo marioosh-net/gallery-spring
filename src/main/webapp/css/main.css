@@ -372,6 +372,10 @@ img.icon {
 .oneset:hover {
 	background-color: #AAA;
 }
+.oneset .counts {
+	margin-left: 3px;
+	color: #909090;
+}
 .setsheader {
 	background-color: #444;
 	font-size: 18px;

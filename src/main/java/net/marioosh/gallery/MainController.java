@@ -75,18 +75,8 @@ public class MainController {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		AlbumBrowseParams bp = new AlbumBrowseParams();
 
-		bp1.setVisibility(Visibility.PUBLIC);
-		bp.setVisibility(Visibility.PUBLIC);
-		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-			if(a.getAuthority().equals("ROLE_ADMIN")) {
-				bp1.setVisibility(Visibility.ADMIN);
-				bp.setVisibility(Visibility.ADMIN);
-			}
-			if(a.getAuthority().equals("ROLE_USER")) {
-				bp1.setVisibility(Visibility.USER);
-				bp.setVisibility(Visibility.USER);
-			}
-		}
+		bp1.setVisibility(getCurrentVisibility());
+		bp.setVisibility(getCurrentVisibility());
 		
 		if(albumId != 0) {
 			if(pp < 0) {
@@ -148,7 +138,17 @@ public class MainController {
 		// bp.setRange(new Range((p-1)*19,19));
 		bp.setSort(AlbumSortField.NAME);
 		int acount = albumDAO.countAll(bp);
-		model.addAttribute("albums", albumDAO.findAll(bp));
+		List<Album> albums = albumDAO.findAll(bp);
+		model.addAttribute("albums", albums);
+		int[] ac = new int[albums.size()];
+		int i = 0;
+		for(Album a: albums) {
+			PhotoBrowseParams bp2 = new PhotoBrowseParams();
+			bp2.setAlbumId(a.getId());
+			bp2.setVisibility(getCurrentVisibility());
+			ac[i++] = photoDAO.countAll(bp2);
+		}
+		model.addAttribute("ac",ac);
 		model.addAttribute("acount",acount);
 		int[][] apages = pages(acount, 19);
 		model.addAttribute("apages", apages);
@@ -271,4 +271,15 @@ public class MainController {
 		return p;
 	}
 
+	private Visibility getCurrentVisibility() {
+		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			if(a.getAuthority().equals("ROLE_ADMIN")) {
+				return Visibility.ADMIN;
+			}
+			if(a.getAuthority().equals("ROLE_USER")) {
+				return Visibility.ADMIN;
+			}
+		}
+		return Visibility.PUBLIC;
+	}
 }
