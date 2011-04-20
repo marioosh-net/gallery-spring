@@ -23,7 +23,8 @@
 					</security:authorize>
 					<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
 						<a href="#" class="modalInput" rel="#loginf"><spring:message code="button.login"/></a>
-					</security:authorize>					
+					</security:authorize>
+					&#160;<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>					
 				</div>
 				<div class="clear"></div>	
 				<t:modal id="loginf">
@@ -109,9 +110,7 @@
 		
 		<div id="footer-right">
 			<div class="left"></div>
-			<div class="right">
-				<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>
-			</div>
+			<div class="right"></div>
 			<div class="clear"></div>
 			
 		</div>
