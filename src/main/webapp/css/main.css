@@ -57,7 +57,7 @@ form {
 #header {
 	background-color: #000;
 	color: #fff;
-	height: 70px;
+	height: 60px;
 }
 #header a {
 	color: #fff;
@@ -131,10 +131,14 @@ form {
 
 /* album info */
 #album {
+	/*width: 500px;*/
+	margin: 3px;
+}
+#album input {
 	width: 300px;
 }
 #album .left {
-	padding-right: 10px;
+	margin-right: 10px;
 }
 #album .ainfo {
 	color: #666;
@@ -146,6 +150,7 @@ form {
 
 /* album funcs */
 #main-funcs {
+	margin: 3px;
 }
 #main-funcs a {
 	/*display: block;*/

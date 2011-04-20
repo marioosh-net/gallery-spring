@@ -120,8 +120,8 @@ public class ImagesController implements ServletContextAware {
 	private String getBigPhotoPath(String smallPhotoPath) {
 		// TODO
 		// ...
-		
-		return smallPhotoPath;
+		return smallPhotoPath.replaceFirst("/photos_pub/", "/photos/").replaceFirst("_large", "");
+		// return smallPhotoPath;
 	}
 	
 	

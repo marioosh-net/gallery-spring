@@ -253,6 +253,18 @@ public class MainController {
 		}
 	}
 	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/visibility.html")
+	public String publicAll(@RequestParam("id") Long albumId, @RequestParam("v") Visibility visibility, HttpServletRequest request) {
+		PhotoBrowseParams bp = new PhotoBrowseParams();
+		bp.setVisibility(Visibility.ADMIN);
+		bp.setAlbumId(albumId);
+		for(Long id: photoDAO.findAllId(bp)) {
+			photoDAO.updateVisibility(id, visibility);
+		}
+		return "redirect:/index.html";
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
 		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {

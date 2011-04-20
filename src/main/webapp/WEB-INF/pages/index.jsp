@@ -2,7 +2,6 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
 	<div class="left leftfixed">		
-		
 		<!-- albums list -->
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
@@ -11,7 +10,7 @@
 	</div>
 	
 	
-	<div class="left rightfixed">
+	<div class="left rightfixed" style="position: fixed; margin-left: 310px;">
 		<div id="header">
 				<div class="left" style="padding-top: 10px;">
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
@@ -47,7 +46,7 @@
 		<!-- album info -->
 		<c:if test="${album != null}">
 			<div id="album">
-				<div class="left">
+				<div class="left thumb">
 					<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
 				</div>
 				<div class="left ainfo">
@@ -55,6 +54,8 @@
 					<div class="album-date">${album.modDate}</div>
 					<div>
 						<security:authorize ifAnyGranted="ROLE_ADMIN">
+							<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=PUBLIC"><spring:message code="button.publicAllPhotos"/></a>
+							<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=USER"><spring:message code="button.privateAllPhotos"/></a>
 							<a href="#" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
 							<form:form modelAttribute="album" cssClass="sform" id="al">
 								<form:hidden path="id"/>
@@ -64,7 +65,7 @@
 								<form:select path="visibility">
 									<form:options itemLabel="name"/>
 								</form:select><br/>
-								<a href="#" onclick="jQuery('#al').submit();">Save</a>
+								<img class="icon" src="images/save.png"/><a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>
 								<input type="submit" class="hiddensubmit"/>
 							</form:form>
 							<t:modalyesno id="delalb">

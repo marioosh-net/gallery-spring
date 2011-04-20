@@ -45,6 +45,11 @@
 						</executions>
 						<configuration>
 							<nosuffix>true</nosuffix>
+							<excludes>
+								<exclude>**/jquery*.js</exclude>
+								<exclude>**/lightview.js</exclude>
+								<exclude>**/slimbox*.js</exclude>
+							</excludes>
 						</configuration>
 					</plugin>
 					
