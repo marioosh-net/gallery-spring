@@ -194,7 +194,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 	}
 
-	void makePublic(Long albumId)  {
+	public void makePublic(Long albumId)  {
 		log.debug("MAKE PUBLIC");
 		Album a = albumDAO.get(albumId);
 		if(a != null) {
