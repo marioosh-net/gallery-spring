@@ -308,6 +308,7 @@ a.bu:active span {
 	border: none;
 }
 .modal {
+	color: #fff;
 	background-color:#000;
 	display:none;
 	width:350px;
@@ -327,6 +328,15 @@ a.bu:active span {
 .modal .modal-message {
 	margin-bottom: 6px;
 }
+/*
+.modal .close {
+	background-image:url(../images/close.png);
+	position:absolute; right:-15px; top:-15px;
+	cursor:pointer;
+	height:35px;
+	width:35px;	
+}
+*/
 
 span.ajaxcheck {
 	padding-left: 5px;

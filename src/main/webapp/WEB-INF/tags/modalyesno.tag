@@ -7,9 +7,9 @@
 		<div>
 			<jsp:doBody/>
 		</div>
-		<div class="buttons" style="margin: 0px auto; width: 120px; margin-top: 10px;">
-		<a class="close bu" href="#"><span><spring:message code="button.no"/></span></a>	
-		<a class="close yes bu" href="#" onclick=""><span><spring:message code="button.yes"/></span></a>
+		<div class="buttons" style="margin: 0px auto; width: 130px; margin-top: 5px;">
+		<a class="close" href="#"><span><spring:message code="button.no"/></span></a>	
+		<a class="close yes" href="#" onclick=""><span><spring:message code="button.yes"/></span></a>
 		</div>
 	</div>
 </div>

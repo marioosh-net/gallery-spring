@@ -54,7 +54,7 @@
 					<div class="album-date">${album.modDate}</div>
 					<div>
 						<security:authorize ifAnyGranted="ROLE_ADMIN">
-							<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+							<a href="#" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
 							<form:form modelAttribute="album" cssClass="sform" id="al">
 								<form:hidden path="id"/>
 								<form:hidden path="hash"/>
@@ -66,6 +66,9 @@
 								<a href="#" onclick="jQuery('#al').submit();">Save</a>
 								<input type="submit" class="hiddensubmit"/>
 							</form:form>
+							<t:modalyesno id="delalb">
+								<spring:message code="text.confirmDeleteAlbum" />
+							</t:modalyesno>
 						</security:authorize>
 					</div>
 				</div>
