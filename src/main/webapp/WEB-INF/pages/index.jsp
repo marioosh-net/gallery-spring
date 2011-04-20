@@ -4,7 +4,7 @@
 	<div class="left leftfixed">		
 		
 		<!-- albums list -->
-		<div id="albums" class="rightbox">
+		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<!-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> -->
 		</div>		
@@ -22,11 +22,20 @@
 						<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
 					</security:authorize>
 					<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
-						<!-- login panel -->
-						<%@include file="/WEB-INF/templates/login.jsp" %>
+						<a href="#" class="modalInput" rel="#loginf"><spring:message code="button.login"/></a>
 					</security:authorize>					
 				</div>
 				<div class="clear"></div>	
+				<t:modal id="loginf">
+					<%@include file="/WEB-INF/templates/login.jsp" %>
+				</t:modal>
+				<c:if test="${!empty param.loginfail}">
+					<script type="text/javascript">
+					jQuery(window).load(function () {
+						openOverlay('#loginf');
+					});
+					</script>
+				</c:if>	
 		</div>
 	
 		<div id="menu">
@@ -36,7 +45,7 @@
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 		<!-- album info -->
 		<c:if test="${album != null}">
-			<div id="album" class="rightbox">
+			<div id="album">
 				<div class="left">
 					<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
 				</div>
@@ -67,7 +76,7 @@
 
 		<!-- admin global functions -->
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
-			<div id="main-funcs" class="rightbox">
+			<div id="main-funcs">
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/makepublic.html">make public</a>
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/unload.html">unload</a>

@@ -148,7 +148,7 @@ form {
 #main-funcs {
 }
 #main-funcs a {
-	display: block;
+	/*display: block;*/
 }
 /* album funcs END */
 
@@ -257,13 +257,6 @@ a.bu:active span {
 .buttons a {
 	font-weight: bold;
 }
-.modal .buttons {
-	overflow: hidden;
-	width: 100%;
-}
-.modal .modal-message {
-	margin-bottom: 6px;
-}
 /* button END */
 
 /* other */
@@ -315,7 +308,7 @@ a.bu:active span {
 	border: none;
 }
 .modal {
-	background-color:#fff;
+	background-color:#000;
 	display:none;
 	width:350px;
 	padding:15px;
@@ -327,6 +320,14 @@ a.bu:active span {
 	-moz-box-shadow: 0 0 50px #ccc;
 	-webkit-box-shadow: 0 0 50px #ccc;
 }
+.modal .buttons {
+	overflow: hidden;
+	width: 100%;
+}
+.modal .modal-message {
+	margin-bottom: 6px;
+}
+
 span.ajaxcheck {
 	padding-left: 5px;
 	color: #207edc;
@@ -343,9 +344,6 @@ label {
 }
 .error-message {
 	margin-bottom: 10px;
-}
-.rightbox {
-	/*margin-top: 5px;*/
 }
 img.icon {
 	margin-right: 2px;
@@ -410,9 +408,6 @@ body:before {
 	margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 }
 
-
-/**** GPG ****/
-
 .photos_pages {
 	text-align: center;
 	/*background-color: #313C53;*/
@@ -425,6 +420,11 @@ body:before {
 	/*margin:2px;*/
 	/*padding-bottom: 5px;*/
 	/*padding-top: 20px;*/
+}
+
+.pages {
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 /* right */

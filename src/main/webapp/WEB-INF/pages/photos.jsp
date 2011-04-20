@@ -2,10 +2,12 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
 <c:if test="${ppagesCount > 1}">
-<c:forEach items="${ppages}" var="p" varStatus="i">
-	<!--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>-->
-	<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
-</c:forEach>
+	<div class="pages">
+		<c:forEach items="${ppages}" var="p" varStatus="i">
+			<!--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>-->
+			<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
+		</c:forEach>
+	</div>
 </c:if>
 
 <div class="photos">
@@ -36,7 +38,7 @@
 		
 			<div id="th${i.index}" class="thumb_box" style="float: left; /* */">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>">
-					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader4.gif); background-position: 50% 50%; "></div>
+					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
 					<div id="u${i.index}" class="thumb" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p['id']}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
@@ -95,8 +97,10 @@
 </div>
 
 <c:if test="${ppagesCount > 1}">
-<c:forEach items="${ppages}" var="p" varStatus="i">
-	<!--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>-->
-	<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
-</c:forEach>
+	<div class="pages">
+		<c:forEach items="${ppages}" var="p" varStatus="i">
+			<!--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>-->
+			<span><c:if test="${p[0] != ppage}"><a href="index.html?a=${aid}&amp;p=${apage}&amp;pp=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
+		</c:forEach>
+	</div>
 </c:if>
