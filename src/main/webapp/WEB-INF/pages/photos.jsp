@@ -1,9 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
+<security:authorize ifAnyGranted="ROLE_ADMIN">
+<%-- album info --%>
+<c:if test="${album != null}">
+	<div id="album">
+		<div class="left thumb">
+			<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
+		</div>
+		<div class="left ainfo">
+			<div class="album-name">${album.name}</div>
+			<div class="album-date">${album.modDate}</div>
+			<div>
+				<security:authorize ifAnyGranted="ROLE_ADMIN">
+					<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=PUBLIC"><spring:message code="button.publicAllPhotos"/></a>
+					<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=USER"><spring:message code="button.privateAllPhotos"/></a>
+					<a href="#" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+					<form:form modelAttribute="album" cssClass="sform" id="al" action="index.html">
+						<form:hidden path="id"/>
+						<form:hidden path="hash"/>
+						<form:hidden path="path"/>
+						<form:input path="name"/><br/>
+						<form:select path="visibility">
+							<form:options itemLabel="name"/>
+						</form:select><br/>
+						<img class="icon" src="images/save.png"/><a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>
+						<input type="submit" class="hiddensubmit"/>
+					</form:form>
+					<t:modalyesno id="delalb">
+						<spring:message code="text.confirmDeleteAlbum" />
+					</t:modalyesno>
+				</security:authorize>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</c:if>
+</security:authorize>
+
+<%-- admin global functions --%>
+<security:authorize ifAnyGranted="ROLE_ADMIN">
+	<div id="main-funcs">
+		<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>
+		<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/makepublic.html">make public</a>
+		<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/unload.html">unload</a>
+		<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/cleardb.html">cleardb</a>
+		<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/testalbum.html', function(data){albums();covers();})">test album</a>
+		<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
+		<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html', function(data){albums();covers();})">make photos</a>
+		<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>				
+	</div>
+	<t:modalyesno id="yesnoadmin">
+		<spring:message code="text.areYouSure"/>
+	</t:modalyesno>
+</security:authorize>
+
+		
 <!-- album name -->
 <div id="menu">
-<div class="left">
+<div class="left album-title">
 	<c:if test="${album != null}"><a href="#">${album.name}</a></c:if>
 </div>
 <div class="right">

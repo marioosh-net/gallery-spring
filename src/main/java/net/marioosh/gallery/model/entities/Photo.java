@@ -84,14 +84,15 @@ public class Photo extends AbstractEntity {
 
 	public void setImg(byte[] img) {
 		this.img = img;
-		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 85, 85));
+		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 100, 100));
 	}
 	
 	public void setImg(File f) throws IOException {
 		FileInputStream in = new FileInputStream(f);
-		this.img = PhotoUtils.makeResized(in);
+		// this.img = PhotoUtils.makeResized(in);
+		this.img = IOUtils.toByteArray(in);
 		in = new FileInputStream(f);
-		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 85, 85));		
+		this.setThumb(PhotoUtils.makeThumbCroop(this.img, 100, 100));		
 	}
 
 	public byte[] getThumb() {

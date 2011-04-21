@@ -114,7 +114,7 @@ public class MainController {
 		return new ModelAndView("covers", model.asMap());
 	}
 	
-	@RequestMapping(value="/photos.html", method=RequestMethod.GET)
+	@RequestMapping(value="/photos.html")
 	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		bp1.setVisibility(utilService.getCurrentVisibility());
@@ -173,6 +173,15 @@ public class MainController {
 			model.addAttribute("ppage", pp);
 		}
 		return "photos";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/savealbum.html")
+	public String saveAlbum(@ModelAttribute Album album) {
+		log.debug(album);
+		album.setModDate(new Date());
+		albumDAO.update(album);
+		return "0";
 	}
 
 	/*@ResponseBody*/

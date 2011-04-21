@@ -80,7 +80,7 @@ form {
 	/*padding-right: 10px;*/
 }
 #menu a, #menu a:hover {
-	font-size: 14px;
+	font-size: 16px;
 	color: #fff;
 	font-weight: normal;
 }
@@ -409,7 +409,7 @@ img.icon {
 	position: relative; 
 	width: 14px; 
 	bottom: 21px; 
-	left: 70px; 
+	left: 85px; 
 	margin: 0px; 
 	padding:0px; 
 	z-index: 100; 
@@ -417,6 +417,9 @@ img.icon {
 	padding: 0px; 
 	margin: 0px; 
 	cursor: pointer;
+}
+a.album-title {
+	font-size: 16px;
 }
 /* other END */
 
@@ -479,7 +482,7 @@ body:before {
 	border: 1px solid silver;
 	margin-top: 10px;
 	text-align: center;
-	width: 85px;
+	width: 100px;
   margin-bottom: 10px;
 }
 
@@ -488,7 +491,7 @@ body:before {
 	border: 1px solid silver;
 	margin-bottom: 10px;
 	text-align: center;
-	width: 85px;
+	width: 100px;
 }
 
 .albums_list li {
@@ -518,14 +521,14 @@ ul.albums_list {
 	float: left;
 	margin: 3px;
 	overflow: hidden;
-	height: 91px;			
+	height: 106px;			
 }
 .thumb {
 	border: 3px solid #fff;
 	/*border: 3px solid #fff;*/ 
 	background-repeat: no-repeat; 
-	width: 85px; 
-	height: 85px; 
+	width: 100px; 
+	height: 100px; 
 	cursor: pointer;
 }
 .thumb_options {
@@ -558,8 +561,8 @@ ul.albums_list {
 .album_thumb {
 	border: 1px solid silver; 
 	background-repeat: no-repeat; 
-	width: 85px; 
-	height: 85px; 
+	width: 100px; 
+	height: 100px; 
 	cursor: pointer;
 	margin: 3px;
 	float: left;

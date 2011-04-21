@@ -174,10 +174,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 		String sql = "select * from talbum where name = ?";
 		try {
 			Album a = jdbcTemplate.queryForObject(sql, new Object[]{name}, new AlbumRowMapper());
-			log.debug("getByName: " + a);
 			return a;
 		} catch (EmptyResultDataAccessException e) {
-			log.debug("getByName: null");
 			return null;
 		}
 	}
