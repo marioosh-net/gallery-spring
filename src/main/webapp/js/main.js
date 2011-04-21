@@ -2,6 +2,7 @@ jQuery(document).ready(function(){
 	ready1();
 	covers();
 	albums();
+	/*searches();*/
 });
 
 function ready1() {
@@ -41,6 +42,10 @@ function covers() {
 function albums() {
 	loading('#albums');
 	jQuery('#albums').load('albums.html');
+}
+function searches() {
+	loading('#searches');
+	jQuery('#searches').load('searches.html');
 }
 function photos() {
 	loading('#photos');

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
+import net.marioosh.gallery.model.dao.SearchDAO;
 import net.marioosh.gallery.model.entities.Album;
 import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.AlbumSortField;
@@ -49,6 +50,9 @@ public class MainController {
 	
 	@Autowired
 	private PhotoDAO photoDAO;
+
+	@Autowired
+	private SearchDAO searchDAO;
 	
 	@Autowired
 	private Settings settings;
@@ -168,6 +172,18 @@ public class MainController {
 			model.addAttribute("ppage", pp);
 		}
 		return "photos";
+	}
+
+	@RequestMapping("/searches.html")
+	public ModelAndView searches() {
+		return new ModelAndView("searches", "searches", searchDAO.findTop(20));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/addsearch.html")
+	public String addSearch(@RequestParam String phrase) {
+		searchDAO.trigger(phrase);
+		return "0";
 	}
 	
 	@ResponseBody

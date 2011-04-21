@@ -3,19 +3,23 @@
 <t:layout>
 	<div class="left leftfixed">		
 		
-    <div class="setsheader">
+    	<div class="setsheader">
 			<%-- <a href="<t:context/>/index.html" style="color: #888888; text-decoration: none;">PHOTOSETS</a> --%>
 			<div id="searchbox">
 				<div class="left">
-					<input type="text" name="search" id="search" value="" onchange="jQuery('#search-progress').show(); jQuery.get('albums.html?s='+jQuery(this).val(), function(data){jQuery('#search-progress').hide(); jQuery('#albums').html(data); jQuery('#search').focus();jQuery('#search').select();});"/>&#160;
+					<input type="text" name="search" id="search" value="" onchange="jQuery('#search-progress').show(); jQuery.get('albums.html?s='+jQuery(this).val(), function(data){jQuery('#search-progress').hide(); jQuery('#albums').html(data); jQuery('#search').focus();jQuery('#search').select(); jQuery.post('addsearch.html', {phrase: jQuery('#search').val()}); });"/>&#160;
 					<a href="#" onclick="jQuery('#search').trigger('onchange');"><spring:message code="button.search"/></a>
 					|
 					<a href="#" onclick="jQuery('#search').val(''); jQuery('#search').trigger('onchange');"><spring:message code="button.showAll"/></a>
+					|
+					<a href="#" onclick="jQuery('#searches').load('searches.html', function(){ jQuery('#searches').toggle('fast'); });">&#187;</a>
 				</div>
 				<div class="right">
 					<img src="images/ajax-loader6.gif" id="search-progress" style="display: none;"/>
 				</div><div class="clear"></div>
 			</div>
+		</div>
+		<div id="searches" style="display:none;">
 		</div>
 
 		<%-- albums list --%>
