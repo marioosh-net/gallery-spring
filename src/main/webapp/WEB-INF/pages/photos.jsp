@@ -1,61 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
+<!-- admin tools -->
 <security:authorize ifAnyGranted="ROLE_ADMIN">
-<%-- album info --%>
-<c:if test="${album != null}">
-	<div id="album">
-		<div class="left thumb">
-			<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
-		</div>
-		<div class="left ainfo">
-			<div class="album-name">${album.name}</div>
-			<div class="album-date">${album.modDate}</div>
-			<div>
-				<security:authorize ifAnyGranted="ROLE_ADMIN">
-					<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=PUBLIC"><spring:message code="button.publicAllPhotos"/></a>
-					<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=USER"><spring:message code="button.privateAllPhotos"/></a>
-					<a href="#" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
-					<form:form modelAttribute="album" cssClass="sform" id="al" action="index.html">
-						<form:hidden path="id"/>
-						<form:hidden path="hash"/>
-						<form:hidden path="path"/>
-						<form:input path="name"/><br/>
-						<form:select path="visibility">
-							<form:options itemLabel="name"/>
-						</form:select><br/>
-						<img class="icon" src="images/save.png"/><a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>
-						<input type="submit" class="hiddensubmit"/>
-					</form:form>
-					<t:modalyesno id="delalb">
-						<spring:message code="text.confirmDeleteAlbum" />
-					</t:modalyesno>
-				</security:authorize>
+	<%-- album info --%>
+	<c:if test="${album != null}">
+		<div id="album">
+			<div class="left thumb">
+				<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
 			</div>
+			<div class="left ainfo">
+				<div class="album-name">${album.name}</div>
+				<div class="album-date">${album.modDate}</div>
+				<div>
+					<security:authorize ifAnyGranted="ROLE_ADMIN">
+						<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=PUBLIC"><spring:message code="button.publicAllPhotos"/></a>
+						<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=USER"><spring:message code="button.privateAllPhotos"/></a>
+						<a href="#" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+						<form:form modelAttribute="album" cssClass="sform" id="al" action="index.html">
+							<form:hidden path="id"/>
+							<form:hidden path="hash"/>
+							<form:hidden path="path"/>
+							<form:input path="name"/><br/>
+							<form:select path="visibility">
+								<form:options itemLabel="name"/>
+							</form:select><br/>
+							<img class="icon" src="images/save.png"/><a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>
+							<input type="submit" class="hiddensubmit"/>
+						</form:form>
+						<t:modalyesno id="delalb">
+							<spring:message code="text.confirmDeleteAlbum" />
+						</t:modalyesno>
+					</security:authorize>
+				</div>
+			</div>
+			<div class="clear"></div>
 		</div>
-		<div class="clear"></div>
-	</div>
-</c:if>
+	</c:if>
 </security:authorize>
-
 		
 <!-- album name -->
-<div id="menu">
-<div class="left album-title">
-	<c:if test="${album != null}"><a href="#">${album.name}</a></c:if>
-</div>
-<div class="right">
-</div>
-<div class="clear"></div>
+<div id="photos-header">
+	<div class="left album-title">
+		<c:if test="${album != null}"><a href="#">${album.name}</a></c:if>
+	</div>
+	<div class="right">
+	</div>
+	<div class="clear"></div>
 </div>
 
 <c:if test="${ppagesCount > 1}">
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<span><c:if test="${p[0] != ppage}"><a href="#" onclick="loading('#photos'); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
+			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
 		</c:forEach>
 	</div>
+	<div class="clear"></div>
 </c:if>
 
 <div class="photos">
@@ -150,9 +151,10 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<span><c:if test="${p[0] != ppage}"><a href="#" onclick="loading('#photos'); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
+			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
 		</c:forEach>
 	</div>
+	<div class="clear"></div>
 </c:if>
 
 <script>

@@ -49,6 +49,12 @@ function photos() {
 function loading(selector) {
 	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/>&#160;loading...</div>');
 }
+function loadingNoText(selector) {
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/></div>');
+}
+function loadingIcon(selector) {
+	jQuery(selector).html('<img src=\'images/ajax-loader5.gif\'/>');
+}
 function slimboxstart() {
 	jQuery("a[rel^='lightbox-gal']").slimbox({
 			resizeDuration: 200,

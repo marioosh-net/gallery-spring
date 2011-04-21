@@ -56,14 +56,6 @@ public class MainController {
 	@Autowired
 	private UtilService utilService;
 	
-	/*
-	@ModelAttribute("albums")
-	public List<Album> getAlbums() {
-		AlbumBrowseParams bp = new AlbumBrowseParams();		
-		return albumDAO.findAll(bp);
-	}
-	*/
-	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/index.html", method=RequestMethod.POST)
 	public String saveAlbum(@ModelAttribute("album") Album album, HttpServletRequest request) {
@@ -87,7 +79,7 @@ public class MainController {
 			p = 1;
 		}		
 		bp.setRange(new Range((p-1)*settings.getAlbumsPerPage(),settings.getAlbumsPerPage()));
-		bp.setSort(AlbumSortField.NAME);
+		bp.setSort(AlbumSortField.NAME_DESC);
 		int acount = albumDAO.countAll(bp);
 		List<Album> albums = albumDAO.findAll(bp);
 		model.addAttribute("albums", albums);

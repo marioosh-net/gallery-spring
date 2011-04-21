@@ -68,23 +68,23 @@ form {
 /* header END */
 
 /* menu */
-#menu {
+#photos-header {
 	/*height: 25px;*/
 	margin: 3px;
 }
-#menu .fixedwidth {
+#photos-header .fixedwidth {
 	border-bottom: 1px solid  #000;
 	padding: 5px;
 }
-#menu .left a {
+#photos-header .left a {
 	/*padding-right: 10px;*/
 }
-#menu a, #menu a:hover {
+#photos-header a, #photos-header a:hover {
 	font-size: 20px;
 	color: #fff;
 	font-weight: normal;
 }
-#menu a.username, #menu span.username {
+#photos-header a.username, #photos-header span.username {
 	color: #005ebc;
 	font-weight: bold;
 }
@@ -468,6 +468,11 @@ body:before {
 .pages {
 	padding-left: 3px;
 	padding-right: 3px;
+}
+.pages div {
+	height: 20px;
+	width: 17px;
+	float: left;
 }
 
 /* right */
