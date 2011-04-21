@@ -39,9 +39,11 @@
 			</c:if>
 			--%>
 			
+			<%--
 			<c:if test="${(i.index%7 == 0 and i.index != 0)}">
 				<div class="clear"></div>
 			</c:if>
+			--%>
 			
 			<div class="thumb_box">
 				<a href="#" onclick="jQuery('#photos').load('<t:context/>/photos.html?a=${a.id}');" class="thumb_link">
