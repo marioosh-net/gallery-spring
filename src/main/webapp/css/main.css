@@ -400,8 +400,8 @@ img.icon {
 .setsheader {
 	background-color: #444;
 	font-size: 18px;
-	padding-top: 20px;
-	padding-bottom: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	cursor: default;
 }
 #searchbox {
