@@ -9,7 +9,7 @@
 	<%-- jQuery Library + ALL jQuery Tools --%>
 	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	<script type="text/javascript">jQuery.noConflict();</script>
-	<script type="text/javascript" src="<t:context/>/js/slimbox2.js"></script>
+  <%-- <script type="text/javascript" src="<t:context/>/js/slimbox2.js"></script> --%>
 		
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2/scriptaculous.js"></script>
