@@ -2,8 +2,8 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <t:layout>
 	<div class="left leftfixed">		
-		<%-- albums list --%>
-		<div class="setsheader">
+		
+    <div class="setsheader">
 			<a href="<t:context/>/index.html" style="color: #888888; text-decoration: none;">PHOTOSETS</a>
 			<div id="searchbox">
 				<img src="images/ajax-loader3.gif" id="search-progress" style="display: none;"/>
@@ -13,10 +13,13 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+
+		<%-- albums list --%>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> --%>
 		</div>		
+
 	</div>
 	
 	
