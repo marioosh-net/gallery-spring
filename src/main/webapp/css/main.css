@@ -127,6 +127,9 @@ form {
 #footer .fixedwidth {
 	padding: 5px;
 }
+#footer-right {
+	margin: 3px;
+}
 /* footer END */
 
 /* album info */
@@ -418,8 +421,9 @@ img.icon {
 	margin: 0px; 
 	cursor: pointer;
 }
-a.album-title {
+.album-title, a.album-title {
 	font-size: 16px;
+	color: #fff; 
 }
 /* other END */
 
@@ -463,6 +467,12 @@ body:before {
 	/*margin:2px;*/
 	/*padding-bottom: 5px;*/
 	/*padding-top: 20px;*/
+}
+.photos .no-results {
+	font-size: 14px;
+}
+.margin3 {
+	margin: 3px;
 }
 
 .pages {

@@ -61,30 +61,16 @@
 
 <div class="photos">
 	<div class="thumbs">
-		<%--
-		<div class="thumb_box">
-			<c:if test="${ppage == 1}">
-			<a href="#" class="inactive">
-			</c:if>
-			<c:if test="${ppage != 1}">
-			<a href="<t:context/>/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage == 1 ? ppage : ppage - 1}">
-			</c:if>
-				<div class="thumb prevp ${ppage == 1 ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
-					<br>P<br>R<br>E<br>V<br>
-				</div>
-			</a>
-		</div>
-		--%>				
 	
 		<%-- before --%>
 		<c:forEach items="${before}" var="p" varStatus="i">
 			<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>"></a>
 		</c:forEach>
-		<%-- before END--%>
-		<c:forEach items="${photos}" var="p" varStatus="i">
-			<c:if test="${i.index == 0}">
-			</c:if>
 		
+		<%-- thumbs --%>
+		<c:if test="${empty photos}"><div class="no-results margin3">[<spring:message code="text.noPhotos"/>]</div></c:if>
+		<c:forEach items="${photos}" var="p" varStatus="i">
+			<c:if test="${i.index == 0}"></c:if>
 			<div id="th${i.index}" class="thumb_box" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto;</security:authorize>">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
@@ -92,7 +78,8 @@
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p['id']}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
 				<a href="<t:context/>/p.html?type=3&amp;id=${p['id']}" title="full size" target="_blank"><img class="full" src="images/n3.png" alt="full size"></a>
-				
+
+				<%-- admin funcs --%>				
 				<security:authorize ifAllGranted="ROLE_ADMIN">
 					<div class="thumb_options">
 						<div>
@@ -107,14 +94,13 @@
 					</div>
 				</security:authorize>
 			</div>
-		
 		</c:forEach>
+		
 		<%-- after --%>
 		<c:forEach items="${after}" var="p" varStatus="i">
 			<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>"></a>		
 		</c:forEach>
-		<%-- after END --%>
-				
+		
 		<t:modalyesno id="yesnophoto">
 			<spring:message code="text.confirmDeletePhoto" />
 		</t:modalyesno>

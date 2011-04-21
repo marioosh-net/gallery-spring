@@ -7,7 +7,7 @@
 	<%-- <security:authorize ifAnyGranted="ROLE_ADMIN">&#160;<a href="#" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${a.id}"><img src="images/list_remove_btn.gif"/></a></security:authorize> --%>
 </c:forEach>
 <%-- prev --%> 
-<div class="left">
+<div class="left" style="margin-top: 3px;">
 <%--
 <c:if test="${apage == 1}">
 <a href="#" class="inactive">&#171; prev</a>
@@ -19,7 +19,7 @@
 </div>
 
 <%-- next --%> 
-<div class="right">
+<div class="right" style="margin-top: 3px;">
 <%--
 <c:if test="${apage == apagesCount}">
 <a href="#" class="inactive">next &#187;</a>
