@@ -4,7 +4,7 @@ public enum AlbumSortField implements SortField {
 	ID("id", "enum.album_sortfield.id", false),
 	ID_DESC("id", "enum.album_sortfield.id_desc", true),
 	NAME("name", "enum.album_sortfield.name", false),
-	NAME_DESC("name", "enum.album_sortfield.name_desc", false);	
+	NAME_DESC("name", "enum.album_sortfield.name_desc", true);	
 	
 	private String name;
 	private String field;

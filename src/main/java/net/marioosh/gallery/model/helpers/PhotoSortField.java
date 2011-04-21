@@ -4,7 +4,7 @@ public enum PhotoSortField implements SortField {
 	ID("id", "enum.photo_sortfield.id", false),
 	ID_DESC("id", "enum.photo_sortfield.id_desc", true),
 	NAME("name", "enum.photo_sortfield.name", false),
-	NAME_DESC("name", "enum.photo_sortfield.name_desc", false);	
+	NAME_DESC("name", "enum.photo_sortfield.name_desc", true);	
 	
 	private String name;
 	private String field;

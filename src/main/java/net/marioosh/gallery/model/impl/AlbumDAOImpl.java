@@ -103,6 +103,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 		String sort = "id desc";
 		if(browseParams.getSort() != null) {
 			sort = browseParams.getSort().getField();
+			if(browseParams.getSort().isDescending()) {
+				sort += " desc";
+			}
 		}
 		String limit = "";
 		if(browseParams.getRange() != null) {

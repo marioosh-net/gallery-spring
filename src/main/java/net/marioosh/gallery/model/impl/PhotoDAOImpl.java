@@ -68,6 +68,9 @@ public class PhotoDAOImpl implements PhotoDAO {
 		String sort = "id desc";
 		if(browseParams.getSort() != null) {
 			sort = browseParams.getSort().getField();
+			if(browseParams.getSort().isDescending()) {
+				sort += " desc";
+			}			
 		}
 		String limit = "";
 		if(browseParams.getRange() != null) {
@@ -112,6 +115,9 @@ public class PhotoDAOImpl implements PhotoDAO {
 		String sort = "id desc";
 		if(browseParams.getSort() != null) {
 			sort = browseParams.getSort().getField();
+			if(browseParams.getSort().isDescending()) {
+				sort += " desc";
+			}			
 		}
 		String limit = "";
 		if(browseParams.getRange() != null) {
@@ -233,6 +239,9 @@ public class PhotoDAOImpl implements PhotoDAO {
 		String sort = "id desc";
 		if(browseParams.getSort() != null) {
 			sort = browseParams.getSort().getField();
+			if(browseParams.getSort().isDescending()) {
+				sort += " desc";
+			}			
 		}
 		String limit = "";
 		if(browseParams.getRange() != null) {
