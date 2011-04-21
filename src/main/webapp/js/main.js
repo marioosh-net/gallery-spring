@@ -1,7 +1,10 @@
 jQuery(document).ready(function(){
-	  /*var footerHeight = jQuery('#footer').height();
-	  jQuery('#main').css('padding-bottom', footerHeight);
-	  jQuery('#footer').css('margin-top', -footerHeight);*/
+	ready1();
+	covers();
+	albums();
+});
+
+function ready1() {
 
 	  /* modal dialogs */
 	  jQuery(".modalInput").overlay({
@@ -30,17 +33,21 @@ jQuery(document).ready(function(){
 		  this.blur();
 	  });
 	  
-	  /*albums();*/
-});
-
+}
 function covers() {
-	jQuery('#covers').load('covers.html');
+	loading('#photos');
+	jQuery('#photos').load('covers.html');
 }
 function albums() {
+	loading('#albums');
 	jQuery('#albums').load('albums.html');
 }
 function photos() {
+	loading('#photos');
 	jQuery('#photos').load('photos.html');
+}
+function loading(selector) {
+	jQuery(selector).html('<img src=\'images/ajax-loader5.gif\'/>&#160;loading...');
 }
 function slimboxstart() {
 	jQuery("a[rel^='lightbox-gal']").slimbox({

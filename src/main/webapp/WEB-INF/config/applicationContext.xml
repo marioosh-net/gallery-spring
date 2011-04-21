@@ -128,7 +128,7 @@
 	<!-- postgresql / localhost -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/gallery?charSet=UTF-8" />
+		<property name="url" value="jdbc:postgresql://gentoo3:5432/gallery?charSet=UTF-8" />
 		<property name="username" value="gallery" />
 		<property name="password" value="gallery" />
 	</bean>

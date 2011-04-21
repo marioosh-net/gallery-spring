@@ -106,3 +106,7 @@
 		</c:forEach>
 	</div>
 </c:if>
+
+<script>
+ready1();
+</script>

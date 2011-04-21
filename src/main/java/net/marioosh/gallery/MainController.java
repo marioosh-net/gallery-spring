@@ -75,66 +75,14 @@ public class MainController {
 	
 	@RequestMapping(value="/index.html", method=RequestMethod.GET)
 	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
-		PhotoBrowseParams bp1 = new PhotoBrowseParams();
+		return "index";
+	}
+	
+	@RequestMapping("/albums.html")
+	public String albums(@RequestParam(value="p",required=false, defaultValue="1") int p, Model model) {
 		AlbumBrowseParams bp = new AlbumBrowseParams();
-
-		bp1.setVisibility(utilService.getCurrentVisibility());
 		bp.setVisibility(utilService.getCurrentVisibility());
-		
-		if(albumId != 0) {
-			if(pp < 0) {
-				pp = 1;
-			}			
-			bp1.setAlbumId(albumId);		
-			bp1.setRange(new Range((pp-1)*28,28));
-			bp1.setSort(PhotoSortField.NAME);
-			int pcount = photoDAO.countAll(bp1);
-			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
-			log.debug("LIST: "+l);
-			// photoDAO.findAllId(bp1)
-			model.addAttribute("photos", l);
-			model.addAttribute("album", albumDAO.get(albumId));
-			model.addAttribute("aid", albumId);
-			model.addAttribute("pcount",pcount);
-			int[][] ppages = pages(pcount, 28);
-			model.addAttribute("ppages", ppages);
-			model.addAttribute("ppagesCount", ppages.length);
-			model.addAttribute("ppage", pp);
-			
-			// getnij wszystkie z albumu
-			if(l.size() > 0) {
-			bp1.setRange(null);
-			bp1.setSort(PhotoSortField.NAME);
-			List<Map<String, Object>> l2 = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
-			Iterator<Map<String, Object>> i = l2.iterator();
-			List<Map<String, Object>> before = new ArrayList<Map<String, Object>>();
-			List<Map<String, Object>> after = new ArrayList<Map<String, Object>>();
-			boolean s = false;
-			int j = 0;
-			Map<String, Object> first = l.get(0);
-			while(i.hasNext()) {
-				Map<String, Object> str = i.next();
-				if(first != null && str.get("id").equals(first.get("id"))) {
-					// od tego momentu nalezy wywalic z remainingHashes getElemsPerPage() elementow
-					s = true;
-				}
-				if(!s) {
-					before.add(str);
-				}
-				if(s && ++j > 28) {
-					after.add(str);
-				}
-			}
-			model.addAttribute("before", before);
-			model.addAttribute("after", after);
-			}
-			
-		} else {
-			model.addAttribute("aid", 0);
-			pp = 1;
-			model.addAttribute("ppage", pp);
-		}
-		 
+
 		if(p < 0) {
 			p = 1;
 		}		
@@ -157,19 +105,13 @@ public class MainController {
 		model.addAttribute("apages", apages);
 		model.addAttribute("apagesCount", apages.length);
 		model.addAttribute("apage", p);
-		return "index";
-	}
-	
-	@RequestMapping("/albums.html")
-	public ModelAndView albums() {
-		AlbumBrowseParams bp = new AlbumBrowseParams(); 
-		return new ModelAndView("albums", "albums", albumDAO.findAll(bp));
+		return "albums";
 	}
 	
 	@RequestMapping("/covers.html")
-	public ModelAndView covers() {
-		AlbumBrowseParams bp = new AlbumBrowseParams(); 
-		return new ModelAndView("covers", "albums", albumDAO.findAll(bp));
+	public ModelAndView covers(@RequestParam(value="p",required=false, defaultValue="1") int p, Model model) {
+		albums(p, model);
+		return new ModelAndView("covers", model.asMap());
 	}
 	
 	@RequestMapping(value="/photos.html", method=RequestMethod.GET)
