@@ -174,8 +174,12 @@ public class MainController {
 	@RequestMapping("/savealbum.html")
 	public String saveAlbum(@ModelAttribute Album album) {
 		log.debug(album);
-		album.setModDate(new Date());
-		albumDAO.update(album);
+		try {
+			album.setModDate(new Date());
+			albumDAO.update(album);
+		} catch(Exception e) {
+			return "1";
+		}
 		return "0";
 	}
 

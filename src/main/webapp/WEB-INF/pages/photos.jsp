@@ -25,12 +25,19 @@
 							<form:select path="visibility">
 								<form:options itemLabel="name"/>
 							</form:select><br/>
-							<img class="icon" src="images/save.png"/><a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>
+							<img class="icon" src="images/save.png"/><%--<a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>--%>
+							<a href="#" onclick="jQuery.post('savealbum.html', jQuery('#al').serialize(), function(data){ if(data == '0') {openOverlay('#saved');} else {openOverlay('#error');} });" ><spring:message code="button.save"/></a>
 							<input type="submit" class="hiddensubmit"/>
 						</form:form>
 						<t:modalyesno id="delalb">
 							<spring:message code="text.confirmDeleteAlbum" />
 						</t:modalyesno>
+						<t:modal id="saved">
+							<spring:message code="text.albumSaved" />
+						</t:modal>
+						<t:modal id="error">
+							<spring:message code="text.error" />
+						</t:modal>						
 					</security:authorize>
 				</div>
 			</div>
