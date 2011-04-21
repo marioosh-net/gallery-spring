@@ -3,7 +3,16 @@
 <t:layout>
 	<div class="left leftfixed">		
 		<%-- albums list --%>
-		<a href="<t:context/>/index.html" style="color: #888888; text-decoration: none;"><div class="setsheader">PHOTOSETS</div></a>
+		<div class="setsheader">
+			<a href="<t:context/>/index.html" style="color: #888888; text-decoration: none;">PHOTOSETS</a>
+			<div id="searchbox">
+				<img src="images/ajax-loader3.gif" id="search-progress" style="display: none;"/>
+				<input type="text" name="search" id="search" value="" onchange="loading('#albums');
+				 jQuery('#albums').load('albums.html?s='+jQuery(this).val(), function(){jQuery('#search-progress').hide();});"/>
+				<a href="#" onclick="jQuery('#search').trigger('onchange');"><spring:message code="button.search"/></a>
+			</div>
+			<div class="clear"></div>
+		</div>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> --%>

@@ -161,7 +161,7 @@ form {
 /* album funcs END */
 
 #mini {
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 }
 /** layout END **/
 
@@ -402,6 +402,16 @@ img.icon {
 	font-size: 18px;
 	padding-top: 20px;
 	padding-bottom: 5px;
+	cursor: default;
+}
+#searchbox {
+	font-size: 12px;
+	height: 20px;
+}
+#searchbox input {
+	font-size: 10px;
+	height: 16px;
+	width: 80px; 
 }
 .full {
 	font-size: 13px;

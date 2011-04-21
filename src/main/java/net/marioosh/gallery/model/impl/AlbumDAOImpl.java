@@ -83,6 +83,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 		if(browseParams.getVisibility() != null) {
 			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
 		}
+		if(browseParams.getSearch() != null && !browseParams.getSearch().isEmpty()) {
+			s += " and upper(name) like upper('%"+browseParams.getSearch()+"%') ";
+		}		
 		String sql = "select count(id) from talbum where 1 = 1 "+s;
 		log.debug(sql);
 		
@@ -113,7 +116,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 		}
 		String s = "";
 		if(browseParams.getVisibility() != null) {
-			s += "and visibility <= " + browseParams.getVisibility().ordinal(); 
+			s += "and visibility <= " + browseParams.getVisibility().ordinal() + " "; 
+		}
+		if(browseParams.getSearch() != null && !browseParams.getSearch().isEmpty()) {
+			s += " and upper(name) like upper('%"+browseParams.getSearch()+"%') ";
 		}
 		String sql = "select * from talbum where 1 = 1 "+s+" order by "+sort + " " + limit;
 		log.debug(sql);

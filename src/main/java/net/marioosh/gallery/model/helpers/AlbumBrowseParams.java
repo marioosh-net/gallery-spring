@@ -5,6 +5,7 @@ public class AlbumBrowseParams implements BrowseParams {
 	private Range range;
 	private AlbumSortField sort;
 	private Visibility visibility = Visibility.PUBLIC;
+	private String search;
 	
 	@Override
 	public Range getRange() {
@@ -33,5 +34,13 @@ public class AlbumBrowseParams implements BrowseParams {
 	
 	public void setVisibility(Visibility visibility) {
 		this.visibility = visibility;
+	}
+	
+	public String getSearch() {
+		return search;
+	}
+	
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }

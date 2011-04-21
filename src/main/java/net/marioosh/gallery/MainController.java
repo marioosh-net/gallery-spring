@@ -71,7 +71,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/albums.html")
-	public String albums(@RequestParam(value="p",required=false, defaultValue="1") int p, Model model) {
+	public String albums(@RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="s",required=false, defaultValue="") String s, Model model) {
 		AlbumBrowseParams bp = new AlbumBrowseParams();
 		bp.setVisibility(utilService.getCurrentVisibility());
 
@@ -80,6 +80,9 @@ public class MainController {
 		}		
 		bp.setRange(new Range((p-1)*settings.getAlbumsPerPage(),settings.getAlbumsPerPage()));
 		bp.setSort(AlbumSortField.NAME_DESC);
+		if(!s.isEmpty()) {
+			bp.setSearch(s);
+		}
 		int acount = albumDAO.countAll(bp);
 		List<Album> albums = albumDAO.findAll(bp);
 		model.addAttribute("albums", albums);
@@ -101,8 +104,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/covers.html")
-	public ModelAndView covers(@RequestParam(value="p",required=false, defaultValue="1") int p, Model model) {
-		albums(p, model);
+	public ModelAndView covers(@RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="s",required=false, defaultValue="") String s, Model model) {
+		albums(p, s, model);
 		return new ModelAndView("covers", model.asMap());
 	}
 	
