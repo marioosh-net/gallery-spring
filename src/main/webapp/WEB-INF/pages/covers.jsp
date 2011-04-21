@@ -11,6 +11,7 @@
 	</span>
 </c:forEach>
 --%>
+<%--
 <c:if test="${apagesCount > 1}">
 	<div class="pages">
 		<c:forEach items="${apages}" var="p" varStatus="i">
@@ -18,6 +19,7 @@
 		</c:forEach>
 	</div>
 </c:if>
+--%>
 
 <div class="covers">
 	<div class="thumbs">
