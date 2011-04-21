@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
+<!-- album name -->
+<div id="menu">
+<div class="left">
+	<c:if test="${album != null}"><a href="#">${album.name}</a></c:if>
+</div>
+<div class="right">
+</div>
+<div class="clear"></div>
+</div>
+
 <c:if test="${ppagesCount > 1}">
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">

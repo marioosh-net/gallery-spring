@@ -38,9 +38,11 @@
 				</c:if>	
 		</div>
 	
+		<%--
 		<div id="menu">
 			<%@include file="/WEB-INF/templates/menu.jsp" %>
 		</div>
+		--%>
 		
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 		<%-- album info --%>
