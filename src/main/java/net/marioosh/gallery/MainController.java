@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-
+	
 	private Logger log = Logger.getLogger(MainController.class);
 
 	@Autowired
@@ -86,7 +86,7 @@ public class MainController {
 		if(p < 0) {
 			p = 1;
 		}		
-		// bp.setRange(new Range((p-1)*19,19));
+		bp.setRange(new Range((p-1)*settings.getAlbumsPerPage(),settings.getAlbumsPerPage()));
 		bp.setSort(AlbumSortField.NAME);
 		int acount = albumDAO.countAll(bp);
 		List<Album> albums = albumDAO.findAll(bp);
@@ -101,7 +101,7 @@ public class MainController {
 		}
 		model.addAttribute("ac",ac);
 		model.addAttribute("acount",acount);
-		int[][] apages = pages(acount, 19);
+		int[][] apages = pages(acount, settings.getAlbumsPerPage());
 		model.addAttribute("apages", apages);
 		model.addAttribute("apagesCount", apages.length);
 		model.addAttribute("apage", p);
@@ -124,7 +124,7 @@ public class MainController {
 				pp = 1;
 			}			
 			bp1.setAlbumId(albumId);		
-			bp1.setRange(new Range((pp-1)*24,24));
+			bp1.setRange(new Range((pp-1)*settings.getPhotosPerPage(),settings.getPhotosPerPage()));
 			bp1.setSort(PhotoSortField.NAME);
 			int pcount = photoDAO.countAll(bp1);
 			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
@@ -134,7 +134,7 @@ public class MainController {
 			model.addAttribute("album", albumDAO.get(albumId));
 			model.addAttribute("aid", albumId);
 			model.addAttribute("pcount",pcount);
-			int[][] ppages = pages(pcount, 24);
+			int[][] ppages = pages(pcount, settings.getPhotosPerPage());
 			model.addAttribute("ppages", ppages);
 			model.addAttribute("ppagesCount", ppages.length);
 			model.addAttribute("ppage", pp);
@@ -159,7 +159,7 @@ public class MainController {
 				if(!s) {
 					before.add(str);
 				}
-				if(s && ++j > 24) {
+				if(s && ++j > settings.getPhotosPerPage()) {
 					after.add(str);
 				}
 			}

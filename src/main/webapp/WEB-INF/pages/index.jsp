@@ -3,6 +3,7 @@
 <t:layout>
 	<div class="left leftfixed">		
 		<%-- albums list --%>
+		<a href="<t:context/>/index.html" style="color: #888888; text-decoration: none;"><div class="setsheader">PHOTOSETS</div></a>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
 			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> --%>
