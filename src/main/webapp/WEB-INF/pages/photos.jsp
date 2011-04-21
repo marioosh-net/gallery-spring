@@ -5,7 +5,7 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<span><c:if test="${p[0] != ppage}"><a href="#" onclick="jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
+			<span><c:if test="${p[0] != ppage}"><a href="#" onclick="loading('#photos'); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
 		</c:forEach>
 	</div>
 </c:if>
@@ -102,7 +102,7 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<span><c:if test="${p[0] != ppage}"><a href="#" onclick="jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
+			<span><c:if test="${p[0] != ppage}"><a href="#" onclick="loading('#photos'); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>
 		</c:forEach>
 	</div>
 </c:if>
