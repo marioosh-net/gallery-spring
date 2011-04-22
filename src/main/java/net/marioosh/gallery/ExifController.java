@@ -67,7 +67,10 @@ public class ExifController implements ServletContextAware {
 							|| tag.getTagName().equals("White Balance")
 							|| tag.getTagName().equals("Date/Time")
 							|| tag.getTagName().equals("Picture Mode")
-							|| tag.getTagName().equals("Focus Mode")) {
+							|| tag.getTagName().equals("Focus Mode")
+							|| tag.getTagName().equals("Focal Length")) {
+						
+						
 					
 						if(j++ == 0) {
 							sb.append("<div class=\"exif-header\">EXIF</div>");
