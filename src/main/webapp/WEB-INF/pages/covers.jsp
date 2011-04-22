@@ -47,7 +47,7 @@
 			</c:if>
 			--%>
 			
-			<div class="thumb_box">
+			<div class="thumb_box" title="${a.name}">
 				<a href="#" onclick="jQuery('#photos').load('<t:context/>/photos.html?a=${a.id}');" class="thumb_link">
 						<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
 						<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/p.html?type=2&amp;id=${a.id}); "></div>
@@ -82,4 +82,7 @@
 	</div>
 
 	<div style="clear: both;"></div>
+	<%-- tooltips
+	<script type="text/javascript">jQuery('[title]').tooltip({ position: 'bottom center', offset: [-21, 0]});</script>
+	--%>
 </div>

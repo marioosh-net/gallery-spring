@@ -728,3 +728,10 @@ a.inactive {
 	padding-left: 5px;
 	padding-right: 5px; 
 }
+.tooltip {
+	background-color: #000;
+	color: #fff;
+	border: 1px solid #fff;
+	width: 100px;
+	padding: 2px;
+}
