@@ -84,3 +84,29 @@ function openOverlay(selector) {
 		load: true
 	});
 }
+
+//exif
+var exifReqPrev;
+function exif(id) {
+	loading('#exif');
+	exifReqPrev = jQuery.get('exif.html?id='+id, function(data){
+		jQuery('#exif').html(data);
+	});
+	/*
+    exifReq = new Ajax.Request('exif.html', {
+        parameters:{
+            'url': url
+        },
+        onCreate: function() {
+            if(exifReqPrev != null) {
+                exifReqPrev.transport.abort();
+            }
+            $('exif').update(new Loader('&nbsp;EXIF loading...').getLoader());
+        },
+        onComplete: function(request) {
+            $('exif').update(request.responseText);
+        }
+    });
+    exifReqPrev = exifReq;
+    */
+}
