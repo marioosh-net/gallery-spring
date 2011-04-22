@@ -78,10 +78,10 @@
 		<c:if test="${empty photos}"><div class="no-results margin3">[<spring:message code="text.noPhotos"/>]</div></c:if>
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}"></c:if>
-			<div id="th${i.index}" class="thumb_box" onmouseover="/*exif(${p['id']})*/" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto;</security:authorize>">
+			<div id="th${i.index}" class="thumb_box" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto;</security:authorize>">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
-					<div id="u${i.index}" class="thumb" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
+					<div id="u${i.index}" class="thumb" onmouseover="exif(${p['id']})" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
 					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p['id']}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 				</a>
 				<a href="<t:context/>/p.html?type=3&amp;id=${p['id']}" title="full size" target="_blank"><img class="full" src="images/n3.png" alt="full size"></a>
