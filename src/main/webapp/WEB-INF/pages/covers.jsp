@@ -82,6 +82,7 @@
 	</div>
 
 	<div style="clear: both;"></div>
-	<%-- tooltips --%>
+	<%-- tooltips 
 	<script type="text/javascript">jQuery('.thumb_box').tooltip({ position: 'bottom center', offset: [-21, 0]});</script>
+	--%>
 </div>
