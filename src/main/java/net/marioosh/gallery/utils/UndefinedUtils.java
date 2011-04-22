@@ -2,10 +2,13 @@ package net.marioosh.gallery.utils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import org.apache.log4j.Logger;
 
 public class UndefinedUtils {
 
 	private final static SecureRandom r = new SecureRandom();
+	
+	private static Logger log = Logger.getLogger(UndefinedUtils.class);
 	
 	/**
 	 * wygeneruj hash wykorzystujac podany string
@@ -154,6 +157,19 @@ public class UndefinedUtils {
 			text += " " + randomWord();
 		}
 		return text;
+	}
+
+	public static int[][] pages(int count, int perPage) {
+		int pages = count / perPage + (count % perPage == 0 ? 0 : 1);
+		int[][] p = new int[pages][3];
+		for(int i = 0; i < p.length; i++) {
+			p[i][0] = i + 1; 
+			p[i][1] = i * perPage; 
+			p[i][2] = ((i+1) * perPage) - 1;
+			
+			log.debug(i + "," + p[i][0] + "," +p[i][1] + "," + p[i][2] );
+		}
+		return p;
 	}
 	
 }

@@ -145,6 +145,14 @@ public class TestController implements ResourceLoaderAware {
 		this.resourceLoader = resourceLoader;
 	}
 
+	@RequestMapping("/testalbum.html")
+	public String testalbum() {
+		Album a = new Album(UndefinedUtils.randomWord() + " " + UndefinedUtils.randomWord() + " "+ UndefinedUtils.randomWord());
+		a.setVisibility(Visibility.PUBLIC);
+		albumDAO.add(a);
+		return "redirect:/index.html";
+	}
+
 	/**
 	 * pomieszaj fotki miedzy albumami
 	 * @throws EntityVersionException 

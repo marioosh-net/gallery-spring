@@ -150,6 +150,6 @@
 	<div class="clear"></div>
 </c:if>
 
-<script>
-ready1();
+<script type="text/javascript">
+	modals();
 </script>

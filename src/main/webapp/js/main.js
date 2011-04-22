@@ -1,12 +1,11 @@
 jQuery(document).ready(function(){
-	ready1();
+	modals();
 	covers();
 	albums();
 	/*searches();*/
 });
 
-function ready1() {
-
+function modals() {
 	  /* modal dialogs */
 	  jQuery(".modalInput").overlay({
 			mask: {
@@ -27,13 +26,7 @@ function ready1() {
 		  var modal = jQuery(this).attr('rel');
 		  jQuery(modal).find('.yes').eq(0).click(new Function(jQuery(this).attr('rev')));
 	  });
-	  
 	  /* modal dialogs END */
-	  
-	  jQuery('a.bu').click(function(){
-		  this.blur();
-	  });
-	  
 }
 function covers() {
 	loading('#photos');

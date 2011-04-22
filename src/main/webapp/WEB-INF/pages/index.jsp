@@ -84,7 +84,7 @@
 		
 		<div id="mini">
 			<div id="photos">
-				<%@ include file="/WEB-INF/pages/covers.jsp" %>
+				<%@ include file="/WEB-INF/pages/photos.jsp" %>
 			</div>			
 		</div>	
 		

@@ -60,6 +60,7 @@ public class MainController {
 	@Autowired
 	private UtilService utilService;
 	
+	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/index.html", method=RequestMethod.POST)
 	public String saveAlbum(@ModelAttribute("album") Album album, HttpServletRequest request) {
@@ -68,6 +69,7 @@ public class MainController {
 		albumDAO.update(album);
 		return "redirect:/index.html?"+request.getQueryString();
 	}
+	*/
 	
 	@RequestMapping(value="/index.html", method=RequestMethod.GET)
 	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
@@ -100,7 +102,7 @@ public class MainController {
 		}
 		model.addAttribute("ac",ac);
 		model.addAttribute("acount",acount);
-		int[][] apages = pages(acount, settings.getAlbumsPerPage());
+		int[][] apages = UndefinedUtils.pages(acount, settings.getAlbumsPerPage());
 		model.addAttribute("apages", apages);
 		model.addAttribute("apagesCount", apages.length);
 		model.addAttribute("apage", p);
@@ -133,7 +135,7 @@ public class MainController {
 			model.addAttribute("album", albumDAO.get(albumId));
 			model.addAttribute("aid", albumId);
 			model.addAttribute("pcount",pcount);
-			int[][] ppages = pages(pcount, settings.getPhotosPerPage());
+			int[][] ppages = UndefinedUtils.pages(pcount, settings.getPhotosPerPage());
 			model.addAttribute("ppages", ppages);
 			model.addAttribute("ppagesCount", ppages.length);
 			model.addAttribute("ppage", pp);
@@ -199,15 +201,6 @@ public class MainController {
 		return "0";
 	}
 
-	/*@ResponseBody*/
-	@RequestMapping("/testalbum.html")
-	public String testalbum() {
-		Album a = new Album(UndefinedUtils.randomWord() + " " + UndefinedUtils.randomWord() + " "+ UndefinedUtils.randomWord());
-		a.setVisibility(Visibility.PUBLIC);
-		albumDAO.add(a);
-		return "redirect:/index.html";
-	}
-	
 	/*@ResponseBody*/
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/deletealbum.html")
@@ -301,16 +294,5 @@ public class MainController {
 		}
 		return new ModelAndView("error");
 	}	
-
-	private int[][] pages(int count, int perPage) {
-		int pages = count / perPage + (count % perPage == 0 ? 0 : 1);
-		int[][] p = new int[pages][3];
-		for(int i = 0; i < p.length; i++) {
-			p[i][0] = i + 1; 
-			p[i][1] = i * perPage; 
-			p[i][2] = ((i+1) * perPage) - 1;
-		}
-		return p;
-	}
 
 }

@@ -14,7 +14,11 @@
 </c:if>
 --%>
 <c:if test="${apage != 1}">
-<a href="#" onclick="loadingIcon(this); jQuery('#albums').load('albums.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');"><spring:message code="button.prevAlbum"/></a>
+	<a href="#" onclick="
+		loadingIcon(this); 
+		jQuery('#albums').load('albums.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');
+		/*jQuery('#photos').load('covers.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');*/
+	">&#171; prev</a>
 </c:if>
 </div>
 
@@ -26,8 +30,12 @@
 </c:if>
 --%>
 <c:if test="${apage != apagesCount}">
-<a href="#" onclick="loadingIcon(this); jQuery('#albums').load('albums.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');"><spring:message code="button.nextAlbum"/></a>
-</c:if>
+	<a href="#" onclick="
+		loadingIcon(this); 
+		jQuery('#albums').load('albums.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}'); 
+		/*jQuery('#photos').load('covers.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');*/
+		">next &#187;</a>
+	</c:if>
 </div>
 <div class="clear"></div>
 
