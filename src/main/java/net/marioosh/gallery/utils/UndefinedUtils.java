@@ -166,8 +166,7 @@ public class UndefinedUtils {
 			p[i][0] = i + 1; 
 			p[i][1] = i * perPage; 
 			p[i][2] = ((i+1) * perPage) - 1;
-			
-			log.debug(i + "," + p[i][0] + "," +p[i][1] + "," + p[i][2] );
+			// log.debug(i + "," + p[i][0] + "," +p[i][1] + "," + p[i][2] );
 		}
 		return p;
 	}
