@@ -312,6 +312,12 @@
 		    <version>1.4</version>
 		</dependency>
 
+		<!-- imagemagick -->
+		<dependency>
+		  <groupId>jmagick</groupId>
+		  <artifactId>jmagick</artifactId>
+		  <version>6.2.4</version>
+		</dependency>
 	</dependencies>
 
 </project>
