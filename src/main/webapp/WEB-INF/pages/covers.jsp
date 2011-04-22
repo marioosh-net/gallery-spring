@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
-
+<input type="hidden" id="mode" value="covers"/>
 <%--
 <c:forEach items="${apages}" var="p" varStatus="i">
 	<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>

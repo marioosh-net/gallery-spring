@@ -17,7 +17,9 @@
 	<a href="#" onclick="
 		loadingIcon(this); 
 		jQuery('#albums').load('albums.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');
-		/*jQuery('#photos').load('covers.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');*/
+		if(jQuery('#mode').val() == 'covers') {
+			jQuery('#photos').load('covers.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');
+		}
 	">&#171; prev</a>
 </c:if>
 </div>
@@ -32,8 +34,10 @@
 <c:if test="${apage != apagesCount}">
 	<a href="#" onclick="
 		loadingIcon(this); 
-		jQuery('#albums').load('albums.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}'); 
-		/*jQuery('#photos').load('covers.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');*/
+		jQuery('#albums').load('albums.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');
+		if(jQuery('#mode').val() == 'covers') { 
+			jQuery('#photos').load('covers.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');
+		}
 		">next &#187;</a>
 	</c:if>
 </div>
