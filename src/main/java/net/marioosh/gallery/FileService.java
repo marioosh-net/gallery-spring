@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.Visibility;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	}
 
 	public void unload() {
+		long start = System.currentTimeMillis();
 		log.info("unload()");
 		Resource root = appContext.getResource("file:" + settings.getDestPath());
 		try {
@@ -91,6 +94,11 @@ public class FileService implements Serializable, ApplicationContextAware {
 			}
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+		} finally {
+			long stop = System.currentTimeMillis();
+			log.info((stop - start) + "ms");			
 		}
 	}
 
@@ -173,7 +181,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	}
 
 	private void unloadFiles(File file, boolean createEmptyDirectories)
-			throws IOException {
+			throws IOException, SQLException {
 		String basePath = file.getAbsolutePath();
 		AlbumBrowseParams browseParams = new AlbumBrowseParams();
 		browseParams.setVisibility(Visibility.ADMIN);
@@ -184,10 +192,10 @@ public class FileService implements Serializable, ApplicationContextAware {
 			PhotoBrowseParams browseParams1 = new PhotoBrowseParams();
 			browseParams1.setVisibility(Visibility.ADMIN);
 			browseParams1.setAlbumId(a.getId());
-			for (Photo p : photoDAO.findAll(browseParams1)) {
-				File fp = new File(new File(basePath, a.getName()).getPath(), p.getName());
+			for (Map<String, Object> m : photoDAO.findAll(browseParams1, new String[]{"id","name"})) {
+				File fp = new File(new File(basePath, a.getName()).getPath(), (String)m.get("name"));
 				FileOutputStream out = new FileOutputStream(fp);
-				out.write(p.getImg());
+				IOUtils.copy(photoDAO.getStream((Long)m.get("id"), 0), out);
 				out.close();
 				log.debug("Create image: '" + fp.getAbsolutePath() + "'");
 			}
