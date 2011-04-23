@@ -78,7 +78,7 @@
 		<c:if test="${empty photos}"><div class="no-results margin3">[<spring:message code="text.noPhotos"/>]</div></c:if>
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}"></c:if>
-			<div id="th${i.index}" class="thumb_box" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto;</security:authorize>">
+			<div id="th${i.index}" class="thumb_box" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto;</security:authorize> ${p['visibility'] == 0 ? 'background-color: #63773c; color: #fff' : ''}">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
 					<div id="u${i.index}" class="thumb" onmouseover="exif(${p['id']})" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
@@ -91,7 +91,7 @@
 					<div class="thumb_options">
 						<div>
 							<img src="images/key.png">&nbsp;
-							<a id="v${i.index}" href="#" onclick="jQuery.get('changevisibility.html?id=${p['id']}',function(data){ jQuery('#v${i.index}').text(data); });" >${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
+							<a id="v${i.index}" href="#" style="${p['visibility'] == 0 ? 'color: #9fee00; font-weight: bold;' : ''}" onclick="jQuery.get('changevisibility.html?id=${p['id']}',function(data){ jQuery('#v${i.index}').text(data); });" >${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
