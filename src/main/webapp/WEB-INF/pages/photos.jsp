@@ -91,7 +91,17 @@
 					<div class="thumb_options">
 						<div>
 							<img src="images/key.png">&nbsp;
-							<a id="v${i.index}" href="#" style="${p['visibility'] == 0 ? 'color: #9fee00; font-weight: bold;' : ''}" onclick="jQuery.get('changevisibility.html?id=${p['id']}',function(data){ jQuery('#v${i.index}').text(data); });" >${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
+							<a id="v${i.index}" href="#" style="${p['visibility'] == 0 ? 'color: #9fee00; font-weight: bold;' : ''}" onclick="
+							jQuery.get('changevisibility.html?id=${p['id']}',function(data){ 
+								jQuery('#v${i.index}').text(data); 
+								if(data == 'public') {
+									jQuery('#th${i.index}').css('background-color','#63773c');
+									jQuery('#v${i.index}').attr('style','color: #9fee00; font-weight: bold;');
+								} else {
+									jQuery('#th${i.index}').css('background-color','#000');
+									jQuery('#v${i.index}').attr('style','');
+								}
+							});" >${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
