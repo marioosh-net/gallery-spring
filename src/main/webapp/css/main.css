@@ -521,7 +521,8 @@ body:before {
 }
 .pages div {
 	height: 20px;
-	width: 17px;
+	/*width: 17px;*/
+  margin: 2px;
 	float: left;
 }
 
