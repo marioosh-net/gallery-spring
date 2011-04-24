@@ -81,8 +81,8 @@
 			<div id="th${i.index}" class="thumb_box" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto;</security:authorize> ${p['visibility'] == 0 ? 'background-color: #63773c;' : ''}">
 				<a href="<t:context/>/p.html?type=0&amp;id=${p['id']}" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p.html?type=0&amp;id=${p["id"]}' target='_blank'>${p['name']}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
-					<div id="u${i.index}" class="thumb" onmouseover="exif(${p['id']})" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
-					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p['id']}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+					<div id="u${p['id']}" class="thumb ttip" onmouseover="exif(${p['id']});" style="float: none; display: none; background-image: url(<t:context/>/p.html?type=1&amp;id=${p['id']}); "></div>
+					<img style="display: none;" src="<t:context/>/p.html?type=1&amp;id=${p['id']}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${p['id']}').show();">
 				</a>
 				<a href="<t:context/>/p.html?type=3&amp;id=${p['id']}" title="full size" target="_blank"><img class="full" src="images/n3.png" alt="full size"></a>
 
@@ -162,4 +162,17 @@
 
 <script type="text/javascript">
 	modals();
+	/*
+	jQuery('.ttip[title]').tooltip({
+		onBeforeShow: function() {
+			var trigger = this.getTrigger();
+			var id = this.getTrigger().attr('id').substring(1);
+			loading('#exif');
+			jQuery.get('exif.html?id='+id, function(data){
+				jQuery('#exif').html(data);
+				trigger.attr('title',data);
+			});
+		}
+	});
+	*/
 </script>

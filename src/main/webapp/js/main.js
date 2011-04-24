@@ -84,6 +84,7 @@ function exif(id) {
 	loading('#exif');
 	exifReqPrev = jQuery.get('exif.html?id='+id, function(data){
 		jQuery('#exif').html(data);
+		/*jQuery('#u'+id).attr('title',data);*/
 	});
 	/*
     exifReq = new Ajax.Request('exif.html', {
