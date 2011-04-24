@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+import net.marioosh.gallery.UtilService;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
@@ -37,6 +38,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	private Logger log = Logger.getLogger(getClass());
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private UtilService utilService;
 	
 	/**
 	 * @Autowired - autowired by Spring's dependency injection facilities
@@ -155,18 +159,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public Long getCover(Long albumId) {
-		String s = " and visibility <= " + Visibility.PUBLIC.ordinal() + " ";
-		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-			if(a.getAuthority().equals("ROLE_ADMIN")) {
-				s = " and visibility <= " + Visibility.ADMIN.ordinal() + " ";
-			}
-			if(a.getAuthority().equals("ROLE_USER")) {
-				s = " and visibility <= " + Visibility.USER.ordinal() + " ";
-			}
-		}
-		
-		String sql = "select id from tphoto where album_id = ? " + s + " limit 1";
-		return jdbcTemplate.queryForLong(sql, albumId);
+		String sql = "select id from tphoto where album_id = ? and visibility <= ? order by random() limit 1";
+		return jdbcTemplate.queryForLong(sql, albumId, utilService.getCurrentVisibility().ordinal());
 	}
 	
 	@Override
