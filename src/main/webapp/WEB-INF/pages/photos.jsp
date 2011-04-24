@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <input type="hidden" id="mode" value="photos"/>
+<input type="hidden" id="album_id" value="${album != null ? album.id : 0}"/>
 <!-- admin tools -->
 <security:authorize ifAnyGranted="ROLE_ADMIN">
 	<%-- album info --%>
@@ -162,8 +163,7 @@
 
 <script type="text/javascript">
 	modals();
-	/*
-	jQuery('.ttip[title]').tooltip({
+	/* jQuery('.ttip[title]').tooltip({
 		onBeforeShow: function() {
 			var trigger = this.getTrigger();
 			var id = this.getTrigger().attr('id').substring(1);

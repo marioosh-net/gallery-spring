@@ -410,6 +410,9 @@ img.icon {
 	cursor: pointer;
 	border-top: 1px solid #111;
 }
+#albums .selected {
+	background-color: #AAA;
+}
 .oneset:hover {
 	background-color: #AAA;
 }
