@@ -97,7 +97,9 @@
 		</div>
 		
 		<%-- exif --%>
-		<div id="exif"></div>
+		<div id="exif-container">
+			<div id="exif"></div>
+		</div>
 	</div>
 	<div class="clear"></div>
 </t:layout>
