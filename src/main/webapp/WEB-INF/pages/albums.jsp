@@ -20,7 +20,7 @@
 		if(jQuery('#mode').val() == 'covers') {
 			jQuery('#photos').load('covers.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');
 		}
-	">&#171; prev</a>
+	"><spring:message code="button.prevAlbum"/></a>
 </c:if>
 </div>
 
@@ -38,7 +38,7 @@
 		if(jQuery('#mode').val() == 'covers') { 
 			jQuery('#photos').load('covers.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');
 		}
-		">next &#187;</a>
+		"><spring:message code="button.nextAlbum"/></a>
 	</c:if>
 </div>
 <div class="clear"></div>
