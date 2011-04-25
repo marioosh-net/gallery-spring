@@ -28,6 +28,14 @@ function modals() {
 	  });
 	  /* modal dialogs END */
 }
+function modalHref(el) {
+	var modal = jQuery(el).attr('rel');
+	jQuery(modal).find('.yes').eq(0).attr('href', jQuery(el).attr('rev'));	
+}
+function modalClick(el) {
+	var modal = jQuery(el).attr('rel');
+	jQuery(modal).find('.yes').eq(0).click(new Function(jQuery(el).attr('rev')));	
+}
 function covers() {
 	loading('#photos');
 	jQuery('#photos').load('covers.html');
@@ -66,16 +74,21 @@ function slimboxstart() {
 
 /* programowo otworz overlay dla elementu wskazanego przez selector */
 function openOverlay(selector) {
-	jQuery(selector).overlay({
-		mask: {
-			color: '#aaa',
-			loadSpeed: 'fast',
-			opacity: 0.5
-		},
-		speed: 'fast',
-		closeOnClick: true,
-		load: true
-	});
+	if (jQuery(selector).data('triggered')) {
+		jQuery(selector).overlay().load();
+	} else {
+		jQuery(selector).data('triggered', true);
+		jQuery(selector).overlay({
+			mask: {
+				color: '#aaa',
+				loadSpeed: 'fast',
+				opacity: 0.5
+			},
+			speed: 'fast',
+			closeOnClick: true,
+			load: true
+		});
+	}
 }
 
 //exif
