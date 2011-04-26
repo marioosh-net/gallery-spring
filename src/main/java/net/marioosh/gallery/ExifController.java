@@ -105,6 +105,9 @@ public class ExifController implements ServletContextAware {
 		} catch (MetadataException e) {
 			log.debug(e.getMessage());
 			return "<div class=\"exif-header\">EXIF</div>No EXIF Data";
+		} catch (Exception e) {
+			log.debug(e.getMessage());
+			return "<div class=\"exif-header\">EXIF</div>No EXIF Data";
 		}
 		return sb.toString();
 	}
