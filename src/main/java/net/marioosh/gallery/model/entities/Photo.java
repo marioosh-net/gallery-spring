@@ -1,14 +1,8 @@
 package net.marioosh.gallery.model.entities;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Date;
-import magick.MagickException;
 import net.marioosh.gallery.model.helpers.Visibility;
-import net.marioosh.gallery.utils.PhotoUtils;
-import org.apache.commons.io.IOUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Photo extends AbstractEntity {
@@ -85,27 +79,8 @@ public class Photo extends AbstractEntity {
 
 	public void setImg(byte[] img) {
 		this.img = img;
-		// this.setThumb(PhotoUtils.makeThumbCroop(this.img, 100, 100));
 	}
 	
-	/*
-	public void setImg(File f) throws IOException {
-		FileInputStream in = new FileInputStream(f);
-		// this.img = PhotoUtils.makeResized(in);
-		this.img = IOUtils.toByteArray(in);
-		/*
-		in = new FileInputStream(f);
-		// this.setThumb(PhotoUtils.makeThumbCroop(this.img, 100, 100));
-		try {
-			this.setThumb(PhotoUtils.thumb2(f.getAbsolutePath()));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			this.thumb = null;
-		}
-		*/
-	// }
-	
-
 	public byte[] getThumb() {
 		return thumb;
 	}
