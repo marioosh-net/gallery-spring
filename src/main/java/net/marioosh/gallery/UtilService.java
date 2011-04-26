@@ -89,7 +89,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 		Process pr;
 		try {
 			pr = Runtime.getRuntime().exec(command);
-			return IOUtils.toByteArray(pr.getInputStream());
+			return IOUtils.toByteArray(IOUtils.toBufferedInputStream(pr.getInputStream()));
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
@@ -108,7 +108,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 		Process pr;
 		try {
 			pr = Runtime.getRuntime().exec(command);
-			return IOUtils.toByteArray(pr.getInputStream());
+			return IOUtils.toByteArray(IOUtils.toBufferedInputStream(pr.getInputStream()));
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
