@@ -101,6 +101,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 		Process pr;
 		try {
 			// pr = Runtime.getRuntime().exec(command);
+			//pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-thumbnail", "x200", "-resize", "'200x<'", "-resize 50%", "-gravity", "center", "-crop", "100x100+0+0", "+repage", "-format", "jpg", "-quality", "91", "-"});
 			pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-resize", "100x", "-crop", "100x100+0+16", "+repage", "-strip", "-"});
 			/*
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
