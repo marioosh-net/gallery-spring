@@ -102,6 +102,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 		Process pr;
 		try {
 			pr = Runtime.getRuntime().exec(command);
+			/*
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			int nRead;
 			byte[] data = new byte[16384];
@@ -110,8 +111,9 @@ public class UtilService implements Serializable, ApplicationContextAware {
 			}
 			buffer.flush();
 			return buffer.toByteArray();
-			
+			*/
 			// return IOUtils.toByteArray(IOUtils.toBufferedInputStream(pr.getInputStream()));
+			return IOUtils.toByteArray(pr.getInputStream());
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
@@ -130,7 +132,8 @@ public class UtilService implements Serializable, ApplicationContextAware {
 		Process pr;
 		try {
 			pr = Runtime.getRuntime().exec(command);
-			
+			return IOUtils.toByteArray(pr.getInputStream());
+			/*
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			int nRead;
 			byte[] data = new byte[16384];
@@ -139,7 +142,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 			}
 			buffer.flush();
 			return buffer.toByteArray();
-			
+			*/
 			// return IOUtils.toByteArray(IOUtils.toBufferedInputStream(pr.getInputStream()));
 		} catch (IOException e) {
 			log.error(e.getMessage());
