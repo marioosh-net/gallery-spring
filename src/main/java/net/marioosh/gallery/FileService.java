@@ -173,8 +173,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 						// !!!
 						// p.setImg(IOUtils.toByteArray(new FileInputStream(f)));
-						p.setImg(utilService.resized2(f.getAbsolutePath()));
-						p.setThumb(utilService.thumb2(f.getAbsolutePath()));
+						p.setImg(utilService.resized(f.getAbsolutePath()));
+						p.setThumb(utilService.thumb(f.getAbsolutePath()));
 						
 						p.setFilePath(UndefinedUtils.relativePath(root, f));
 

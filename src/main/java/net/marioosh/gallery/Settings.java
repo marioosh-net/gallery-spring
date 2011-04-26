@@ -8,8 +8,7 @@ public class Settings {
 	private String rootPath;
 	private int photosPerPage = 24;
 	private int albumsPerPage = 24;
-	private String thumbCommand;
-	private String resizedCommand;
+	private String convertPath;
 
 	public String getDestPath() {
 		return destPath;
@@ -42,20 +41,12 @@ public class Settings {
 	public void setPhotosPerPage(int photosPerPage) {
 		this.photosPerPage = photosPerPage;
 	}
-	
-	public String getThumbCommand() {
-		return thumbCommand;
+
+	public String getConvertPath() {
+		return convertPath;
 	}
 	
-	public void setThumbCommand(String thumbCommand) {
-		this.thumbCommand = thumbCommand;
-	}
-	
-	public String getResizedCommand() {
-		return resizedCommand;
-	}
-	
-	public void setResizedCommand(String resizedCommand) {
-		this.resizedCommand = resizedCommand;
+	public void setConvertPath(String convertPath) {
+		this.convertPath = convertPath;
 	}
 }

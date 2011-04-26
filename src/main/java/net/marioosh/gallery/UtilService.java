@@ -97,11 +97,11 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	 */
 	public byte[] thumb(String path) {
 		//String command = "c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe \""+ path + "\" -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 -";
-		String command = settings.getThumbCommand().replace("{INPUT}", "\""+path+"\"").replace("{OUTPUT}", "-");
-		log.debug(command);
+		//String command = settings.getThumbCommand().replace("{INPUT}", "\""+path+"\"").replace("{OUTPUT}", "-");
 		Process pr;
 		try {
-			pr = Runtime.getRuntime().exec(command);
+			// pr = Runtime.getRuntime().exec(command);
+			pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-resize", "100x", "-crop", "100x100+0+16", "+repage", "-strip", "-"});
 			/*
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			int nRead;
@@ -127,11 +127,11 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	 * @return
 	 */
 	public byte[] resized(String path) {
-		String command = settings.getResizedCommand().replace("{INPUT}", "\""+path+"\"").replace("{OUTPUT}", "-");
-		log.debug(command);
+				
 		Process pr;
 		try {
-			pr = Runtime.getRuntime().exec(command);
+			pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path, "-quality", "80", "-resize", "800x800", "-"});
+			// IOUtils.copy(pr.getErrorStream(), System.out);
 			return IOUtils.toByteArray(pr.getInputStream());
 			/*
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
