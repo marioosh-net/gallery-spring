@@ -51,6 +51,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	@Autowired
 	private Settings settings;
+	
+	@Autowired
+	private UtilService utilService;
 
 	@Override
 	public void setApplicationContext(ApplicationContext appContext)
@@ -162,7 +165,10 @@ public class FileService implements Serializable, ApplicationContextAware {
 						p.setModDate(new Date());
 
 						// !!!
-						p.setImg(f);
+						// p.setImg(IOUtils.toByteArray(new FileInputStream(f)));
+						p.setImg(utilService.resized(f.getAbsolutePath()));
+						p.setThumb(utilService.thumb(f.getAbsolutePath()));
+						
 						p.setFilePath(f);
 
 						p.setVisibility(Visibility.ADMIN);
@@ -236,4 +242,11 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 	}
 
+	/**
+	 * skanuj ktalog glowny w poszukiwaniu nowych albumow
+	 */
+	public void scan() {
+		log.debug("SCAN start");
+		log.debug("SCAN done");
+	}
 }

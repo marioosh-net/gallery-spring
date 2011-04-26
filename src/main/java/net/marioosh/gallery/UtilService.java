@@ -24,6 +24,7 @@ import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.Visibility;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,46 @@ public class UtilService implements Serializable, ApplicationContextAware {
 			}
 		}
 		return Visibility.PUBLIC;
-	}	
+	}
+	
+	/**
+	 * zwraca miniaturke w postaci byte[]
+	 * dla pliku podanego przez sciezke w systemie plikow
+	 * 
+	 * @param path sciezka absolutna w systemie plikow
+	 * @return miniaturka w postaci byte[]
+	 */
+	public byte[] thumb(String path) {
+		//String command = "c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe \""+ path + "\" -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 -";
+		String command = settings.getThumbCommand().replace("{INPUT}", "\""+path+"\"").replace("{OUTPUT}", "-");
+		log.debug(command);
+		Process pr;
+		try {
+			pr = Runtime.getRuntime().exec(command);
+			return IOUtils.toByteArray(pr.getInputStream());
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+		return null;		
+	}
+	
+	/**
+	 * obrazek pomniejszony (web friendly)
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public byte[] resized(String path) {
+		String command = settings.getResizedCommand().replace("{INPUT}", "\""+path+"\"").replace("{OUTPUT}", "-");
+		log.debug(command);
+		Process pr;
+		try {
+			pr = Runtime.getRuntime().exec(command);
+			return IOUtils.toByteArray(pr.getInputStream());
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+		return null;		
+	}
+	
 }

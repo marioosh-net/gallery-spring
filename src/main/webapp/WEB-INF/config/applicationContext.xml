@@ -94,17 +94,19 @@
 		-->
 		<property name="photosPerPage" value="24"/>
 		<property name="albumsPerPage" value="24"/>
+		<property name="thumbCommand" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe {INPUT} -resize 100x -crop 100x100+0+16 +repage -strip {OUTPUT}"/>
+		<property name="resizedCommand" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe {INPUT} -quality 80 -resize 800x800 {OUTPUT}" />
 	</bean>
 
-	<!-- scheduler
+	<!-- scheduler -->
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 	        <list>
-				<bean id="mailTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+				<bean id="scanTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 				    <property name="jobDetail">
 						<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-						  <property name="targetObject" ref="messageService" />
-						  <property name="targetMethod" value="sendPendingMessages" />
+						  <property name="targetObject" ref="fileService" />
+						  <property name="targetMethod" value="scan" />
 						  <property name="concurrent" value="false" />
 						</bean>	
 				    </property>
@@ -114,7 +116,6 @@
 	        </list>			
 		</property>
 	</bean>
-	-->
 	
 	<bean id="fileService" class="net.marioosh.gallery.FileService">
 	</bean>
