@@ -24,6 +24,7 @@ import net.marioosh.gallery.model.entities.Photo;
 import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.Visibility;
+import net.marioosh.gallery.utils.UndefinedUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -74,7 +75,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 		Resource root = appContext.getResource("file:" + settings.getRootPath());
 		try {
 			if (root.getFile() != null && root.getFile().isDirectory()) {
-				loadFiles(root.getFile(), true);
+				loadFiles(root.getFile(), root.getFile(), true);
 			} else {
 				log.error("ROOT PATH WRONG!");
 			}
@@ -106,7 +107,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	}
 
 	/**
-	 * przetworz pliki z podanego ktalogu
+	 * przetworz pliki z podanego ktalogu - file
 	 * w tej chwili nie moze byc wiecej niz jeden album o tej samej nazwie
 	 * nazwa albumu jest nazwa katalogu, wiec dla drugiego katalogu o tej samej
 	 * nazwie nie zostanie utworzony nowy album
@@ -114,51 +115,57 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * z tym samym hashem w albumie)
 	 * 
 	 * @param file
+	 * @param root
 	 * @param createEmptyAlbums
 	 * @throws IOException
 	 * @throws EntityVersionException
 	 */
-	private void loadFiles(File file, boolean createEmptyAlbums)
+	private void loadFiles(File root, File file, boolean createEmptyAlbums)
 			throws IOException {
 		File[] files = file.listFiles();
 		for (File f : files) {
 			// jest katalog, nie ma albumu w bazie i sa pliki wewnatrz
 			if (f.isDirectory()) {
-				if (!albumDAO.isAlbumExist(f.getName()) && (f.listFiles().length > 0 || createEmptyAlbums)) {
+				// if (!albumDAO.isAlbumExist(f.getName()) && (f.listFiles().length > 0 || createEmptyAlbums)) {
+				if(albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f))) == null && (f.listFiles().length > 0 || createEmptyAlbums)) {
 					Album a = new Album();
 					a.setModDate(new Date());
 					a.setName(f.getName());
-					a.setPath(f.getAbsolutePath());
+					a.setPath(UndefinedUtils.relativePath(root, f));
 					a.setVisibility(Visibility.ADMIN);
 					a.setHash(DigestUtils.md5Hex(a.getPath()));
 					Long albumId = albumDAO.add(a);
 					log.info("1 Album '" + f.getName() + "' [" + albumId + "] created.");
 				}
 				// przerob podkatalogi
-				loadFiles(f, createEmptyAlbums);
+				loadFiles(root, f, createEmptyAlbums);
 			} else {
 				// make fotki
 				String contentType = new MimetypesFileTypeMap().getContentType(f);
 				if (contentType.equals("image/jpeg") || contentType.equals("image/jpg")) {
-					Album a = albumDAO.getByName(file.getName());
+					// Album a = albumDAO.getByName(file.getName());
+					Album a = albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, file)));
 					Long albumId = 0L;
+					String albumHash = null;
 					if (a == null) {
 						a = new Album();
 						a.setModDate(new Date());
 						a.setName(file.getName());
-						a.setPath(file.getAbsolutePath());
+						a.setPath(UndefinedUtils.relativePath(root, file));
 						a.setVisibility(Visibility.ADMIN);
 						a.setHash(DigestUtils.md5Hex(a.getPath()));
 						albumId = albumDAO.add(a);
+						albumHash = a.getHash();
 						log.info("2 Album '" + file.getName() + "' [" + albumId + "] created.");
 					} else {
 						albumId = a.getId();
+						albumHash = a.getHash();
 					}
 					FileInputStream in = new FileInputStream(f);
-					String hash = DigestUtils.md5Hex(in);
-					// Photo p1 = photoDAO.getByHash(hash);
-					//if(p1 == null) {
-					if (true) {
+					String hash = DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f));
+					Long id = photoDAO.getByAlbumAndHash(albumHash, hash);
+					if(id == null) {
+					// if (true) {
 						Photo p = new Photo();
 						p.setHash(hash);
 						p.setAlbumId(albumId);
@@ -169,16 +176,19 @@ public class FileService implements Serializable, ApplicationContextAware {
 						p.setImg(utilService.resized(f.getAbsolutePath()));
 						p.setThumb(utilService.thumb(f.getAbsolutePath()));
 						
-						p.setFilePath(f);
+						p.setFilePath(UndefinedUtils.relativePath(root, f));
 
 						p.setVisibility(Visibility.ADMIN);
 						p.setName(f.getName());
 						photoDAO.add(p);
 						log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
-						/*} else {
-							log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
-							p1.setAlbumId(a.getId());
-							photoDAO.update(p1);*/
+					} else {
+						/*
+						log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
+						Photo p = photoDAO.get(id);
+						p.setAlbumId(a.getId());
+						photoDAO.update(p);
+						*/
 					}
 					in.close();
 				}
@@ -247,6 +257,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 */
 	public void scan() {
 		log.debug("SCAN start");
+		load();
 		log.debug("SCAN done");
 	}
+
 }

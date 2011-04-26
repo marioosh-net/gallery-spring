@@ -2,6 +2,7 @@ package net.marioosh.gallery;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,6 +58,9 @@ public class ImagesController implements ServletContextAware {
 	@Autowired
 	private UtilService utilService;
 	
+	@Autowired
+	private Settings settings;
+	
 	private ServletContext servletContext;
 
 	//@ResponseBody
@@ -87,7 +91,12 @@ public class ImagesController implements ServletContextAware {
 				log.debug(utilService.getCurrentVisibility().ordinal());
 				
 				if(m.get("file_path") != null && m.get("visibility") != null && (Integer)m.get("visibility") <= utilService.getCurrentVisibility().ordinal()) {
-					FileSystemResource resource = new FileSystemResource(getBigPhotoPath((String)m.get("file_path")));
+					File fullpath = new File(settings.getRootPath(), (String)m.get("file_path"));
+					String normalFullPath = fullpath.getAbsolutePath();
+					String bigFullPath = getBigPhotoPath(normalFullPath);
+					log.debug("BIG:"+bigFullPath);
+					
+					FileSystemResource resource = new FileSystemResource(bigFullPath);
 					IOUtils.copy(resource.getInputStream(), response.getOutputStream());			
 				} else {
 					throw new FileNotFoundException();

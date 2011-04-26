@@ -30,6 +30,7 @@ public class PhotoRowMapper implements RowMapper<Photo> {
 		photo.setThumb(rs.getBytes("thumb"));
 		photo.setAlbumId(rs.getLong("album_id"));
 		photo.setDescription(rs.getString("description"));
+		photo.setHash(rs.getString("hash"));
 		return photo;
 		
 	}

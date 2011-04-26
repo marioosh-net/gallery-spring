@@ -188,4 +188,15 @@ public class AlbumDAOImpl implements AlbumDAO {
 		jdbcTemplate.update("delete from tphoto");
 		jdbcTemplate.update("delete from talbum");		
 	}
+	
+	@Override
+	public Album getByHash(String hash) {
+		String sql = "select * from talbum where hash = ?";
+		try {
+			Album a = jdbcTemplate.queryForObject(sql, new Object[]{hash}, new AlbumRowMapper());
+			return a;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
 }

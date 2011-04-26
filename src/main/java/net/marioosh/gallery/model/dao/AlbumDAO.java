@@ -15,5 +15,6 @@ public interface AlbumDAO {
 	public Long getCover(Long albumId);
 	public boolean isAlbumExist(String name);
 	public Album getByName(String name);
+	public Album getByHash(String hash);
 	public void deleteAll();
 }

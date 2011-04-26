@@ -1,5 +1,6 @@
 package net.marioosh.gallery.utils;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import org.apache.log4j.Logger;
@@ -170,5 +171,11 @@ public class UndefinedUtils {
 		}
 		return p;
 	}
-	
+
+	public static String relativePath(File base, File path) {
+		return base.toURI().relativize(path.toURI()).getPath();
+	}
+	public static String relativePath(String base, String path) {
+		return new File(base).toURI().relativize(new File(path).toURI()).getPath();
+	}	
 }

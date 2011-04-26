@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import net.marioosh.gallery.model.dao.PhotoDAO;
+import net.marioosh.gallery.model.entities.Album;
 import net.marioosh.gallery.model.entities.Photo;
+import net.marioosh.gallery.model.helpers.AlbumRowMapper;
 import net.marioosh.gallery.model.helpers.BrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoRowMapper;
@@ -18,6 +20,7 @@ import net.marioosh.gallery.model.helpers.PhotoRowMapperInputStream;
 import net.marioosh.gallery.model.helpers.Visibility;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -316,5 +319,24 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}
 		String sql = "select "+c+" from tphoto where id = ?";
 		return jdbcTemplate.queryForMap(sql, id);
+	}
+	
+	@Override
+	public Long getByHash(String hash) {
+		String sql = "select id from tphoto where hash = ?";
+		try {
+			return jdbcTemplate.queryForLong(sql, hash);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	public Long getByAlbumAndHash(String albumHash, String hash) {
+		String sql = "select p.id from tphoto p, talbum a where p.hash = ? and p.album_id = a.id and a.hash = ?";
+		try {
+			return jdbcTemplate.queryForLong(sql, hash, albumHash);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}		
 	}
 }

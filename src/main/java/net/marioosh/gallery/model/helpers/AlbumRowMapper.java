@@ -27,6 +27,7 @@ public class AlbumRowMapper implements RowMapper<Album> {
 		album.setPath(rs.getString("path"));
 		album.setModDate(rs.getDate("mod_date"));
 		album.setId(rs.getLong("id"));
+		album.setHash(rs.getString("hash"));
 		return album;
 	}
 

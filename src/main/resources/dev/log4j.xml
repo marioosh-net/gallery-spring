@@ -77,6 +77,12 @@
 	<logger name="org.springframework.core.convert.support">
 		<level value="info"/>
 	</logger>
+	<logger name="org.springframework.jdbc.core">
+		<level value="debug"/>
+	</logger>
+	<logger name="org.springframework.jdbc.datasource">
+		<level value="info"/>
+	</logger>	
 	<!-- LOGGERY END -->
 
 	<!-- ROOT LOGGER -->

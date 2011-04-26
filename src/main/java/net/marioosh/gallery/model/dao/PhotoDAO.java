@@ -22,4 +22,6 @@ public interface PhotoDAO {
 	public InputStream getStream(Long id, int type) throws SQLException;
 	public Visibility nextVisbility(Long id);
 	public void updateVisibility(Long id, Visibility visibility);
+	public Long getByHash(String hash);
+	public Long getByAlbumAndHash(String albumHash, String hash);
 }
