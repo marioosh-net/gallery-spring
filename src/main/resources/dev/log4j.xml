@@ -26,6 +26,21 @@
 			<param name="ConversionPattern" value="%d %-5p %c{2} - %m%n" />
 		</layout>
 	</appender>
+	
+	<!-- wyjscie do pliku loga -->
+	<appender name="file_fileservice" class="org.apache.log4j.DailyRollingFileAppender">
+		<!-- sciezka do pliku loga -->
+		<param name="File" value="gallery_fileservice.log" />
+		<!-- dodawaj do pliku (przeciwienstwo: truncate) -->
+		<param name="Append" value="true" />
+		<!-- Rollover at midnight each day -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<!-- format -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c{2} - %m%n" />
+		</layout>
+	</appender>
+	
 	<!-- APPENDERY END -->
 
 	<!-- LOGGERY -->
@@ -82,7 +97,12 @@
 	</logger>
 	<logger name="org.springframework.jdbc.datasource">
 		<level value="info"/>
-	</logger>	
+	</logger>
+		
+	<logger name="net.marioosh.gallery.FileService">
+		<level value="debug" />
+		<appender-ref ref="file_fileservice"/>
+	</logger>
 	<!-- LOGGERY END -->
 
 	<!-- ROOT LOGGER -->
