@@ -243,9 +243,10 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	public void makePublic(Long albumId) {
 		log.debug("MAKE PUBLIC");
+		File root = getDir(settings.getRootPath());
 		Album a = albumDAO.get(albumId);
 		if (a != null) {
-			File f = new File(a.getPath(), "pubfiles");
+			File f = new File(new File(root, a.getPath()), "pubfiles");
 
 			PhotoBrowseParams browseParams = new PhotoBrowseParams();
 			browseParams.setVisibility(Visibility.ADMIN);
