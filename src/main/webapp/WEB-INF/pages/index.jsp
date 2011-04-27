@@ -43,7 +43,7 @@
 						<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
 					</security:authorize>
 					<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
-						<a href="#" class="modalInput" rel="#loginf"><spring:message code="button.login"/></a>
+						<a href="#" class="modalInput" onclick="openModal(this)" rel="#loginf"><spring:message code="button.login"/></a>
 					</security:authorize>
 					&#160;<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>					
 				</div>
@@ -63,17 +63,17 @@
 		<%-- admin global functions --%>
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
-				<%-- <a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/scan.html">SCAN</a> --%>
-				<a href="#" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<t:context/>/scan.html', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
+				<%-- <a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/scan.html">SCAN</a> --%>
+				<a href="#" onclick="openModal(this)" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<t:context/>/scan.html', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
 				<%-- <a href="#" id="testxx" class="modalInput modalInputClick" rel="#yesnoadmin" rev="alert('XX')">text-XX</a> --%>
-				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>
-				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/makepublic.html">make public</a>
-				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/unload.html">unload</a>
-				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/cleardb.html">cleardb</a>
-				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/testalbum.html', function(data){albums();covers();})">test album</a>
-				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
-				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html', function(data){albums();covers();})">make photos</a>
-				<a href="#" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>				
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/makepublic.html">make public</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/unload.html">unload</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/cleardb.html">cleardb</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/testalbum.html', function(data){albums();covers();})">test album</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/makephotos.html', function(data){albums();covers();})">make photos</a>
+				<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rel="#yesnoadmin" rev="jQuery.get('<t:context/>/shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>				
 			</div>
 			<t:modalyesno id="yesnoadmin">
 				<spring:message code="text.areYouSure"/>

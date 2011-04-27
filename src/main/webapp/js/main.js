@@ -5,71 +5,37 @@ jQuery(document).ready(function(){
 	/*searches();*/
 });
 
-function modals() {
-	  /* modal dialogs */
-	  jQuery(".modalInput").overlay({
+function openModal(selector) {
+	var trigger = jQuery(selector);
+	var yes = jQuery(trigger.attr('rel')).find('.yes').eq(0);
+	
+	if(trigger.hasClass('modalInputHref')) {
+		yes.attr('href', jQuery(trigger).attr('rev'));
+	}
+	if(trigger.hasClass('modalInputClick')) {
+		yes.unbind('click')
+			.click(new Function(trigger.attr('rev')))
+			.click(function(){trigger.data('overlay').close();});
+	}	
+	if (jQuery(selector).data('triggered')) {
+		jQuery(selector).overlay().load();
+	} else {
+		jQuery(selector).data('triggered', true);
+		jQuery(selector).overlay({
 			mask: {
-				color: '#aaa',
-				loadSpeed: 'fast',
-				opacity: 0.5
-			},
-			speed: 'fast',
-			closeOnClick: true,
-			onBeforeLoad: function(event) {
-				var element = event.originalTarget || event.srcElement;
-				// var trigger = jQuery('#'+element.id);
-				var trigger = jQuery(element);
-				var api = trigger.data('overlay');
-				if(trigger.hasClass('modalInputHref')) {
-					jQuery(trigger.attr('rel'))
-					.find('.yes').eq(0)
-					.attr('href', jQuery(trigger).attr('rev'));
-				}
-				if(trigger.hasClass('modalInputClick')) {
-					jQuery(trigger.attr('rel'))
-						.find('.yes').eq(0)
-						.unbind('click')
-						.click(new Function(trigger.attr('rev')))
-						.click(function(){api.close();});
-				}
-		    }
-			/* cos zamiast rel triggera 
-			,target: '#yesno' */
-	  });
-	  /* modal dialogs END */
+			color: '#aaa',
+			loadSpeed: 'fast',
+			opacity: 0.5
+		},
+		speed: 'fast',
+		closeOnClick: true,
+	    load: true
+		/* cos zamiast rel triggera 
+		,target: '#yesno' */			
+		});
+	}
 }
 
-function modalsold() {
-	  /* modal dialogs */
-	  jQuery(".modalInput").overlay({
-			mask: {
-				color: '#aaa',
-				loadSpeed: 'fast',
-				opacity: 0.5
-			},
-			speed: 'fast',
-			closeOnClick: true
-			/* cos zamiast rel triggera 
-			,target: '#yesno' */
-	  });
-	  jQuery('.modalInputHref').click(function(){
-		  var modal = jQuery(this).attr('rel');
-		  jQuery(modal).find('.yes').eq(0).attr('href', jQuery(this).attr('rev'));
-	  });
-	  jQuery('.modalInputClick').click(function(){
-		  var modal = jQuery(this).attr('rel');
-		  jQuery(modal).find('.yes').eq(0).unbind('click').click(new Function(jQuery(this).attr('rev')));
-	  });
-	  /* modal dialogs END */
-}
-function modalHref(el) {
-	var modal = jQuery(el).attr('rel');
-	jQuery(modal).find('.yes').eq(0).attr('href', jQuery(el).attr('rev'));	
-}
-function modalClick(el) {
-	var modal = jQuery(el).attr('rel');
-	jQuery(modal).find('.yes').eq(0).click(new Function(jQuery(el).attr('rev')));	
-}
 function covers() {
 	loading('#photos');
 	jQuery('#photos').load('covers.html');
@@ -134,29 +100,80 @@ function openOverlay(selector, text) {
 	}
 }
 
-//exif
-var exifReqPrev;
+/* get exif */
+var xhr;
 function exif(id) {
 	loading('#exif');
-	exifReqPrev = jQuery.get('exif.html?id='+id, function(data){
-		jQuery('#exif').html(data);
-		/*jQuery('#u'+id).attr('title',data);*/
+	xhr = jQuery.ajax({
+		url: 'exif.html?id='+id,
+		beforeSend: function() {
+			if(xhr && xhr.readystate != 4){
+	            xhr.abort();
+	        }		
+		},
+		success: function(data){
+			jQuery('#exif').html(data);
+			/*jQuery('#u'+id).attr('title',data);*/
+		}
 	});
-	/*
-    exifReq = new Ajax.Request('exif.html', {
-        parameters:{
-            'url': url
-        },
-        onCreate: function() {
-            if(exifReqPrev != null) {
-                exifReqPrev.transport.abort();
-            }
-            $('exif').update(new Loader('&nbsp;EXIF loading...').getLoader());
-        },
-        onComplete: function(request) {
-            $('exif').update(request.responseText);
-        }
-    });
-    exifReqPrev = exifReq;
-    */
 }
+
+/**
+ * NOT USED
+ * 
+function modalsnew() {
+	  jQuery(".modalInput").overlay({
+			mask: {
+				color: '#aaa',
+				loadSpeed: 'fast',
+				opacity: 0.5
+			},
+			speed: 'fast',
+			closeOnClick: true,
+			onBeforeLoad: function(event) {
+				var element = event.originalTarget || event.srcElement;
+				var trigger = jQuery(element);
+				var api = trigger.data('overlay');
+				if(trigger.hasClass('modalInputHref')) {
+					jQuery(trigger.attr('rel'))
+					.find('.yes').eq(0)
+					.attr('href', jQuery(trigger).attr('rev'));
+				}
+				if(trigger.hasClass('modalInputClick')) {
+					jQuery(trigger.attr('rel'))
+						.find('.yes').eq(0)
+						.unbind('click')
+						.click(new Function(trigger.attr('rev')))
+						.click(function(){api.close();});
+				}
+		    }
+	  });
+}
+function modalsold() {
+	  jQuery(".modalInput").overlay({
+			mask: {
+				color: '#aaa',
+				loadSpeed: 'fast',
+				opacity: 0.5
+			},
+			speed: 'fast',
+			closeOnClick: true
+	  });
+	  jQuery('.modalInputHref').click(function(){
+		  var modal = jQuery(this).attr('rel');
+		  jQuery(modal).find('.yes').eq(0).attr('href', jQuery(this).attr('rev'));
+	  });
+	  jQuery('.modalInputClick').click(function(){
+		  var modal = jQuery(this).attr('rel');
+		  jQuery(modal).find('.yes').eq(0).unbind('click').click(new Function(jQuery(this).attr('rev')));
+	  });
+}
+function modalHref(el) {
+	var modal = jQuery(el).attr('rel');
+	jQuery(modal).find('.yes').eq(0).attr('href', jQuery(el).attr('rev'));	
+}
+function modalClick(el) {
+	var modal = jQuery(el).attr('rel');
+	jQuery(modal).find('.yes').eq(0).click(new Function(jQuery(el).attr('rev')));	
+}
+*/

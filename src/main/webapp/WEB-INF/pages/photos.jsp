@@ -17,7 +17,7 @@
 					<security:authorize ifAnyGranted="ROLE_ADMIN">
 						<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=PUBLIC"><spring:message code="button.publicAllPhotos"/></a>
 						<img class="icon" src="images/key.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=USER"><spring:message code="button.privateAllPhotos"/></a>
-						<a href="#" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
+						<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon" src="images/list_remove_btn.gif"/><spring:message code="button.delete"/></a>
 						<form:form modelAttribute="album" cssClass="sform" id="al" action="index.html">
 							<form:hidden path="id"/>
 							<form:hidden path="hash"/>
@@ -106,8 +106,8 @@
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
-							<a href="#" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
-							<%-- <a href="#" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
+							<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
+							<%-- <a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
 						</div>						
 					</div>
 				</security:authorize>
@@ -162,7 +162,7 @@
 </c:if>
 
 <script type="text/javascript">
-	modals();
+	/*modals();*/
 	/* jQuery('.ttip[title]').tooltip({
 		onBeforeShow: function() {
 			var trigger = this.getTrigger();
