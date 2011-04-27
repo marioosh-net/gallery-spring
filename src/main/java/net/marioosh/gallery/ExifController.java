@@ -38,6 +38,9 @@ public class ExifController implements ServletContextAware {
 
 	@Autowired
 	private PhotoDAO photoDAO;
+	
+	@Autowired
+	private Settings settings;
 
 	private ServletContext servletContext;
 
@@ -47,7 +50,9 @@ public class ExifController implements ServletContextAware {
 		String path = photoDAO.get(id).getFilePath();
 		StringBuilder sb = new StringBuilder();
 		try {
-			ExifReader reader = new ExifReader(new File(path));
+			File fullpath = new File(new File(settings.getRootPath()), path);
+			log.info("FILE PATH: "+fullpath.getAbsolutePath());
+			ExifReader reader = new ExifReader(fullpath);
 			Metadata meta = reader.extract();
 			Iterator<Directory> i = meta.getDirectoryIterator();
 			int j = 0;
