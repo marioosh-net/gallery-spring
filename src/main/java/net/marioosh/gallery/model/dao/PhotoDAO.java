@@ -24,4 +24,7 @@ public interface PhotoDAO {
 	public void updateVisibility(Long id, Visibility visibility);
 	public Long getByHash(String hash);
 	public Long getByAlbumAndHash(String albumHash, String hash);
+	public boolean rotate(Long id, boolean left);
+	public boolean reload(Long id);
+	public String getAbsolutePath(Long id);
 }

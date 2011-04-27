@@ -9,6 +9,7 @@ public class Settings {
 	private int photosPerPage = 24;
 	private int albumsPerPage = 24;
 	private String convertPath;
+	private String mogrifyPath;
 
 	public String getDestPath() {
 		return destPath;
@@ -48,5 +49,13 @@ public class Settings {
 	
 	public void setConvertPath(String convertPath) {
 		this.convertPath = convertPath;
+	}
+	
+	public String getMogrifyPath() {
+		return mogrifyPath;
+	}
+	
+	public void setMogrifyPath(String mogrifyPath) {
+		this.mogrifyPath = mogrifyPath;
 	}
 }

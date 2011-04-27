@@ -220,6 +220,17 @@ public class MainController {
 		}
 		return "0";
 	}
+	
+	@Secured("ROLE_ADMIN")
+	@ResponseBody
+	@RequestMapping("/rotate.html")
+	public String rotate(@RequestParam("id") Long id, @RequestParam("left") int left) {
+		try {
+			return photoDAO.rotate(id, left == 1) == true ? "0" : "1";
+		} catch (Exception e) {
+			return "1";
+		}
+	}
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/deletephoto2.html")

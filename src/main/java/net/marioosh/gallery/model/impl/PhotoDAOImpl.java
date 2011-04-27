@@ -1,5 +1,6 @@
 package net.marioosh.gallery.model.impl;
 
+import java.io.File;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+import net.marioosh.gallery.Settings;
+import net.marioosh.gallery.UtilService;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.entities.Album;
 import net.marioosh.gallery.model.entities.Photo;
@@ -40,6 +43,12 @@ public class PhotoDAOImpl implements PhotoDAO {
 	public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+	
+	@Autowired
+	private Settings settings;
+	
+	@Autowired
+	private UtilService utilService;
 
 	public Photo get(Long id) {
 		String sql = "select * from tphoto where id = ?";
@@ -338,5 +347,46 @@ public class PhotoDAOImpl implements PhotoDAO {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}		
+	}
+	
+	public boolean rotate(Long id, boolean left) {
+		try {
+			if(utilService.rotateInPlace(getAbsolutePath(id), left)) {
+				return reload(id);
+			}
+		} catch(Exception e) {
+			log.error(e.getMessage());
+		}
+		return false;
+	}
+	
+	public boolean reload(Long id) {
+		try {
+			String path = getAbsolutePath(id);
+			if(path != null) {
+				Object[] params = {utilService.resized(path), utilService.thumb(path),  new Date(), id};
+				int[] types = {Types.BINARY, Types.BINARY, Types.TIMESTAMP, Types.BIGINT};
+				jdbcTemplate.update("update tphoto set img = ?, thumb = ?, mod_date = ? where id = ?", params, types);
+				return true;
+			}
+		} catch(Exception e) {
+			log.error(e.getMessage());
+		}
+		return false;
+	}
+	
+	public String getAbsolutePath(Long id) {
+		try {
+			Map<String, Object> map = get(id, new String[]{"id", "file_path"});
+			String p = (String) map.get("file_path");
+			File f = new File(settings.getRootPath(), p);
+			if(f.isFile()) {
+				return f.getAbsolutePath();
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return null;
+		}
+		return null;
 	}
 }

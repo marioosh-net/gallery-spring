@@ -96,26 +96,8 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	 * @return miniaturka w postaci byte[]
 	 */
 	public byte[] thumb(String path) {
-		//String command = "c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe \""+ path + "\" -thumbnail x200 -resize '200x<' -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 -";
-		//String command = settings.getThumbCommand().replace("{INPUT}", "\""+path+"\"").replace("{OUTPUT}", "-");
-		Process pr;
 		try {
-			// pr = Runtime.getRuntime().exec(command);
-			//pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-thumbnail", "x200", "-resize", "'200x<'", "-resize 50%", "-gravity", "center", "-crop", "100x100+0+0", "+repage", "-format", "jpg", "-quality", "91", "-"});
-			//pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-resize", "100x", "-crop", "100x100+0+16", "+repage", "-strip", "-gravity", "center", "-"});
-			pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-thumbnail", "100x100^", "-gravity", "center", "-extent", "100x100", "-"});
-			
-			/*
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int nRead;
-			byte[] data = new byte[16384];
-			while ((nRead = pr.getInputStream().read(data, 0, data.length)) != -1) {
-			  buffer.write(data, 0, nRead);
-			}
-			buffer.flush();
-			return buffer.toByteArray();
-			*/
-			// return IOUtils.toByteArray(IOUtils.toBufferedInputStream(pr.getInputStream()));
+			Process pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-thumbnail", "100x100^", "-gravity", "center", "-extent", "100x100", "-"});
 			return IOUtils.toByteArray(pr.getInputStream());
 		} catch (IOException e) {
 			log.error(e.getMessage());
@@ -130,27 +112,27 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	 * @return
 	 */
 	public byte[] resized(String path) {
-				
-		Process pr;
 		try {
-			pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path, "-quality", "80", "-resize", "800x800", "-"});
-			// IOUtils.copy(pr.getErrorStream(), System.out);
+			Process pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path, "-quality", "80", "-resize", "800x800", "-"});
 			return IOUtils.toByteArray(pr.getInputStream());
-			/*
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int nRead;
-			byte[] data = new byte[16384];
-			while ((nRead = pr.getInputStream().read(data, 0, data.length)) != -1) {
-			  buffer.write(data, 0, nRead);
-			}
-			buffer.flush();
-			return buffer.toByteArray();
-			*/
-			// return IOUtils.toByteArray(IOUtils.toBufferedInputStream(pr.getInputStream()));
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
 		return null;		
+	}
+	
+	public boolean rotateInPlace(String path, boolean left) {
+		try {
+			int degrees = 270;
+			if(left) {
+				degrees = 90;
+			}
+			Process pr = Runtime.getRuntime().exec(new String[]{settings.getMogrifyPath(), "-rotate", ""+degrees, path});
+			return true;
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+		return false;
 	}
 
 	public byte[] thumb2(String path) {

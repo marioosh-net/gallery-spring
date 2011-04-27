@@ -106,7 +106,9 @@
 						</div>				
 						<div>
 							<img src="images/list_remove_btn.gif">&nbsp;
-							<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a>											
+							<a href="#" onclick="openModal(this)" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a><br/>											
+							<a href="#"  onclick="jQuery.get('rotate.html?id=${p['id']}&amp;left=1',function(data){if(data == '0'){  }});" ><spring:message code="button.rotateLeft"/></a><br/>
+							<a href="#"  onclick="jQuery.get('rotate.html?id=${p['id']}&amp;left=0',function(data){if(data == '0'){  }});" ><spring:message code="button.rotateRight"/></a>
 							<%-- <a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
 						</div>						
 					</div>

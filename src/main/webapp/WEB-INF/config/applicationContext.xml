@@ -94,8 +94,12 @@
 		-->
 		<property name="photosPerPage" value="24"/>
 		<property name="albumsPerPage" value="24"/>
-		<!-- <property name="convertPath" value="/usr/bin/convert"/> -->
+		<!-- 
+		<property name="convertPath" value="/usr/bin/convert"/>
+		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
+		-->
 		<property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
+		<property name="mogrifyPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\mogrify.exe"/>
 	</bean>
 
 	<!-- scheduler
