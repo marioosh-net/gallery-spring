@@ -99,10 +99,12 @@
 		<level value="info"/>
 	</logger>
 		
+	<!--
 	<logger name="net.marioosh.gallery.FileService">
 		<level value="debug" />
 		<appender-ref ref="file_fileservice"/>
 	</logger>
+	-->
 	<!-- LOGGERY END -->
 
 	<!-- ROOT LOGGER -->
