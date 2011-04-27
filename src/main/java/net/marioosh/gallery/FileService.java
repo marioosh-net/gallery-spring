@@ -172,6 +172,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 					try {
 						FileInputStream in = new FileInputStream(f);
+						// hash jest liczony z wzglednej (wg glownego ktalogu) sciezki do pliku
 						String hash = DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f));
 						Long id = photoDAO.getByAlbumAndHash(albumHash, hash);
 						if (id == null) {
