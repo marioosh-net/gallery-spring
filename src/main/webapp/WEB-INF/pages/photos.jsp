@@ -11,7 +11,7 @@
 				<img src="<t:context/>/p.html?type=2&amp;id=${album.id}"/>
 			</div>
 			<div class="left ainfo">
-				<div class="album-name">${album.name}</div>
+				<div class="album-name">${album.name}<span style="display: none;" class="album-path">(${album.path})</span></div>
 				<div class="album-date">${album.modDate}</div>
 				<div>
 					<security:authorize ifAnyGranted="ROLE_ADMIN">

@@ -169,6 +169,12 @@ form {
 #album .ainfo .album-date {
 	color: silver;
 }
+#album .ainfo .album-name {
+	color: #fff;
+}
+#album .album-path {
+	padding-left: 5px;
+}
 /* album info END*/
 
 /* album funcs */

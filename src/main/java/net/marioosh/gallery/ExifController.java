@@ -114,7 +114,7 @@ public class ExifController implements ServletContextAware {
 			log.debug(e.getMessage());
 			return "<div class=\"exif-header\">EXIF</div>No EXIF Data";
 		}
-		return sb.toString();
+		return sb.toString().isEmpty() ? "<div class=\"exif-header\">EXIF</div>No EXIF Data" : sb.toString();
 	}
 
 	@Override
