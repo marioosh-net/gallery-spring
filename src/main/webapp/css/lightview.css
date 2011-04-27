@@ -12,9 +12,6 @@
 	padding: 0;
 	text-align: left;
 }
-#lightview a:hover {
-    color: #5ccccc;
-}
 
 /* The container that holds everything */
 .lv_Container {
@@ -272,6 +269,10 @@
 .lv_DataText .lv_Title {
 	font-weight: bold;
 	margin-bottom: 2px;
+}
+.lv_Title a:hover {
+    color: #000;
+    text-decoration: none;
 }
 .lv_DataText .lv_Caption { clear: both; }
 .lv_Data .lv_ImgNumber {
