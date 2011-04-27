@@ -12,6 +12,9 @@
 	padding: 0;
 	text-align: left;
 }
+#lightview a:hover {
+    color: #5ccccc;
+}
 
 /* The container that holds everything */
 .lv_Container {
