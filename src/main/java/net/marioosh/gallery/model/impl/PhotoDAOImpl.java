@@ -364,6 +364,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		try {
 			String path = getAbsolutePath(id);
 			if(path != null) {
+				log.debug("RELOADING " + path + " ...");
 				Object[] params = {utilService.resized(path), utilService.thumb(path),  new Date(), id};
 				int[] types = {Types.BINARY, Types.BINARY, Types.TIMESTAMP, Types.BIGINT};
 				jdbcTemplate.update("update tphoto set img = ?, thumb = ?, mod_date = ? where id = ?", params, types);
