@@ -16,7 +16,7 @@
 	<!-- wyjscie do pliku loga -->
 	<appender name="file_all" class="org.apache.log4j.DailyRollingFileAppender">
 		<!-- sciezka do pliku loga -->
-		<param name="File" value="logfile.log" />
+		<param name="File" value="${catalina.home}/logs/gallery.log" />
 		<!-- dodawaj do pliku (przeciwienstwo: truncate) -->
 		<param name="Append" value="true" />
 		<!-- Rollover at midnight each day -->
