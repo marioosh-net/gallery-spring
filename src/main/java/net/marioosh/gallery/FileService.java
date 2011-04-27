@@ -65,6 +65,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 	public FileService() {
 		log.info(this);
 	}
+	
+	private int photosCount;
+	private int albumsCount;
 
 	/**
 	 * utworz albumy w bazie na podstawie systemu plikow na dysku
@@ -72,6 +75,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 	public void load() {
 		long start = System.currentTimeMillis();
 		log.info("load()");
+		photosCount = 0;
+		albumsCount = 0;
 		Resource root = appContext.getResource("file:" + settings.getRootPath());
 		try {
 			if (root.getFile() != null && root.getFile().isDirectory()) {
@@ -136,6 +141,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					a.setHash(DigestUtils.md5Hex(a.getPath()));
 					Long albumId = albumDAO.add(a);
 					log.info("1 Album '" + f.getName() + "' [" + albumId + "] created.");
+					albumsCount++;
 				}
 				// przerob podkatalogi
 				loadFiles(root, f, createEmptyAlbums);
@@ -157,6 +163,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 						albumId = albumDAO.add(a);
 						albumHash = a.getHash();
 						log.info("2 Album '" + file.getName() + "' [" + albumId + "] created.");
+						albumsCount++;
 					} else {
 						albumId = a.getId();
 						albumHash = a.getHash();
@@ -182,6 +189,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 						p.setName(f.getName());
 						photoDAO.add(p);
 						log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
+						photosCount++;
 					} else {
 						/*
 						log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
@@ -258,7 +266,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	public void scan() {
 		log.debug("SCAN start");
 		load();
-		log.debug("SCAN done");
+		log.debug("SCAN done [photos added: "+photosCount +", albums added: "+albumsCount+"]");
 	}
 
 }
