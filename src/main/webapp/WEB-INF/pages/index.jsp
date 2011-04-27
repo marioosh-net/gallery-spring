@@ -37,6 +37,7 @@
 					<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
 				</div>
 				<div class="right" style="margin-top: 10px;">
+					<span id="main-progress" style="display: none;"><img src="<t:context/>/images/ajax-loader5.gif"/></span>
 					<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 						<span class="username"><security:authentication property="principal.username" /></span>
 						<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
@@ -62,6 +63,9 @@
 		<%-- admin global functions --%>
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
+				<%-- <a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/scan.html">SCAN</a> --%>
+				<a href="#" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<t:context/>/scan.html', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
+				<%-- <a href="#" id="testxx" class="modalInput modalInputClick" rel="#yesnoadmin" rev="alert('XX')">text-XX</a> --%>
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/load.html">load</a>
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/makepublic.html">make public</a>
 				<a href="#" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<t:context/>/unload.html">unload</a>
@@ -74,6 +78,9 @@
 			<t:modalyesno id="yesnoadmin">
 				<spring:message code="text.areYouSure"/>
 			</t:modalyesno>
+			<t:modal id="scaned" text="true">
+			</t:modal>
+			
 		</security:authorize>
 	
 		<%--

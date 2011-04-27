@@ -261,6 +261,15 @@ public class MainController {
 		return "redirect:/index.html";
 	}
 
+	@ResponseBody
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/scan.html")
+	public String scan() {
+		int[] s = fileService.scan();
+		// return "redirect:/index.html";
+		return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
+	}
+	
 	@Secured("ROLE_ADMIN")
 	@ResponseBody
 	@RequestMapping("/changevisibility.html")	

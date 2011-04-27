@@ -86,19 +86,19 @@
 	<mvc:view-controller path="/error.html" view-name="error"/>
 
 	<bean id="settings" class="net.marioosh.gallery.Settings">
-		<!--
 		<property name="rootPath" value="C:\moje\download\photos"/>
 		<property name="destPath" value="C:\moje\download\photos_out"/>
-		-->
+		<!--
 		<property name="rootPath" value="/home/marioosh/my/photos_cameras/copy"/>
 		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
-
+		-->
 		<property name="photosPerPage" value="24"/>
 		<property name="albumsPerPage" value="24"/>
-		<property name="convertPath" value="/usr/bin/convert"/>
+		<!-- <property name="convertPath" value="/usr/bin/convert"/> -->
+		<property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
 	</bean>
 
-	<!-- scheduler -->
+	<!-- scheduler
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 	        <list>
@@ -116,6 +116,7 @@
 	        </list>			
 		</property>
 	</bean>
+	-->
 	
 	<bean id="fileService" class="net.marioosh.gallery.FileService">
 	</bean>

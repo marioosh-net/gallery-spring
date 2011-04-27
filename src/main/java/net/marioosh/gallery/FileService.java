@@ -52,7 +52,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	@Autowired
 	private Settings settings;
-	
+
 	@Autowired
 	private UtilService utilService;
 
@@ -65,9 +65,22 @@ public class FileService implements Serializable, ApplicationContextAware {
 	public FileService() {
 		log.info(this);
 	}
-	
+
 	private int photosCount;
 	private int albumsCount;
+
+	public File getDir(String path) {
+		try {
+			Resource root = appContext.getResource("file:" + path);
+			if (root.getFile() != null && root.getFile().isDirectory()) {
+				return root.getFile();
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return null;
+		}
+		return null;
+	}
 
 	/**
 	 * utworz albumy w bazie na podstawie systemu plikow na dysku
@@ -77,15 +90,11 @@ public class FileService implements Serializable, ApplicationContextAware {
 		log.info("load()");
 		photosCount = 0;
 		albumsCount = 0;
-		Resource root = appContext.getResource("file:" + settings.getRootPath());
-		try {
-			if (root.getFile() != null && root.getFile().isDirectory()) {
-				loadFiles(root.getFile(), root.getFile(), true);
-			} else {
-				log.error("ROOT PATH WRONG!");
-			}
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
+		File root = getDir(settings.getRootPath());
+		if (root != null) {
+			loadFiles(root, root, true);
+		} else {
+			log.error("ROOT PATH WRONG!");
 		}
 		long stop = System.currentTimeMillis();
 		log.info((stop - start) + "ms");
@@ -94,21 +103,14 @@ public class FileService implements Serializable, ApplicationContextAware {
 	public void unload() {
 		long start = System.currentTimeMillis();
 		log.info("unload()");
-		Resource root = appContext.getResource("file:" + settings.getDestPath());
-		try {
-			if (root.getFile() != null && root.getFile().isDirectory()) {
-				unloadFiles(root.getFile(), true);
-			} else {
-				log.error("DEST PATH WRONG!");
-			}
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
-		} catch (SQLException e) {
-			log.error(e.getMessage(), e);
-		} finally {
-			long stop = System.currentTimeMillis();
-			log.info((stop - start) + "ms");			
+		File root = getDir(settings.getDestPath());
+		if(root != null) {
+			unloadFiles(root, true);
+		} else {
+			log.error("DEST PATH WRONG!");
 		}
+		long stop = System.currentTimeMillis();
+		log.info((stop - start) + "ms");
 	}
 
 	/**
@@ -125,14 +127,13 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * @throws IOException
 	 * @throws EntityVersionException
 	 */
-	private void loadFiles(File root, File file, boolean createEmptyAlbums)
-			throws IOException {
+	private void loadFiles(File root, File file, boolean createEmptyAlbums) {
 		File[] files = file.listFiles();
 		for (File f : files) {
 			// jest katalog, nie ma albumu w bazie i sa pliki wewnatrz
 			if (f.isDirectory()) {
 				// if (!albumDAO.isAlbumExist(f.getName()) && (f.listFiles().length > 0 || createEmptyAlbums)) {
-				if(albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f))) == null && (f.listFiles().length > 0 || createEmptyAlbums)) {
+				if (albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f))) == null && (f.listFiles().length > 0 || createEmptyAlbums)) {
 					Album a = new Album();
 					a.setModDate(new Date());
 					a.setName(f.getName());
@@ -168,84 +169,100 @@ public class FileService implements Serializable, ApplicationContextAware {
 						albumId = a.getId();
 						albumHash = a.getHash();
 					}
-					FileInputStream in = new FileInputStream(f);
-					String hash = DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f));
-					Long id = photoDAO.getByAlbumAndHash(albumHash, hash);
-					if(id == null) {
-					// if (true) {
-						Photo p = new Photo();
-						p.setHash(hash);
-						p.setAlbumId(albumId);
-						p.setModDate(new Date());
 
-						// !!!
-						// p.setImg(IOUtils.toByteArray(new FileInputStream(f)));
-						p.setImg(utilService.resized(f.getAbsolutePath()));
-						p.setThumb(utilService.thumb(f.getAbsolutePath()));
-						
-						p.setFilePath(UndefinedUtils.relativePath(root, f));
+					try {
+						FileInputStream in = new FileInputStream(f);
+						String hash = DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f));
+						Long id = photoDAO.getByAlbumAndHash(albumHash, hash);
+						if (id == null) {
+							// if (true) {
+							Photo p = new Photo();
+							p.setHash(hash);
+							p.setAlbumId(albumId);
+							p.setModDate(new Date());
 
-						p.setVisibility(Visibility.ADMIN);
-						p.setName(f.getName());
-						photoDAO.add(p);
-						log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
-						photosCount++;
-					} else {
-						/*
-						log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
-						Photo p = photoDAO.get(id);
-						p.setAlbumId(a.getId());
-						photoDAO.update(p);
-						*/
+							// !!!
+							// p.setImg(IOUtils.toByteArray(new FileInputStream(f)));
+							p.setImg(utilService.resized(f.getAbsolutePath()));
+							p.setThumb(utilService.thumb(f.getAbsolutePath()));
+
+							p.setFilePath(UndefinedUtils.relativePath(root, f));
+
+							p.setVisibility(Visibility.ADMIN);
+							p.setName(f.getName());
+							photoDAO.add(p);
+							log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
+							photosCount++;
+						} else {
+							/*
+							log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
+							Photo p = photoDAO.get(id);
+							p.setAlbumId(a.getId());
+							photoDAO.update(p);
+							*/
+						}
+						in.close();
+					} catch (Exception e) {
+						log.error(e.getMessage());
 					}
-					in.close();
 				}
 			}
 		}
 	}
 
-	private void unloadFiles(File file, boolean createEmptyDirectories)
-			throws IOException, SQLException {
-		String basePath = file.getAbsolutePath();
+	private void unloadFiles(File dest, boolean createEmptyDirectories)
+			{
+		String basePath = dest.getAbsolutePath();
 		AlbumBrowseParams browseParams = new AlbumBrowseParams();
 		browseParams.setVisibility(Visibility.ADMIN);
 		for (Album a : albumDAO.findAll(browseParams)) {
-			File fa = new File(basePath, a.getName());
+			File fa = new File(basePath, a.getPath());
 			fa.mkdirs();
 			log.debug("Create directory: '" + fa.getAbsolutePath() + "'");
 			PhotoBrowseParams browseParams1 = new PhotoBrowseParams();
 			browseParams1.setVisibility(Visibility.ADMIN);
 			browseParams1.setAlbumId(a.getId());
-			for (Map<String, Object> m : photoDAO.findAll(browseParams1, new String[]{"id","name"})) {
-				File fp = new File(new File(basePath, a.getName()).getPath(), (String)m.get("name"));
-				FileOutputStream out = new FileOutputStream(fp);
-				IOUtils.copy(photoDAO.getStream((Long)m.get("id"), 0), out);
-				out.close();
-				log.debug("Create image: '" + fp.getAbsolutePath() + "'");
+			for (Map<String, Object> m : photoDAO.findAll(browseParams1, new String[] {"id", "name", "file_path"})) {
+				File fp = new File(basePath, (String) m.get("file_path"));
+				FileOutputStream out;
+				try {
+					out = new FileOutputStream(fp);
+					IOUtils.copy(photoDAO.getStream((Long) m.get("id"), 0), out);
+					out.close();
+					log.debug("Create image: '" + fp.getAbsolutePath() + "'");
+				} catch (FileNotFoundException e) {
+					log.error(e.getMessage());
+				} catch (IOException e) {
+					log.error(e.getMessage());
+				} catch (SQLException e) {
+					log.error(e.getMessage());
+				}
 			}
 		}
 	}
 
-	public void makePublic(Long albumId)  {
+	public void makePublic(Long albumId) {
 		log.debug("MAKE PUBLIC");
 		Album a = albumDAO.get(albumId);
-		if(a != null) {
+		if (a != null) {
 			File f = new File(a.getPath(), "pubfiles");
-			
+
 			PhotoBrowseParams browseParams = new PhotoBrowseParams();
 			browseParams.setVisibility(Visibility.ADMIN);
 			browseParams.setAlbumId(albumId);
-			List<Map<String,Object>> l = photoDAO.findAll(browseParams, new String[]{"name","id"});
-			
+			List<Map<String, Object>> l = photoDAO.findAll(browseParams, new String[] {
+			"name", "id"
+			});
+
 			try {
 				FileInputStream fstream = new FileInputStream(f);
 				DataInputStream in = new DataInputStream(fstream);
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
-					for(Map<String,Object> m: l) {
-						if(m.get("name") != null && m.get("name").equals(strLine)) {
-							photoDAO.updateVisibility((Long)m.get("id"), Visibility.PUBLIC);
+					for (Map<String, Object> m : l) {
+						if (m.get("name") != null && m.get("name").equals(strLine)) {
+							photoDAO.updateVisibility((Long) m.get("id"), Visibility.PUBLIC);
 							a.setVisibility(Visibility.PUBLIC);
 							albumDAO.update(a);
 							break;
@@ -263,10 +280,11 @@ public class FileService implements Serializable, ApplicationContextAware {
 	/**
 	 * skanuj ktalog glowny w poszukiwaniu nowych albumow
 	 */
-	public void scan() {
-		log.debug("SCAN start");
+	public int[] scan() {
+		log.info("SCAN start");
 		load();
-		log.debug("SCAN done [photos added: "+photosCount +", albums added: "+albumsCount+"]");
+		log.info("SCAN done [photos added: " + photosCount + ", albums added: " + albumsCount + "]");
+		return new int[] {albumsCount, photosCount};
 	}
 
 }
