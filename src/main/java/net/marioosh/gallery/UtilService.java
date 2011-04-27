@@ -96,6 +96,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	 * @return miniaturka w postaci byte[]
 	 */
 	public byte[] thumb(String path) {
+		log.info("THUMB file: "+path);
 		try {
 			Process pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path,  "-thumbnail", "100x100^", "-gravity", "center", "-extent", "100x100", "-"});
 			return IOUtils.toByteArray(pr.getInputStream());
@@ -112,6 +113,7 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	 * @return
 	 */
 	public byte[] resized(String path) {
+		log.info("RESIZE file: "+path);
 		try {
 			Process pr = Runtime.getRuntime().exec(new String[]{settings.getConvertPath(), path, "-quality", "80", "-resize", "800x800", "-"});
 			return IOUtils.toByteArray(pr.getInputStream());
@@ -122,10 +124,11 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	}
 	
 	public boolean rotateInPlace(String path, boolean left) {
+		log.info("ROTATE "+(left ? "left" : "right") + " file: "+path);
 		try {
-			int degrees = 270;
+			int degrees = 90;
 			if(left) {
-				degrees = 90;
+				degrees = 270;
 			}
 			Process pr = Runtime.getRuntime().exec(new String[]{settings.getMogrifyPath(), "-rotate", ""+degrees, path});
 			return true;
