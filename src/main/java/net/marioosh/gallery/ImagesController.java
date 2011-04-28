@@ -176,6 +176,7 @@ public class ImagesController implements ServletContextAware {
 		URLConnection uc = url.openConnection();
 		InputStream is = uc.getInputStream();
 		
+		response.setContentType("image/jpeg");
 		IOUtils.copy(is, response.getOutputStream());
 	}
 	
