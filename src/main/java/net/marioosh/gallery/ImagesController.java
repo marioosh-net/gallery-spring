@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
@@ -161,7 +162,7 @@ public class ImagesController implements ServletContextAware {
 		}
 	}
 
-	@RequestMapping("/picnik.html")
+	@RequestMapping(value="/picnik.html", method=RequestMethod.POST)
 	public void picnik(@RequestParam Long id, @RequestParam("file") byte[] file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
 		log.info("PICNIK-GET: " + file.length);
