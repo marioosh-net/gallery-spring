@@ -1,1 +1,1 @@
-http://<%= request.getServerName() %>:<%= request.getServerPort() %>
+http://<%= request.getServerName() %><%--:<%= request.getServerPort() --%>
