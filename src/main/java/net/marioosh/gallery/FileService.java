@@ -138,7 +138,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					a.setModDate(new Date());
 					a.setName(f.getName());
 					a.setPath(UndefinedUtils.relativePath(root, f));
-					a.setVisibility(Visibility.ADMIN);
+					a.setVisibility(Visibility.USER);
 					a.setHash(DigestUtils.md5Hex(a.getPath()));
 					Long albumId = albumDAO.add(a);
 					log.info("1 Album '" + f.getName() + "' [" + albumId + "] created.");
@@ -159,7 +159,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 						a.setModDate(new Date());
 						a.setName(file.getName());
 						a.setPath(UndefinedUtils.relativePath(root, file));
-						a.setVisibility(Visibility.ADMIN);
+						a.setVisibility(Visibility.USER);
 						a.setHash(DigestUtils.md5Hex(a.getPath()));
 						albumId = albumDAO.add(a);
 						albumHash = a.getHash();
@@ -189,7 +189,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 							p.setFilePath(UndefinedUtils.relativePath(root, f));
 
-							p.setVisibility(Visibility.ADMIN);
+							p.setVisibility(Visibility.USER);
 							p.setName(f.getName());
 							photoDAO.add(p);
 							log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
