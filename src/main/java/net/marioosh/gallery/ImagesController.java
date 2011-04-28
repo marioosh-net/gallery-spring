@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -174,10 +175,16 @@ public class ImagesController implements ServletContextAware {
 	
 		URL url = new URL(file);
 		URLConnection uc = url.openConnection();
-		InputStream is = uc.getInputStream();
+		InputStream in = uc.getInputStream();
 		
+		OutputStream out = new FileOutputStream(new File(photoDAO.getAbsolutePath(id)));
+		IOUtils.copy(in, out);
+		photoDAO.reload(id);
+		
+		/* pokaz obrazek
 		response.setContentType("image/jpeg");
-		IOUtils.copy(is, response.getOutputStream());
+		IOUtils.copy(in, response.getOutputStream());
+		*/
 	}
 	
 	/**
