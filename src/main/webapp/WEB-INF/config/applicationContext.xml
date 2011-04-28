@@ -86,19 +86,18 @@
 	<mvc:view-controller path="/error.html" view-name="error"/>
 
 	<bean id="settings" class="net.marioosh.gallery.Settings">
-        <!--
-		<property name="rootPath" value="C:\moje\download\photos"/>
-		<property name="destPath" value="C:\moje\download\photos_out"/>
-        -->
-		<property name="rootPath" value="/mnt/data2/photos"/>
-		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
 		<property name="photosPerPage" value="24"/>
 		<property name="albumsPerPage" value="24"/>
-		<property name="convertPath" value="/usr/bin/convert"/>
-		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
-		<!-- 
+		<!-- win32 -->	
+		<property name="rootPath" value="C:\moje\download\photos"/>
+		<property name="destPath" value="C:\moje\download\photos_out"/>
         <property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
 		<property name="mogrifyPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\mogrify.exe"/>
+		<!-- linux
+		<property name="rootPath" value="/mnt/data2/photos"/>
+		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
+		<property name="convertPath" value="/usr/bin/convert"/>
+		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
 		-->
 	</bean>
 
@@ -136,9 +135,9 @@
 	<!-- postgresql / localhost -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/gallery2?charSet=UTF-8" />
-		<property name="username" value="gallery2" />
-		<property name="password" value="gallery2" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/gallery?charSet=UTF-8" />
+		<property name="username" value="gallery" />
+		<property name="password" value="gallery" />
 	</bean>
 	
 
@@ -157,10 +156,9 @@
 		        <security:user name="admin"     password="c5a6d9190f2633a42f3e9e5544e1c74a" authorities="ROLE_ADMIN" />
 		        <security:user name="marioosh"  password="6fd394b2f8f7e2438ca7f0a87a6db994" authorities="ROLE_USER" />
 		        
-		        <!-- 098f6bcd4621d373cade4e832627b4f6 = test
+		        <!-- 098f6bcd4621d373cade4e832627b4f6 = test -->
 		        <security:user name="a"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_ADMIN" />
 		        <security:user name="u"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" />
-                 -->
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>

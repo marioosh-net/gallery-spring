@@ -15,7 +15,7 @@ function openModal(selector) {
 	if(trigger.hasClass('modalInputClick')) {
 		yes.unbind('click')
 			.click(new Function(trigger.attr('rev')))
-			.click(function(){trigger.data('overlay').close();});
+			.click(function(){trigger.data('overlay').close(); return false;});
 	}	
 	if (jQuery(selector).data('triggered')) {
 		jQuery(selector).overlay().load();

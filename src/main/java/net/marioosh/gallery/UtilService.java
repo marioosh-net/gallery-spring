@@ -131,8 +131,13 @@ public class UtilService implements Serializable, ApplicationContextAware {
 				degrees = 270;
 			}
 			Process pr = Runtime.getRuntime().exec(new String[]{settings.getMogrifyPath(), "-rotate", ""+degrees, path});
+			// kluczowe - zaczekaj na zakonczenie procesu
+			pr.waitFor();	
+			
 			return true;
 		} catch (IOException e) {
+			log.error(e.getMessage());
+		} catch (InterruptedException e) {
 			log.error(e.getMessage());
 		}
 		return false;

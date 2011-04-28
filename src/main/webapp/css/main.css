@@ -762,3 +762,6 @@ a.inactive {
 	border-top: none;
 	width: 100px;
 }
+.middle {
+	vertical-align: middle;
+}

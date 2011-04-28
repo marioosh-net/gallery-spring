@@ -60,6 +60,11 @@ public class MainController {
 	@Autowired
 	private UtilService utilService;
 	
+	@ModelAttribute("t")
+	public long time() {
+		return new Date().getTime();
+	}
+	
 	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/index.html", method=RequestMethod.POST)
@@ -303,6 +308,12 @@ public class MainController {
 			photoDAO.updateVisibility(id, visibility);
 		}
 		return "redirect:/index.html";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/palette.html")
+	public ModelAndView pallete(@RequestParam Long id) {
+		return new ModelAndView("pallete", "id", id);
 	}
 	
 	@ExceptionHandler(Exception.class)
