@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -288,6 +289,15 @@ public class UtilService implements Serializable, ApplicationContextAware {
 	}
 	
 	
-	
+
+	/**
+	 * zmienny hash
+	 * @return
+	 */
+	public String getHash2() {
+		SimpleDateFormat s = new SimpleDateFormat("yyyy.MM.dd");
+		// hash zmienia sie raz na dzien
+		return DigestUtils.md5Hex(""+s.format(new Date()));
+	}
 	
 }

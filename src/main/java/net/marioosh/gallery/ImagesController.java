@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -21,6 +23,7 @@ import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * wypluwa obrazki
  * @author marioosh
+ * 
+ * check duplicate hashes
+ * select t1.id,t1.hash,t2.id,t2.hash from tphoto t1, tphoto t2 where t1.hash = t2.hash and t1.id <> t2.id;
  *
  */
 @Controller
@@ -62,8 +68,53 @@ public class ImagesController implements ServletContextAware {
 	private Settings settings;
 	
 	private ServletContext servletContext;
+
+	/**
+	 * pociagnij obrazek by hash, BEZ sprawdzania zalogowanego usera
+	 * 
+	 * @param hash
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping("p2.html")
+	public void photo(@RequestParam(value="hash", required=false, defaultValue="-1") String hash, HttpServletResponse response) throws IOException {
+
+		response.setContentType("image/jpeg");
+		try {
+			Long id = photoDAO.getByHash(hash.substring(0,32));
+			if(id != null && hash.substring(32).equals(utilService.getHash2())) {
+				// file system
+				Map<String, Object> m = photoDAO.get(id, new String[]{"file_path"});
+				log.debug(m.get("file_path"));
+				
+				if(m.get("file_path") != null) {
+					File fullpath = new File(settings.getRootPath(), (String)m.get("file_path"));
+					String normalFullPath = fullpath.getAbsolutePath();
+					String bigFullPath = getBigPhotoPath(normalFullPath);
+					log.debug("BIG:"+bigFullPath);
+					
+					FileSystemResource resource = new FileSystemResource(bigFullPath);
+					IOUtils.copy(resource.getInputStream(), response.getOutputStream());			
+				} else {
+					throw new FileNotFoundException();
+				}
+				return;
+			}
+			throw new FileNotFoundException();
+		} catch (Exception e) {
+			InputStream in = servletContext.getResourceAsStream("/images/no_image.jpg");
+			IOUtils.copy(in, response.getOutputStream());
+		}
+	}
 	
-	//@ResponseBody
+	/**
+	 * pociagnij obrazek by id, ZE sprawdzaniem zalogowanego usera
+	 * 
+	 * @param id
+	 * @param type
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping("p.html")
 	public void photo(@RequestParam(value="id", required=false, defaultValue="-1") Long id, @RequestParam(value="type", required=false, defaultValue="-1") int type, HttpServletResponse response) throws IOException {
 		response.setContentType("image/jpeg");

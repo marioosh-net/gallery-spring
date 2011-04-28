@@ -60,9 +60,9 @@ public class MainController {
 	@Autowired
 	private UtilService utilService;
 	
-	@ModelAttribute("t")
-	public long time() {
-		return new Date().getTime();
+	@ModelAttribute("hash2")
+	public String time() {
+		return utilService.getHash2();
 	}
 	
 	/*
@@ -133,7 +133,7 @@ public class MainController {
 			bp1.setRange(new Range((pp-1)*settings.getPhotosPerPage(),settings.getPhotosPerPage()));
 			bp1.setSort(PhotoSortField.NAME);
 			int pcount = photoDAO.countAll(bp1);
-			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name"});
+			List<Map<String, Object>> l = photoDAO.findAll(bp1, new String[]{"id","visibility","name","hash"});
 			log.debug("LIST: "+l);
 			// photoDAO.findAllId(bp1)
 			model.addAttribute("photos", l);

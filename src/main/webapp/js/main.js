@@ -118,6 +118,11 @@ function exif(id) {
 	});
 }
 
+function hrefDate(selector) {
+	var old = jQuery(selector).attr('href');
+	jQuery(selector).attr('href', old+'&dummy='+(new Date()).getTime());
+}
+
 /**
  * NOT USED
  * 
