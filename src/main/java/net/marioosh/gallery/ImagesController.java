@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -162,6 +164,28 @@ public class ImagesController implements ServletContextAware {
 		}
 	}
 
+	/**
+	 * pull
+	 */
+	@RequestMapping(value="/picnik2.html", method=RequestMethod.POST)
+	public void picnik(@RequestParam Long id, @RequestParam("file") String file, HttpServletResponse response) throws IOException {
+		log.info("PICNIK-GET: " + id);
+		log.info("PICNIK-GET: " + file);
+	
+		URL url = new URL(file);
+		URLConnection uc = url.openConnection();
+		InputStream is = uc.getInputStream();
+		
+		IOUtils.copy(is, response.getOutputStream());
+	}
+	
+	/**
+	 * push
+	 * @param id
+	 * @param file
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/picnik.html", method=RequestMethod.POST)
 	public void picnik(@RequestParam Long id, @RequestParam("file") byte[] file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
