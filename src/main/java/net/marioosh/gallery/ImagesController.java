@@ -31,6 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -168,8 +169,9 @@ public class ImagesController implements ServletContextAware {
 	/**
 	 * pull
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/picnik2.html", method=RequestMethod.GET)
-	public void picnik(@RequestParam Long id, @RequestParam("file") String file, HttpServletResponse response) throws IOException {
+	public String picnik(@RequestParam Long id, @RequestParam("file") String file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
 		log.info("PICNIK-GET: " + file);
 	
@@ -185,6 +187,7 @@ public class ImagesController implements ServletContextAware {
 		response.setContentType("image/jpeg");
 		IOUtils.copy(in, response.getOutputStream());
 		*/
+		return "redirect:/index.html";
 	}
 	
 	/**
@@ -194,6 +197,7 @@ public class ImagesController implements ServletContextAware {
 	 * @param response
 	 * @throws IOException
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/picnik.html", method=RequestMethod.POST)
 	public void picnik(@RequestParam Long id, @RequestParam("file") byte[] file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
