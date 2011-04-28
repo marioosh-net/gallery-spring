@@ -1,7 +1,5 @@
 package net.marioosh.gallery;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,41 +8,21 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
-import net.marioosh.gallery.model.entities.Album;
-import net.marioosh.gallery.model.entities.Photo;
-import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
-import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
-import net.marioosh.gallery.model.helpers.Visibility;
-import net.marioosh.gallery.utils.UndefinedUtils;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * wypluwa obrazki
@@ -186,7 +164,7 @@ public class ImagesController implements ServletContextAware {
 		response.setContentType("image/jpeg");
 		IOUtils.copy(in, response.getOutputStream());
 		*/
-		return "redirect:/index.html";
+		return "redirect:/palette.html?id="+id;
 	}
 	
 	/**
