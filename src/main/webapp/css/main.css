@@ -175,6 +175,9 @@ form {
 #album .album-path {
 	padding-left: 5px;
 }
+#album .album-buttons {
+	margin-bottom: 5px;
+}
 /* album info END*/
 
 /* album funcs */

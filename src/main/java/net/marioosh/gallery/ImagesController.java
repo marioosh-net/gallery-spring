@@ -62,7 +62,7 @@ public class ImagesController implements ServletContextAware {
 	private Settings settings;
 	
 	private ServletContext servletContext;
-
+	
 	//@ResponseBody
 	@RequestMapping("p.html")
 	public void photo(@RequestParam(value="id", required=false, defaultValue="-1") Long id, @RequestParam(value="type", required=false, defaultValue="-1") int type, HttpServletResponse response) throws IOException {
@@ -83,7 +83,7 @@ public class ImagesController implements ServletContextAware {
 				IOUtils.copy(photoDAO.getStream(albumDAO.getCover(id), 1), response.getOutputStream());
 				return;
 			}
-			if(type == 3) {
+			if(type == 3 || true) {
 				// file system
 				Map<String, Object> m = photoDAO.get(id, new String[]{"file_path", "visibility"});
 				log.debug(m.get("file_path"));
