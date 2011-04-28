@@ -161,6 +161,14 @@ public class ImagesController implements ServletContextAware {
 		}
 	}
 
+	@RequestMapping("/picnik.html")
+	public void picnik(@RequestParam Long id, @RequestParam byte[] out, HttpServletResponse response) throws IOException {
+		log.info("PICNIK-GET: " + id);
+		log.info("PICNIK-GET: " + out.length);
+		response.setContentType("image/jpeg");
+		response.getOutputStream().write(out);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public void handleException(Exception ex, HttpServletResponse response) throws IOException {
 		response.setContentType("image/jpeg");
