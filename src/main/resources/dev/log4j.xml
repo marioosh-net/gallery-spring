@@ -44,6 +44,7 @@
 	<!-- APPENDERY END -->
 
 	<!-- LOGGERY -->
+	<!-- 
 	<logger name="org.hibernate">
 		<level value="warn" />
 	</logger>
@@ -98,6 +99,7 @@
 	<logger name="org.springframework.jdbc.datasource">
 		<level value="info"/>
 	</logger>
+	-->
 		
 	<!--
 	<logger name="net.marioosh.gallery.FileService">
