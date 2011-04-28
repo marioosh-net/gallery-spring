@@ -167,7 +167,7 @@ public class ImagesController implements ServletContextAware {
 	/**
 	 * pull
 	 */
-	@RequestMapping(value="/picnik2.html", method=RequestMethod.POST)
+	@RequestMapping(value="/picnik2.html", method=RequestMethod.GET)
 	public void picnik(@RequestParam Long id, @RequestParam("file") String file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
 		log.info("PICNIK-GET: " + file);
