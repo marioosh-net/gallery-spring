@@ -21,16 +21,26 @@
 	<link rel="stylesheet" type="text/css" href="<t:context/>/css/lightview.css" />
 	<title><spring:message code="label.appname"/></title>
 	
-	<script type="text/javascript">
-	jQuery(document).ready(function(){
-		/*modals();*/
-		
-		covers();
-		albums();
-		
-		/*searches();*/
-	});
-	</script>
+	<c:if test="${param.a != null}">
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+				/*modals();*/
+				photos(${param.a != null ? param.a : '\'\''},${param.pp != null ? param.pp : '\'\''});
+				albums(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
+				/*searches();*/
+			});
+		</script>
+	</c:if>
+	<c:if test="${param.a == null}">
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+				/*modals();*/
+				covers(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
+				albums(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
+				/*searches();*/
+			});
+		</script>
+	</c:if>	
 </head>
 <body id="body">
 	<%@include file="/WEB-INF/templates/debug.jsp" %>

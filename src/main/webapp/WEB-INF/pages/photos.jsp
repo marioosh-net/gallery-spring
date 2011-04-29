@@ -53,7 +53,7 @@
 <!-- album name -->
 <div id="photos-header">
 	<div class="left album-title">
-		<c:if test="${album != null}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('covers.html'); jQuery('#albums').load('albums.html');"><spring:message code="button.albums"/></a>&#160;&#187;&#160;<a href="#">${album.name}</a></c:if>
+		<c:if test="${album != null}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('covers.html'); jQuery('#albums').load('albums.html');"><spring:message code="button.albums"/></a>&#160;&#187;&#160;<%--<a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}');">${album.name}</a>--%><a href="<t:context/>/index.html?a=${param.a}" >${album.name}</a></c:if>
 	</div>
 	<div class="right">
 	</div>

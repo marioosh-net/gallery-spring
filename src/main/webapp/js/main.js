@@ -1,3 +1,63 @@
+function covers(p,s) {
+	if(p != '') {
+		p = '&p='+p;
+	}
+	if(s != '') {
+		s = '&s='+s;
+	}
+	loading('#photos');
+	jQuery('#photos').load('covers.html?'+p+s);
+}
+function albums(p,s) {
+	if(p != '') {
+		p = '&p='+p;
+	}
+	if(s != '') {
+		s = '&s='+s;
+	}
+	loading('#albums');
+	jQuery('#albums').load('albums.html?'+p+s);
+}
+function searches() {
+	loading('#searches');
+	jQuery('#searches').load('searches.html');
+}
+function photos(a,pp) {
+	if(a != '') {
+		a = '&a='+a;
+	}
+	if(pp != '') {
+		pp = '&pp='+pp;
+	}	
+	loading('#photos');
+	jQuery('#photos').load('photos.html?'+a+pp);
+}
+function loadingMainOff() {
+	jQuery('#main-progress').hide();
+}
+function loadingMain() {
+	jQuery('#main-progress').show();
+}
+function loading(selector) {
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/>&#160;loading...</div>');
+}
+function loadingNoText(selector) {
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/></div>');
+}
+function loadingIcon(selector) {
+	jQuery(selector).html('<img src=\'images/ajax-loader5.gif\'/>');
+}
+function slimboxstart() {
+	jQuery("a[rel^='lightbox-gal']").slimbox({
+			resizeDuration: 200,
+			initialWidth: 50,
+			initialHeight: 50,
+			loop: true
+		}, null, function(el) {
+		return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
+	});
+}
+
 function openModal(selector) {
 	var trigger = jQuery(selector);
 	var yes = jQuery(trigger.attr('rel')).find('.yes').eq(0);
@@ -27,48 +87,6 @@ function openModal(selector) {
 		,target: '#yesno' */			
 		});
 	}
-}
-
-function covers() {
-	loading('#photos');
-	jQuery('#photos').load('covers.html');
-}
-function albums() {
-	loading('#albums');
-	jQuery('#albums').load('albums.html');
-}
-function searches() {
-	loading('#searches');
-	jQuery('#searches').load('searches.html');
-}
-function photos() {
-	loading('#photos');
-	jQuery('#photos').load('photos.html');
-}
-function loadingMainOff() {
-	jQuery('#main-progress').hide();
-}
-function loadingMain() {
-	jQuery('#main-progress').show();
-}
-function loading(selector) {
-	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/>&#160;loading...</div>');
-}
-function loadingNoText(selector) {
-	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/></div>');
-}
-function loadingIcon(selector) {
-	jQuery(selector).html('<img src=\'images/ajax-loader5.gif\'/>');
-}
-function slimboxstart() {
-	jQuery("a[rel^='lightbox-gal']").slimbox({
-			resizeDuration: 200,
-			initialWidth: 50,
-			initialHeight: 50,
-			loop: true
-		}, null, function(el) {
-		return (this == el) || ((this.rel.length > 8) && (this.rel == el.rel));
-	});
 }
 
 /* programowo otworz overlay dla elementu wskazanego przez selector */
