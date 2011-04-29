@@ -1,10 +1,3 @@
-jQuery(document).ready(function(){
-	/*modals();*/
-	covers();
-	albums();
-	/*searches();*/
-});
-
 function openModal(selector) {
 	var trigger = jQuery(selector);
 	var yes = jQuery(trigger.attr('rel')).find('.yes').eq(0);
