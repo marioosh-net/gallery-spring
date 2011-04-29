@@ -40,8 +40,8 @@ public class Album extends AbstractEntity {
 	}
 
 	public String getShortName() {
-		if(name != null && name.length() > 45) {
-			return name.substring(0, 44)+"...";
+		if(name != null && name.length() > 40) {
+			return name.substring(0, 39)+"...";
 		}
 		return name;
 	}
