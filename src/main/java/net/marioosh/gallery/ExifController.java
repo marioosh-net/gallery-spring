@@ -59,7 +59,7 @@ public class ExifController implements ServletContextAware {
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
-		return null;		
+		return "<div class=\"exif-header\">EXIF</div>No EXIF Data";
 	}
 	
 	@RequestMapping("/exif3.html") 
