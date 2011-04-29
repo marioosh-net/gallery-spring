@@ -101,6 +101,7 @@
 		<property name="convertPath" value="/usr/bin/convert"/>
 		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
 		-->
+		<property name="exifToolPath" value="/usr/bin/exiftool"/>
 	</bean>
 
 	<!-- scheduler

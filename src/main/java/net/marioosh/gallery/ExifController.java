@@ -11,6 +11,7 @@ import magick.MagickException;
 import magick.MagickImage;
 import magick.MagickInfo;
 import net.marioosh.gallery.model.dao.PhotoDAO;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,6 +45,28 @@ public class ExifController implements ServletContextAware {
 
 	private ServletContext servletContext;
 
+	/**
+	 * wykorzystanie exiftool
+	 * @param id
+	 * @return
+	 */
+	private String exifString(Long id) {
+		String path = photoDAO.get(id).getFilePath();
+		try {
+			File fullpath = new File(new File(settings.getRootPath()), path);
+			Process pr = Runtime.getRuntime().exec(new String[]{settings.getExifToolPath(), fullpath.getAbsolutePath()});
+			return "<pre>"+IOUtils.toString(pr.getInputStream())+"</pre>";
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+		return null;		
+	}
+	
+	@RequestMapping("/exif3.html") 
+	public ModelAndView exif3(@RequestParam("id") Long id) {
+		return new ModelAndView("exif","exifdata",exifString(id));
+	}
+	
 	@RequestMapping("/exif2.html")
 	public ModelAndView exif2(@RequestParam("id") Long id, @RequestParam(value="full", defaultValue="false", required=false) boolean full) {
 		return new ModelAndView("exif","exifdata",exif(id, true));

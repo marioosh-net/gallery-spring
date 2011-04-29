@@ -10,6 +10,7 @@ public class Settings {
 	private int albumsPerPage = 24;
 	private String convertPath;
 	private String mogrifyPath;
+	private String exifToolPath;
 
 	public String getDestPath() {
 		return destPath;
@@ -57,5 +58,13 @@ public class Settings {
 	
 	public void setMogrifyPath(String mogrifyPath) {
 		this.mogrifyPath = mogrifyPath;
+	}
+	
+	public String getExifToolPath() {
+		return exifToolPath;
+	}
+	
+	public void setExifToolPath(String exifToolPath) {
+		this.exifToolPath = exifToolPath;
 	}
 }
