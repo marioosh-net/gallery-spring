@@ -177,5 +177,13 @@ public class UndefinedUtils {
 	}
 	public static String relativePath(String base, String path) {
 		return new File(base).toURI().relativize(new File(path).toURI()).getPath();
+	}
+	
+	public static String absolutePath(String basePath, String path) {
+		File f = new File(basePath, path);
+		if(f.isFile()) {
+			return f.getAbsolutePath();
+		}
+		return null;
 	}	
 }

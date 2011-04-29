@@ -1,5 +1,6 @@
 package net.marioosh.gallery;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ import net.marioosh.gallery.model.helpers.PhotoSortField;
 import net.marioosh.gallery.model.helpers.Range;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -210,6 +212,17 @@ public class MainController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/deletealbum.html")
 	public String deleteAlbum(@RequestParam("id") Long id) {
+		Album a = albumDAO.get(id);
+		if(a != null) {
+			String fullpath = UndefinedUtils.absolutePath(settings.getRootPath(), a.getPath());
+			// usun katalog z systemu plikow
+			File directory = new File(fullpath);
+			try {
+				FileUtils.deleteDirectory(directory);
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			}
+		}
 		albumDAO.delete(id);
 		return "redirect:/index.html";
 	}
