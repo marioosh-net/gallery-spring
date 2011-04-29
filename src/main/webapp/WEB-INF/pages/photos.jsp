@@ -64,7 +64,7 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
+			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}'); return false;">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
 		</c:forEach>
 	</div>
 	<div class="clear"></div>
@@ -163,7 +163,7 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}');">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
+			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}'); return false;">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
 		</c:forEach>
 	</div>
 	<div class="clear"></div>
