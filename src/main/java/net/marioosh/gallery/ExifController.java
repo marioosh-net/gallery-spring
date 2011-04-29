@@ -44,6 +44,11 @@ public class ExifController implements ServletContextAware {
 
 	private ServletContext servletContext;
 
+	@RequestMapping("/exif2.html")
+	public ModelAndView exif2(@RequestParam("id") Long id, @RequestParam(value="full", defaultValue="false", required=false) boolean full) {
+		return new ModelAndView("exif","exifdata",exif(id, true));
+	}
+	
 	@ResponseBody
 	@RequestMapping("/exif.html")
 	public String exif(@RequestParam("id") Long id, @RequestParam(value="full", defaultValue="false", required=false) boolean full) {
@@ -83,7 +88,11 @@ public class ExifController implements ServletContextAware {
 						
 					
 						if(j++ == 0) {
-							sb.append("<div class=\"exif-header\">EXIF</div>");
+							sb.append("<div class=\"exif-header\">EXIF");
+							if(!full) {
+								sb.append("&#160;<a target=\"_blank\" href=\"exif2.html?full=1&id="+id+"\">Full</a>");
+							}
+							sb.append("</div>");
 						}
 						sb.append("<div class=\"exif-name\">"+tag.getTagName() + "</div><div class=\"exif-value\">"+ tag.getDescription()+"</div><div class=\"clear\"></div>");
 					}

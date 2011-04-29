@@ -113,6 +113,7 @@
 							<img class="middle" src="images/palette.png" height="16" width="16"/>&#160;<a target="_blank" href="<t:context/>/palette.html?id=${p['id']}"><spring:message code="button.palette"/></a><br/>
 							<%-- <img class="middle" src="images/picnik.png" height="16" width="16"/>&#160;<a target="_blank" href="http://www.picnik.com/service/?_apikey=224466f6d30d0e0887e24bfb017c971d&_export=<t:server/><t:context/>/picnik.html?id=${p['id']}&_export_method=POST&_export_field=file&_export_title=save&_import=<t:server/><t:context/>/p2.html?hash=${p['hash']}${hash2}&_redirect=<t:server/><t:context/>/p2.html?hash=${p['hash']}${hash2}"><spring:message code="button.picnik"/>-push</a> --%>
 							<img class="middle" src="images/picnik.png" height="16" width="16"/>&#160;<a target="_blank" href="http://www.picnik.com/service/?_apikey=224466f6d30d0e0887e24bfb017c971d&_export=<t:server/><t:context/>/picnik2.html?id=${p['id']}&_export_agent=browser&_export_field=file&_export_title=save&_import=<t:server/><t:context/>/p2.html?hash=${p['hash']}${hash2}"><spring:message code="button.picnik"/></a>
+							<%--<br/><a href="<t:context/>/exif2.html?id=${p['id']}&amp;full=1" target="_blank">EXIF</a>--%>
 							<%-- <a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
 						</div>						
 					</div>
