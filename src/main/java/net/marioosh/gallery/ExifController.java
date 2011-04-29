@@ -46,7 +46,7 @@ public class ExifController implements ServletContextAware {
 
 	@ResponseBody
 	@RequestMapping("/exif.html")
-	public String exif(@RequestParam("id") Long id) {
+	public String exif(@RequestParam("id") Long id, @RequestParam(value="full", defaultValue="false", required=false) boolean full) {
 		String path = photoDAO.get(id).getFilePath();
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -62,7 +62,7 @@ public class ExifController implements ServletContextAware {
 				while (tags.hasNext()) {
 					Tag tag = (Tag) tags.next();
 					log.debug(tag.getTagName() + ":"+ tag.getDescription());
-					if(tag.getTagName().equals("Model") 
+					if(full || tag.getTagName().equals("Model") 
 							|| tag.getTagName().equals("Date/Time")
 							|| tag.getTagName().equals("Make")
 							|| tag.getTagName().equals("F-Number")
@@ -77,8 +77,9 @@ public class ExifController implements ServletContextAware {
 							|| tag.getTagName().equals("Date/Time")
 							|| tag.getTagName().equals("Picture Mode")
 							|| tag.getTagName().equals("Focus Mode")
-							|| tag.getTagName().equals("Focal Length")) {
-						
+							|| tag.getTagName().equals("Focal Length")
+							|| tag.getTagName().equals("Lens")
+							|| tag.getTagName().equals("Max Aperture Value")) {
 						
 					
 						if(j++ == 0) {
