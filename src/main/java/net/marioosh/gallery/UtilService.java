@@ -300,4 +300,9 @@ public class UtilService implements Serializable, ApplicationContextAware {
 		return DigestUtils.md5Hex(""+s.format(new Date()));
 	}
 	
+	public String getSeparatorChar() {
+		// return System.getProperty("path.separator");		
+		return File.separator;
+	}
+	
 }
