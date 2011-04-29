@@ -180,10 +180,11 @@ public class UndefinedUtils {
 	}
 	
 	public static String absolutePath(String basePath, String path) {
-		File f = new File(basePath, path);
-		if(f.isFile()) {
+		try {
+			File f = new File(basePath, path);
 			return f.getAbsolutePath();
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}	
 }

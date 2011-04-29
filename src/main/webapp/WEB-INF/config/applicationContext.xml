@@ -43,6 +43,8 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
+		<!-- dostep do springowych beanow bezposrednio z view np. ${mainController} -->
+		<property name="exposeContextBeansAsAttributes" value="true"/>
 	</bean>
 
 	<!-- JSR-303 Validator / Bean Validator -->
