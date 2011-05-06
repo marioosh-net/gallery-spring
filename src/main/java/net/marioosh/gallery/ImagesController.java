@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -152,7 +153,7 @@ public class ImagesController implements ServletContextAware {
 		log.info("PICNIK-GET: " + id);
 		log.info("PICNIK-GET: " + file);
 	
-		URL url = new URL(file);
+		URL url = new URL(URLDecoder.decode(file, "UTF-8"));
 		URLConnection uc = url.openConnection();
 		InputStream in = uc.getInputStream();
 		
