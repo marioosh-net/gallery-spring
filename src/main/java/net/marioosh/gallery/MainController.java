@@ -302,6 +302,12 @@ public class MainController {
 		return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 	}
 
+	/**
+	 * delete i reload (usuwa i przeloadowuje cala zawartosc katalogu)
+	 * DODAJE NOWE
+	 * @param id
+	 * @return
+	 */
 	@ResponseBody
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/reload.html")
@@ -316,6 +322,31 @@ public class MainController {
 		} else {
 			return "ALBUMS:0, PHOTOS:0";
 		}
+	}
+
+	/**
+	 * tylko reload, nie usuwa zdjec
+	 * NIE dodaje nowych
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/refresh.html")
+	public String reloadOnly(@RequestParam Long id) {
+		try {
+			Album a = albumDAO.get(id);		
+			PhotoBrowseParams bp = new PhotoBrowseParams();
+			bp.setVisibility(Visibility.ADMIN);
+			bp.setAlbumId(id);
+			for(Long idp: photoDAO.findAllId(bp)) {
+				photoDAO.reload(idp);
+			}
+			return "0";
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return "-1";
 	}
 	
 	@Secured("ROLE_ADMIN")

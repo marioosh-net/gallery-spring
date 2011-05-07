@@ -93,9 +93,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 		File root = getDir(settings.getRootPath());
 		if (root != null) {
 			if(f != null) {
-				loadFiles(root, f, true);
+				loadFiles(root, f, true, true);
 			} else {
-				loadFiles(root, root, true);
+				loadFiles(root, root, true, true);
 			}
 		} else {
 			log.error("ROOT PATH WRONG!");
@@ -131,7 +131,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * @throws IOException
 	 * @throws EntityVersionException
 	 */
-	private void loadFiles(File root, File file, boolean createEmptyAlbums) {
+	private void loadFiles(File root, File file, boolean createEmptyAlbums, boolean reloadExisting) {
 		log.info("SCAN \""+ file.getAbsolutePath() +"\"");
 		File[] files = file.listFiles();
 		for (File f : files) {
@@ -150,7 +150,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					albumsCount++;
 				}
 				// przerob podkatalogi
-				loadFiles(root, f, createEmptyAlbums);
+				loadFiles(root, f, createEmptyAlbums, reloadExisting);
 			} else {
 				// make fotki
 				String contentType = new MimetypesFileTypeMap().getContentType(f);
@@ -200,6 +200,10 @@ public class FileService implements Serializable, ApplicationContextAware {
 							log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
 							photosCount++;
 						} else {
+							if(reloadExisting) {
+								log.info("reload ID: "+ id);
+								photoDAO.reload(id);
+							}
 							/*
 							log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
 							Photo p = photoDAO.get(id);
