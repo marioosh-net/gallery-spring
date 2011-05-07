@@ -85,14 +85,18 @@ public class FileService implements Serializable, ApplicationContextAware {
 	/**
 	 * utworz albumy w bazie na podstawie systemu plikow na dysku
 	 */
-	public void load() {
+	public void load(File f) {
 		long start = System.currentTimeMillis();
-		log.info("load()");
+		log.info("load("+(f != null ? f.getAbsolutePath() : "null")+")");
 		photosCount = 0;
 		albumsCount = 0;
 		File root = getDir(settings.getRootPath());
 		if (root != null) {
-			loadFiles(root, root, true);
+			if(f != null) {
+				loadFiles(root, f, true);
+			} else {
+				loadFiles(root, root, true);
+			}
 		} else {
 			log.error("ROOT PATH WRONG!");
 		}
@@ -128,6 +132,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * @throws EntityVersionException
 	 */
 	private void loadFiles(File root, File file, boolean createEmptyAlbums) {
+		log.info("SCAN \""+ file.getAbsolutePath() +"\"");
 		File[] files = file.listFiles();
 		for (File f : files) {
 			// jest katalog, nie ma albumu w bazie i sa pliki wewnatrz
@@ -282,9 +287,14 @@ public class FileService implements Serializable, ApplicationContextAware {
 	/**
 	 * skanuj ktalog glowny w poszukiwaniu nowych albumow
 	 */
-	public int[] scan() {
-		log.info("SCAN start");
-		load();
+	public int[] scan(String path) {
+		log.info("SCAN start, path: "+path);
+		if(path != null) {
+			log.info(settings.getRootPath() + File.pathSeparator + path);
+			load(getDir(settings.getRootPath() + File.separatorChar + path));
+		} else {
+			load(null);
+		}
 		log.info("SCAN done [photos added: " + photosCount + ", albums added: " + albumsCount + "]");
 		return new int[] {albumsCount, photosCount};
 	}

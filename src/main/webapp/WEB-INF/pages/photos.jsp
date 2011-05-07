@@ -19,7 +19,8 @@
 						<div class="album-buttons">
 						<img class="icon middle" width="16" height="16" src="images/key2.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=PUBLIC"><spring:message code="button.publicAllPhotos"/></a>
 						<img class="icon middle" width="16" height="16" src="images/key2.png"/><a href="<t:context/>/visibility.html?id=${album.id}&v=USER"><spring:message code="button.privateAllPhotos"/></a>
-						<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon middle" height="16" width="16" src="images/delete.png"/><spring:message code="button.delete"/></a>
+						<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon middle" height="16" width="16" src="images/delete.png"/><spring:message code="button.delete"/></a><br/>
+						<a href="#" onclick="openModal(this); return false;" id="scan-trigger-alb" class="modalInput modalInputClick" rel="#scanalb" rev="loadingIcon('#scan-trigger-alb'); jQuery.get('<t:context/>/scan.html', { path: '${album.path}'}, function(data){openOverlay('#scaned', data); jQuery('#scan-trigger-alb').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
 						</div>
 						<form:form modelAttribute="album" cssClass="sform" id="al" action="index.html">
 							<form:hidden path="id"/>
@@ -36,6 +37,10 @@
 						<t:modalyesno id="delalb">
 							<spring:message code="text.confirmDeleteAlbum" />
 						</t:modalyesno>
+						<t:modalyesno id="scanalb">
+							<spring:message code="text.areYouSure"/>
+						</t:modalyesno>
+						
 						<t:modal id="saved">
 							<spring:message code="text.albumSaved" />
 						</t:modal>

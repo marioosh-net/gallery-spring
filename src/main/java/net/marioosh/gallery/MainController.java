@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Null;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.dao.SearchDAO;
@@ -276,7 +277,7 @@ public class MainController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/load.html")
 	public String load() {
-		fileService.load();
+		fileService.load(null);
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
@@ -293,8 +294,10 @@ public class MainController {
 	@ResponseBody
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/scan.html")
-	public String scan() {
-		int[] s = fileService.scan();
+	public String scan(@RequestParam(defaultValue="-1", required=false, value="path") String path) {
+		log.info("scan.html: path = "+path);
+		path = path.equals("-1") ? null : path;
+		int[] s = fileService.scan(path);
 		// return "redirect:/index.html";
 		return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 	}
