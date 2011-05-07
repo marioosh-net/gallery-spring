@@ -301,6 +301,22 @@ public class MainController {
 		// return "redirect:/index.html";
 		return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 	}
+
+	@ResponseBody
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/reload.html")
+	public String reload(@RequestParam Long id) {
+		Album a = albumDAO.get(id);
+		if(a != null) {
+			albumDAO.clear(id);
+			String path = a.getPath();
+			int[] s = fileService.scan(path);
+			// return "redirect:/index.html";
+			return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
+		} else {
+			return "ALBUMS:0, PHOTOS:0";
+		}
+	}
 	
 	@Secured("ROLE_ADMIN")
 	@ResponseBody

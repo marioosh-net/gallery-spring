@@ -17,4 +17,5 @@ public interface AlbumDAO {
 	public Album getByName(String name);
 	public Album getByHash(String hash);
 	public void deleteAll();
+	public void clear(Long id);
 }

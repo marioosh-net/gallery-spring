@@ -104,6 +104,11 @@ public class AlbumDAOImpl implements AlbumDAO {
 	}
 
 	@Override
+	public void clear(Long id) {
+		jdbcTemplate.update("delete from tphoto where album_id = "+id);
+	}
+	
+	@Override
 	public List<Album> findAll(BrowseParams browseParams1) {
 		AlbumBrowseParams browseParams = (AlbumBrowseParams) browseParams1;
 
