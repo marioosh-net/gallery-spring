@@ -132,7 +132,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * @throws EntityVersionException
 	 */
 	private void loadFiles(File root, File file, boolean createEmptyAlbums, boolean reloadExisting) {
-		log.info("SCAN \""+ file.getAbsolutePath() +"\"");
+		log.info("SCAN \""+ file.getAbsolutePath() +"\", reloadExisting:"+reloadExisting);
 		File[] files = file.listFiles();
 		for (File f : files) {
 			// jest katalog, nie ma albumu w bazie i sa pliki wewnatrz
