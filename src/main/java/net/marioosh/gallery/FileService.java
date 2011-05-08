@@ -95,7 +95,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 			if(f != null) {
 				loadFiles(root, f, true, true);
 			} else {
-				loadFiles(root, root, true, true);
+				loadFiles(root, root, true, false);
 			}
 		} else {
 			log.error("ROOT PATH WRONG!");
