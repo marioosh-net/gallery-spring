@@ -89,7 +89,7 @@ public class AdminTool {
 	}
 	
 	public void load() {
-		fileService.load(null, false);
+		fileService.scan(null, false);
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}

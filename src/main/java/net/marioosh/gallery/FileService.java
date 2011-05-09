@@ -69,23 +69,19 @@ public class FileService implements Serializable, ApplicationContextAware {
 	private int photosCount;
 	private int albumsCount;
 
-	public File getDir(String path) {
-		try {
-			Resource root = appContext.getResource("file:" + path);
-			if (root.getFile() != null && root.getFile().isDirectory()) {
-				return root.getFile();
-			}
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return null;
-		}
-		return null;
-	}
-
 	/**
-	 * utworz albumy w bazie na podstawie systemu plikow na dysku
+	 * skanuj ktalog w poszukiwaniu nowych albumow
+	 * [utworz albumy w bazie na podstawie systemu plikow na dysku]
 	 */
-	public void load(File f, boolean refresh) {
+	public int[] scan(String path, boolean refresh) {
+		log.info("SCAN start, path: "+path);
+		File f = null;
+		if(path != null) {
+			f = getDir(settings.getRootPath() + File.separatorChar + path);
+			log.info(settings.getRootPath() + File.pathSeparator + path);
+		}
+		
+		// loadOLD(f, refresh);
 		long start = System.currentTimeMillis();
 		log.info("load("+(f != null ? f.getAbsolutePath() : "null")+")");
 		photosCount = 0;
@@ -102,8 +98,12 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 		long stop = System.currentTimeMillis();
 		log.info((stop - start) + "ms");
+		
+		
+		log.info("SCAN done [photos added: " + photosCount + ", albums added: " + albumsCount + "]");
+		return new int[] {albumsCount, photosCount};
 	}
-
+	
 	public void unload() {
 		long start = System.currentTimeMillis();
 		log.info("unload()");
@@ -288,19 +288,17 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 	}
 
-	/**
-	 * skanuj ktalog w poszukiwaniu nowych albumow
-	 */
-	public int[] scan(String path, boolean refresh) {
-		log.info("SCAN start, path: "+path);
-		if(path != null) {
-			log.info(settings.getRootPath() + File.pathSeparator + path);
-			load(getDir(settings.getRootPath() + File.separatorChar + path), refresh);
-		} else {
-			load(null, refresh);
+	public File getDir(String path) {
+		try {
+			Resource root = appContext.getResource("file:" + path);
+			if (root.getFile() != null && root.getFile().isDirectory()) {
+				return root.getFile();
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return null;
 		}
-		log.info("SCAN done [photos added: " + photosCount + ", albums added: " + albumsCount + "]");
-		return new int[] {albumsCount, photosCount};
+		return null;
 	}
-
+	
 }
