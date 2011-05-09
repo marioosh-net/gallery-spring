@@ -74,7 +74,7 @@ public class AdminTool {
 	}
 	
 	public void load() {
-		fileService.load(null);
+		fileService.load(null, false);
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}

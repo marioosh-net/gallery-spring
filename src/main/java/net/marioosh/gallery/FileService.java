@@ -85,7 +85,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	/**
 	 * utworz albumy w bazie na podstawie systemu plikow na dysku
 	 */
-	public void load(File f) {
+	public void load(File f, boolean refresh) {
 		long start = System.currentTimeMillis();
 		log.info("load("+(f != null ? f.getAbsolutePath() : "null")+")");
 		photosCount = 0;
@@ -93,9 +93,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 		File root = getDir(settings.getRootPath());
 		if (root != null) {
 			if(f != null) {
-				loadFiles(root, f, true, true);
+				loadFiles(root, f, true, refresh);
 			} else {
-				loadFiles(root, root, true, false);
+				loadFiles(root, root, true, refresh);
 			}
 		} else {
 			log.error("ROOT PATH WRONG!");
@@ -202,7 +202,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 						} else {
 							if(reloadExisting) {
 								log.info("reload ID: "+ id);
-								photoDAO.reload(id);
+								photoDAO.refresh(id);
 							}
 							/*
 							log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
@@ -289,15 +289,15 @@ public class FileService implements Serializable, ApplicationContextAware {
 	}
 
 	/**
-	 * skanuj ktalog glowny w poszukiwaniu nowych albumow
+	 * skanuj ktalog w poszukiwaniu nowych albumow
 	 */
-	public int[] scan(String path) {
+	public int[] scan(String path, boolean refresh) {
 		log.info("SCAN start, path: "+path);
 		if(path != null) {
 			log.info(settings.getRootPath() + File.pathSeparator + path);
-			load(getDir(settings.getRootPath() + File.separatorChar + path));
+			load(getDir(settings.getRootPath() + File.separatorChar + path), refresh);
 		} else {
-			load(null);
+			load(null, refresh);
 		}
 		log.info("SCAN done [photos added: " + photosCount + ", albums added: " + albumsCount + "]");
 		return new int[] {albumsCount, photosCount};

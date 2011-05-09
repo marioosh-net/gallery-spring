@@ -352,7 +352,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 	public boolean rotate(Long id, boolean left) {
 		try {
 			if(utilService.rotateInPlace(getAbsolutePath(id), left)) {
-				return reload(id);
+				return refresh(id);
 			}
 		} catch(Exception e) {
 			log.error(e.getMessage());
@@ -360,7 +360,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 		return false;
 	}
 	
-	public boolean reload(Long id) {
+	public boolean refresh(Long id) {
 		try {
 			String path = getAbsolutePath(id);
 			if(path != null) {

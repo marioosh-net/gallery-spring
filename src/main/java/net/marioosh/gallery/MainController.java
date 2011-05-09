@@ -277,7 +277,7 @@ public class MainController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/load.html")
 	public String load() {
-		fileService.load(null);
+		fileService.load(null, false);
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
@@ -294,10 +294,10 @@ public class MainController {
 	@ResponseBody
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/scan.html")
-	public String scan(@RequestParam(defaultValue="-1", required=false, value="path") String path) {
+	public String scan(@RequestParam(defaultValue="-1", required=false, value="path") String path, @RequestParam(defaultValue="-1", required=false, value="refresh") int refresh) {
 		log.info("scan.html: path = "+path);
 		path = path.equals("-1") ? null : path;
-		int[] s = fileService.scan(path);
+		int[] s = fileService.scan(path, refresh != -1 ? true : false);
 		// return "redirect:/index.html";
 		return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 	}
@@ -316,7 +316,7 @@ public class MainController {
 		if(a != null) {
 			albumDAO.clear(id);
 			String path = a.getPath();
-			int[] s = fileService.scan(path);
+			int[] s = fileService.scan(path, false);
 			// return "redirect:/index.html";
 			return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 		} else {
@@ -340,7 +340,7 @@ public class MainController {
 			bp.setVisibility(Visibility.ADMIN);
 			bp.setAlbumId(id);
 			for(Long idp: photoDAO.findAllId(bp)) {
-				photoDAO.reload(idp);
+				photoDAO.refresh(idp);
 			}
 			return "0";
 		} catch (Exception e) {
@@ -354,7 +354,7 @@ public class MainController {
 	@RequestMapping("/refreshone.html")
 	public String refreshPhoto(@RequestParam Long id) {
 		try {
-			photoDAO.reload(id);
+			photoDAO.refresh(id);
 			return "0";
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -377,14 +377,20 @@ public class MainController {
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/visibility.html")
+	@ResponseBody
 	public String publicAll(@RequestParam("id") Long albumId, @RequestParam("v") Visibility visibility, HttpServletRequest request) {
-		PhotoBrowseParams bp = new PhotoBrowseParams();
-		bp.setVisibility(Visibility.ADMIN);
-		bp.setAlbumId(albumId);
-		for(Long id: photoDAO.findAllId(bp)) {
-			photoDAO.updateVisibility(id, visibility);
+		try {
+			PhotoBrowseParams bp = new PhotoBrowseParams();
+			bp.setVisibility(Visibility.ADMIN);
+			bp.setAlbumId(albumId);
+			for(Long id: photoDAO.findAllId(bp)) {
+				photoDAO.updateVisibility(id, visibility);
+			}
+			return "0";
+		} catch (Exception e) {
+			return "-1";
 		}
-		return "redirect:/index.html";
+		// return "redirect:/index.html";
 	}
 	
 	@Secured("ROLE_ADMIN")
