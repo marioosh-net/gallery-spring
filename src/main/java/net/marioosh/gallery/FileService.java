@@ -202,7 +202,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 						} else {
 							if(reloadExisting) {
 								log.info("reload ID: "+ id);
-								photoDAO.refresh(id);
+								photoDAO.synchronize(id);
 							}
 							/*
 							log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");

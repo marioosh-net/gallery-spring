@@ -25,6 +25,14 @@ public interface PhotoDAO {
 	public Long getByHash(String hash);
 	public Long getByAlbumAndHash(String albumHash, String hash);
 	public boolean rotate(Long id, boolean left);
-	public boolean refresh(Long id);
+	
+	/**
+	 * synchronizuj z systemem plikow
+	 * towrzy miniaturke i web-frielndy zdjecia w bazie wg. zdjecia na dysku
+	 * @param id
+	 * @return
+	 */
+	public boolean synchronize(Long id);
+	
 	public String getAbsolutePath(Long id);
 }

@@ -340,7 +340,7 @@ public class MainController {
 			bp.setVisibility(Visibility.ADMIN);
 			bp.setAlbumId(id);
 			for(Long idp: photoDAO.findAllId(bp)) {
-				photoDAO.refresh(idp);
+				photoDAO.synchronize(idp);
 			}
 			return "0";
 		} catch (Exception e) {
@@ -354,7 +354,7 @@ public class MainController {
 	@RequestMapping("/refreshone.html")
 	public String refreshPhoto(@RequestParam Long id) {
 		try {
-			photoDAO.refresh(id);
+			photoDAO.synchronize(id);
 			return "0";
 		} catch (Exception e) {
 			log.error(e.getMessage());

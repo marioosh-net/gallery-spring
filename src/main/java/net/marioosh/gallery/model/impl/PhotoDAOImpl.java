@@ -352,7 +352,7 @@ public class PhotoDAOImpl implements PhotoDAO {
 	public boolean rotate(Long id, boolean left) {
 		try {
 			if(utilService.rotateInPlace(getAbsolutePath(id), left)) {
-				return refresh(id);
+				return synchronize(id);
 			}
 		} catch(Exception e) {
 			log.error(e.getMessage());
@@ -360,11 +360,11 @@ public class PhotoDAOImpl implements PhotoDAO {
 		return false;
 	}
 	
-	public boolean refresh(Long id) {
+	public boolean synchronize(Long id) {
 		try {
 			String path = getAbsolutePath(id);
 			if(path != null) {
-				log.debug("RELOADING " + path + " ...");
+				log.info("SYNCHRONIZE " + path + " [ID: " + id + "] ...");
 				Object[] params = {utilService.resized(path), utilService.thumb(path),  new Date(), id};
 				int[] types = {Types.BINARY, Types.BINARY, Types.TIMESTAMP, Types.BIGINT};
 				jdbcTemplate.update("update tphoto set img = ?, thumb = ?, mod_date = ? where id = ?", params, types);

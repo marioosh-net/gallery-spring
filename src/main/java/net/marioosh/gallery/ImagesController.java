@@ -159,7 +159,7 @@ public class ImagesController implements ServletContextAware {
 		
 		OutputStream out = new FileOutputStream(new File(photoDAO.getAbsolutePath(id)));
 		IOUtils.copy(in, out);
-		photoDAO.refresh(id);
+		photoDAO.synchronize(id);
 		
 		/* pokaz obrazek
 		response.setContentType("image/jpeg");
