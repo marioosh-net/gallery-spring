@@ -10,6 +10,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 
+/**
+ *  odpalanie
+ * 		java -cp *; net.marioosh.gallery.utils.AdminTool
+ * 		java -cp target\gallery\WEB-INF\lib\*; net.marioosh.gallery.utils.AdminTool
+ * 		java -cp target\gallery\WEB-INF\lib\*;c:\jsf\tomcat-6.0.26\lib\*; net.marioosh.gallery.utils.AdminTool
+ * 
+ * @author marioosh
+ *
+ */
 public class AdminTool {
 
 	private Logger log = Logger.getLogger(getClass());
@@ -21,8 +30,8 @@ public class AdminTool {
 	/**
 	 * application context
 	 */
-	private static final FileSystemXmlApplicationContext ac = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/config/applicationContext.xml");
-	// private static final ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+	// private static final FileSystemXmlApplicationContext ac = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/config/applicationContext.xml");
+	private static final ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 	static public void main(String[] args) {
 		if(args.length > 0) {
@@ -39,8 +48,8 @@ public class AdminTool {
 		this.fileService = (FileService)ac.getBean("fileService");
 		
 		try {
-			Method m = this.getClass().getMethod(func, Void.class);
-			m.invoke(this, null);
+			Method m = this.getClass().getMethod(func);
+			m.invoke(this);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,5 +91,13 @@ public class AdminTool {
 	
 	public void clear() {
 		albumDAO.deleteAll();
+	}
+	
+	public void scan() {
+		long start = System.currentTimeMillis();
+		log.info("scan START");
+		fileService.scan(null, false);
+		long stop = System.currentTimeMillis();
+		log.info("scan END "+(stop - start) + "ms");		
 	}
 }

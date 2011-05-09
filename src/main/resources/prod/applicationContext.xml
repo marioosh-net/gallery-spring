@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:security="http://www.springframework.org/schema/security" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx 
+     http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	 http://www.springframework.org/schema/mvc
+	 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+     http://www.springframework.org/schema/security
+     http://www.springframework.org/schema/security/spring-security-3.0.3.xsd	      
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	 http://www.springframework.org/schema/webflow-config
+	 http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd     
+">
+
+	<!-- ============================= -->
+	<!-- Spring MVC                    -->
+	<!-- ============================= -->
+	<!-- Auto-detecting components, dla wykrytych komponentow tworzone sa beany -->
+	<!-- bedziemy korzystac z adnotacji @Component, @Controller, @Repository, @Service ... -->
+	<context:component-scan base-package="net.marioosh.gallery" />
+	
+	<!-- Activates various annotations to be detected in bean classes: Spring's @Required and @Autowired, as well 
+ 	as JSR 250's @PostConstruct, @PreDestroy and @Resource (if available), JAX-WS's @WebServiceRef (if available), EJB3's @EJB (if available), 
+ 	and JPA's @PersistenceContext and @PersistenceUnit (if available).  -->
+	<context:annotation-config />
+
+	<!-- view resolver -->
+	<!-- dziala: np. simpleView -> /WEB-INF/pages/simpleView.jsp -->
+	<!-- jesli nie zdefiniujemy zadnego domyslny -> simply forwards to a URL matching the name of the view specified -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+		<!-- dostep do springowych beanow bezposrednio z view np. ${mainController} -->
+		<property name="exposeContextBeansAsAttributes" value="true"/>
+	</bean>
+
+	<!-- JSR-303 Validator / Bean Validator -->
+	<!-- A JSR-303 provider, such as Hibernate Validator, is expected to be present in the classpath and will be detected automatically -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	<!-- wykryj automatycznie JSR-303 Provider'a np. hibernate validator'a i utworz validatora o nazwie "validator" -->
+	<mvc:annotation-driven />
+	
+	<!-- zamiast: <mvc:annotation-driven /> 
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
+		<property name="defaultHandler" value="..." />
+	</bean>
+	-->
+
+	<!-- message source -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="WEB-INF/messages/messages" />
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="cacheSeconds" value="1"/>
+		<property name="useCodeAsDefaultMessage" value="true"/>
+	</bean>
+		
+	<!-- i18n -->
+	<mvc:interceptors>    
+    	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+    		<property name="paramName" value="lang" />
+    	</bean>
+	</mvc:interceptors>
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="pl"/>
+	</bean>
+	
+
+	<!-- teraz dziala adnotacja @Secured i @PreAuthorize -->
+	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled" />
+	
+	<!-- simple controllers -->
+	<mvc:view-controller path="/404.html" view-name="404"/>
+	<mvc:view-controller path="/403.html" view-name="403"/>
+	<mvc:view-controller path="/error.html" view-name="error"/>
+
+	<bean id="settings" class="net.marioosh.gallery.Settings">
+		<property name="photosPerPage" value="24"/>
+		<property name="albumsPerPage" value="24"/>
+		<!-- win32 -->	
+		<property name="rootPath" value="C:\moje\download\photos"/>
+		<property name="destPath" value="C:\moje\download\photos_out"/>
+        <property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
+		<property name="mogrifyPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\mogrify.exe"/>
+		<!-- linux
+		<property name="rootPath" value="/mnt/data2/photos"/>
+		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
+		<property name="convertPath" value="/usr/bin/convert"/>
+		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
+		-->
+		<property name="exifToolPath" value="/usr/bin/exiftool"/>
+	</bean>
+
+	<!-- scheduler
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+	        <list>
+				<bean id="scanTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+				    <property name="jobDetail">
+						<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+						  <property name="targetObject" ref="fileService" />
+						  <property name="targetMethod" value="scan" />
+						  <property name="concurrent" value="false" />
+						</bean>	
+				    </property>
+				    <property name="startDelay" value="10000" />
+				    <property name="repeatInterval" value="30000" />
+				</bean>
+	        </list>			
+		</property>
+	</bean>
+	-->
+	
+	<bean id="fileService" class="net.marioosh.gallery.FileService">
+	</bean>
+
+
+	<!-- Spring Web Flow 
+	<import resource="flowConfig.xml" />
+	-->
+
+	<!-- ============================= -->
+	<!-- Data Access                   -->
+	<!-- ============================= -->
+	<!-- postgresql / localhost -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/gallery?charSet=UTF-8" />
+		<property name="username" value="gallery" />
+		<property name="password" value="gallery" />
+	</bean>
+	
+
+	<!-- ============================= -->
+	<!-- Spring Security               -->
+	<!-- ============================= 
+	<security:http auto-config="true" use-expressions="true">
+		<security:form-login authentication-failure-url="/index.html?loginfail=1" login-page="/index.html" />
+		<security:logout logout-success-url="/index.html" logout-url="/logout.html" />
+		<security:remember-me key="rmelinkownia" />
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:password-encoder hash="md5" />
+			<security:user-service>
+		        <security:user name="admin"     password="c5a6d9190f2633a42f3e9e5544e1c74a" authorities="ROLE_ADMIN" />
+		        <security:user name="marioosh"  password="6fd394b2f8f7e2438ca7f0a87a6db994" authorities="ROLE_USER" />
+		        
+		        <security:user name="a"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_ADMIN" />
+		        <security:user name="u"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	-->
+
+</beans>
