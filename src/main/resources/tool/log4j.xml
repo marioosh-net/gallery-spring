@@ -34,7 +34,7 @@
 	</logger>
 	<logger name="net.marioosh.gallery.FileService">
 		<level value="debug" />
-		<appender-ref ref="file_fileservice"/>
+		<appender-ref ref="file_all" />
 	</logger>
 	<!-- LOGGERY END -->
 
