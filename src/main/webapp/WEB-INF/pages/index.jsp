@@ -96,7 +96,7 @@
 		</div>	
 		
 		<div id="footer-right">
-			Inspired by <a href="http://minishowcase.net">minishowcase</a>. Powered by <a href="http://www.nickstakenburg.com/projects/lightview/">Lightview</a>&nbsp;|&nbsp;<a href="http://marioosh.net">marioosh.net</a>
+			Inspired by <a href="http://minishowcase.net">minishowcase</a>. Powered by <a href="http://www.nickstakenburg.com/projects/lightview/">Lightview</a>&nbsp;|&nbsp;<a href="http://marioosh.net">marioosh.net</a>&nbsp;|&nbsp;<a href="<t:server-https/><t:context/>">https</a>
 			<div class="left"></div>
 			<div class="right"></div>
 			<div class="clear"></div>
