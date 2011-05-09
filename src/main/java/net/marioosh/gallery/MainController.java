@@ -333,7 +333,7 @@ public class MainController {
 	@ResponseBody
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/refresh.html")
-	public String reloadOnly(@RequestParam Long id) {
+	public String refresh(@RequestParam Long id) {
 		try {
 			Album a = albumDAO.get(id);		
 			PhotoBrowseParams bp = new PhotoBrowseParams();
@@ -348,6 +348,20 @@ public class MainController {
 		}
 		return "-1";
 	}
+	
+	@ResponseBody
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/refreshone.html")
+	public String refreshPhoto(@RequestParam Long id) {
+		try {
+			photoDAO.reload(id);
+			return "0";
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return "-1";
+	}
+
 	
 	@Secured("ROLE_ADMIN")
 	@ResponseBody

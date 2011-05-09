@@ -122,6 +122,7 @@
 							<img class="middle" src="images/picnik.png" height="16" width="16"/>&#160;<a target="_blank" href="http://www.picnik.com/service/?_apikey=224466f6d30d0e0887e24bfb017c971d&_export=<t:server/><t:context/>/picnik2.html?id=${p['id']}&_export_agent=browser&_export_field=file&_export_title=save&_import=<t:server/><t:context/>/p2.html?hash=${p['hash']}${hash2}"><spring:message code="button.picnik"/></a>
 							<%--<br/><a href="<t:context/>/exif2.html?id=${p['id']}&amp;full=1" target="_blank">EXIF</a>--%>
 							<br/><a href="<t:context/>/exif3.html?id=${p['id']}" target="_blank">EXIF [exiftool]</a>
+							<br/><a href="#" id="ref_${p['id']}" onclick="openModal(this); return false;" class="modalInput modalInputClick" rev="loadingIcon('#ref_${p['id']}'); jQuery.get('<t:context/>/refreshone.html?id=${p['id']}',function(data){ jQuery('#ref_${p['id']}').text('<spring:message code="button.refreshOne"/>'); if(data == '0'){  jQuery('#u${p['id']}').css('background-image', 'url(<t:context/>/p.html?type=1&amp;id=${p['id']}&amp;'+(new Date()).getTime()+')'); jQuery('#x${p['id']}').attr('href', '<t:context/>/p.html?type=0&amp;id=${p['id']}&amp;'+(new Date()).getTime());   }});" rel="#yesnorefresh" ><spring:message code="button.refreshOne"/></a>
 							<%-- <a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
 						</div>						
 					</div>
@@ -136,6 +137,9 @@
 		
 		<t:modalyesno id="yesnophoto">
 			<spring:message code="text.confirmDeletePhoto" />
+		</t:modalyesno>
+		<t:modalyesno id="yesnorefresh">
+			<spring:message code="text.confirmRefreshPhoto" />
 		</t:modalyesno>
 		
 		<%--
