@@ -93,11 +93,18 @@ public class AdminTool {
 		albumDAO.deleteAll();
 	}
 	
+	/**
+	 * pelny scan nowych plikow
+	 */
 	public void scan() {
 		long start = System.currentTimeMillis();
 		log.info("scan START");
 		fileService.scan(null, false);
 		long stop = System.currentTimeMillis();
 		log.info("scan END "+(stop - start) + "ms");		
+	}
+	
+	public void test() {
+		log.info("test");
 	}
 }
