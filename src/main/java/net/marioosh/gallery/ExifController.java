@@ -33,7 +33,7 @@ import com.drew.metadata.exif.ExifReader;
 @Controller
 public class ExifController implements ServletContextAware {
 
-	private Logger log = Logger.getLogger(MainController.class);
+	private Logger log = Logger.getLogger(ExifController.class);
 
 	final String cmd = "exiftool -EXIF:MeteringMode -EXIF:Flash -EXIF:ExposureMode -EXIF:WhiteBalance -EXIF:LightSource -EXIF:Model -EXIF:Make -EXIF:ModifyDate -EXIF:ExposureTime -EXIF:FNumber -EXIF:ExposureProgram -EXIF:ISO -EXIF:DateTimeOriginal -EXIF:CreateDate -EXIF:ExposureCompensation -EXIF:FocalLength -EXIF:SubSecTime -EXIF:SubSecTimeOriginal -EXIF:SubSecTimeDigitized -EXIF:FocalLengthIn35mmFormat -XMP-dc:title -XMP-iptcExt:PersonInImage -XMP-iptcExt:Event -XMP-xmp:Rating -EXIF:GPSLatitudeRef -EXIF:GPSLatitude -EXIF:GPSLongitudeRef -EXIF:GPSLongitude -EXIF:GPSAltitudeRef -EXIF:GPSAltitude -File:FileSize -File:FileName -File:ImageWidth -File:ImageHeight -File:FileType -File:MIMEType -ICC_Profile:ProfileDescription -EXIF:ColorSpace -EXIF:InteropIndex -g -j -struct -c \"%s\" -fast";
 
@@ -79,7 +79,7 @@ public class ExifController implements ServletContextAware {
 		StringBuilder sb = new StringBuilder();
 		try {
 			File fullpath = new File(new File(settings.getRootPath()), path);
-			log.info("FILE PATH: "+fullpath.getAbsolutePath());
+			log.debug("FILE PATH: "+fullpath.getAbsolutePath());
 			ExifReader reader = new ExifReader(fullpath);
 			Metadata meta = reader.extract();
 			Iterator<Directory> i = meta.getDirectoryIterator();
