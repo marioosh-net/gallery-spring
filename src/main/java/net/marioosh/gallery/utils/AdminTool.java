@@ -11,10 +11,13 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 
 /**
- *  odpalanie
+ * odpalanie win32
  * 		java -cp *; net.marioosh.gallery.utils.AdminTool
  * 		java -cp target\gallery\WEB-INF\lib\*; net.marioosh.gallery.utils.AdminTool
  * 		java -cp target\gallery\WEB-INF\lib\*;c:\jsf\tomcat-6.0.26\lib\*; net.marioosh.gallery.utils.AdminTool
+ * 
+ * odpalanie linux
+ * 		java -cp target/gallery/WEB-INF/lib/*:/opt/tomcat7/lib/* net.marioosh.gallery.utils.AdminTool
  * 
  * @author marioosh
  *
@@ -42,7 +45,9 @@ public class AdminTool {
 	}
 
 	public AdminTool(String func) {
+		long start = System.currentTimeMillis();
 		log.info("START");
+
 		this.photoDAO = (PhotoDAO)ac.getBean("photoDAO");
 		this.albumDAO = (AlbumDAO)ac.getBean("albumDAO");
 		this.fileService = (FileService)ac.getBean("fileService");
@@ -75,7 +80,8 @@ public class AdminTool {
 			fileService.makePublic(id);
 		}
 		*/
-		log.info("END");
+		long stop = System.currentTimeMillis();
+		log.info("END "+(stop - start) + "ms");		
 	}
 	
 	public void unload() {
@@ -97,11 +103,7 @@ public class AdminTool {
 	 * pelny scan nowych plikow
 	 */
 	public void scan() {
-		long start = System.currentTimeMillis();
-		log.info("scan START");
 		fileService.scan(null, false);
-		long stop = System.currentTimeMillis();
-		log.info("scan END "+(stop - start) + "ms");		
 	}
 	
 	public void test() {
