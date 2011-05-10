@@ -5,6 +5,9 @@ import java.lang.reflect.Method;
 import net.marioosh.gallery.FileService;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
+import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
+import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
+import net.marioosh.gallery.model.helpers.Visibility;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -100,7 +103,7 @@ public class AdminTool {
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
-		System.out.println("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
+		log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 	}
 	
 	public void _clear() {
@@ -112,11 +115,17 @@ public class AdminTool {
 	 */
 	public void _scan() {
 		int[] s = fileService.scan(null, true);
-		System.out.println("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
+		log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 	}
 	
 	public void _test() {
 		log.info("test");
+		AlbumBrowseParams bp = new AlbumBrowseParams();
+		PhotoBrowseParams bp2 = new PhotoBrowseParams();
+		bp.setVisibility(Visibility.ADMIN);
+		bp2.setVisibility(Visibility.ADMIN);
+		log.info("albums: " + albumDAO.countAll(bp));
+		log.info("photos: " + photoDAO.countAll(bp2));
 	}
 	
 	/**
