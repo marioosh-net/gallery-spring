@@ -33,7 +33,7 @@
 		<level value="error" />
 	</logger>
 	<logger name="net.marioosh.gallery.FileService">
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="file_all" />
 	</logger>
 	<!-- LOGGERY END -->

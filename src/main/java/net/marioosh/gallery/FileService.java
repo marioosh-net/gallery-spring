@@ -67,6 +67,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	}
 
 	private int photosCount;
+	private int photosUpdated;
 	private int albumsCount;
 
 	/**
@@ -84,6 +85,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 		// loadOLD(f, refresh);
 		long start = System.currentTimeMillis();
 		log.info("load("+(f != null ? f.getAbsolutePath() : "null")+")");
+		photosUpdated = 0;
 		photosCount = 0;
 		albumsCount = 0;
 		File root = getDir(settings.getRootPath());
@@ -100,8 +102,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 		log.info((stop - start) + "ms");
 		
 		
-		log.info("SCAN done [photos added: " + photosCount + ", albums added: " + albumsCount + "]");
-		return new int[] {albumsCount, photosCount};
+		log.info("SCAN done [photos added: " + photosCount + ", photos updated: " + photosUpdated + ", albums added: " + albumsCount + "]");
+		return new int[] {albumsCount, photosCount, photosUpdated};
 	}
 	
 	public void unload() {
@@ -177,10 +179,18 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 					try {
 						FileInputStream in = new FileInputStream(f);
+						// hash liczony z pliku (dane pliku sie zmieniaja - hash sie zmienia)
+						String hash = DigestUtils.md5Hex(in);
+						in.close();
 						// hash jest liczony z wzglednej (wg glownego ktalogu) sciezki do pliku
-						String hash = DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f));
-						Long id = photoDAO.getByAlbumAndHash(albumHash, hash);
+						// String hash = DigestUtils.md5Hex(UndefinedUtils.relativePath(root, f));
+						// Long id = photoDAO.getByAlbumAndHash(albumHash, hash);
+						
+						Long id = photoDAO.getByAlbumAndName(albumId, f.getName());
+						
 						if (id == null) {
+							// nie ma takiego pliku w albumie - tworze nowy
+							
 							// if (true) {
 							Photo p = new Photo();
 							p.setHash(hash);
@@ -200,9 +210,17 @@ public class FileService implements Serializable, ApplicationContextAware {
 							log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
 							photosCount++;
 						} else {
+							// jest to przeladowuje jesli hash sie zmienil
 							if(reloadExisting) {
-								log.info("reload ID: "+ id);
-								photoDAO.synchronize(id);
+								Map<String,Object> m = photoDAO.get(id, new String[]{"id","hash"});
+								String oldHash = (String) m.get("hash");
+								if(!oldHash.equals(hash)) {
+									log.info("reload ID: "+ id);
+									photoDAO.synchronize(id);
+									photosUpdated++;
+								} else {
+									log.debug("photo \""+f.getName()+"\" doesn't changed ID: "+ id);
+								}
 							}
 							/*
 							log.debug("Photo ("+f.getName()+") with hash '"+ hash +"' exist.");
@@ -211,9 +229,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 							photoDAO.update(p);
 							*/
 						}
-						in.close();
+						
 					} catch (Exception e) {
-						log.error(e.getMessage());
+						log.error(e.getMessage(),e);
 					}
 				}
 			}

@@ -299,7 +299,7 @@ public class MainController {
 		path = path.equals("-1") ? null : path;
 		int[] s = fileService.scan(path, refresh != -1 ? true : false);
 		// return "redirect:/index.html";
-		return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
+		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
 	}
 
 	/**

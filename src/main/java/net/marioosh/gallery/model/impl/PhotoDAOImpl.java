@@ -1,6 +1,9 @@
 package net.marioosh.gallery.model.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +24,7 @@ import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoRowMapper;
 import net.marioosh.gallery.model.helpers.PhotoRowMapperInputStream;
 import net.marioosh.gallery.model.helpers.Visibility;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -349,6 +353,16 @@ public class PhotoDAOImpl implements PhotoDAO {
 		}		
 	}
 	
+	@Override
+	public Long getByAlbumAndName(Long albumId, String photoName) {
+		String sql = "select p.id from tphoto p, talbum a where p.name = ? and p.album_id = ? and p.album_id = a.id";
+		try {
+			return jdbcTemplate.queryForLong(sql, photoName, albumId);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}		
+	}
+	
 	public boolean rotate(Long id, boolean left) {
 		try {
 			if(utilService.rotateInPlace(getAbsolutePath(id), left)) {
@@ -363,11 +377,16 @@ public class PhotoDAOImpl implements PhotoDAO {
 	public boolean synchronize(Long id) {
 		try {
 			String path = getAbsolutePath(id);
+			
+			FileInputStream in = new FileInputStream(new File(path));
+			String hash = DigestUtils.md5Hex(in);
+			in.close();
+			
 			if(path != null) {
 				log.info("SYNCHRONIZE " + path + " [ID: " + id + "] ...");
-				Object[] params = {utilService.resized(path), utilService.thumb(path),  new Date(), id};
-				int[] types = {Types.BINARY, Types.BINARY, Types.TIMESTAMP, Types.BIGINT};
-				jdbcTemplate.update("update tphoto set img = ?, thumb = ?, mod_date = ? where id = ?", params, types);
+				Object[] params = {hash, utilService.resized(path), utilService.thumb(path),  new Date(), id};
+				int[] types = {Types.VARCHAR, Types.BINARY, Types.BINARY, Types.TIMESTAMP, Types.BIGINT};
+				jdbcTemplate.update("update tphoto set hash = ?, img = ?, thumb = ?, mod_date = ? where id = ?", params, types);
 				return true;
 			}
 		} catch(Exception e) {
@@ -389,5 +408,35 @@ public class PhotoDAOImpl implements PhotoDAO {
 			return null;
 		}
 		return null;
+	}
+	
+	@Override
+	public void updateHashes() {
+		PhotoBrowseParams bp = new PhotoBrowseParams();
+		bp.setVisibility(Visibility.ADMIN);
+		List<Map<String, Object>> l = findAll(bp, new String[]{"id","file_path"});
+		for(Map<String, Object> m: l) {
+			
+			Long id = (Long)m.get("id");
+			String path = getAbsolutePath(id);
+			if(path != null) {
+				try {
+					FileInputStream in = new FileInputStream(new File(path));
+					String hash = DigestUtils.md5Hex(in);
+					in.close();
+				
+					log.info("Calculating md5 " + path + " [ID: " + id + "]");
+					Object[] params = {hash,  new Date(), id};
+					int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.BIGINT};
+					jdbcTemplate.update("update tphoto set hash = ?, mod_date = ? where id = ?", params, types);
+					
+				} catch (FileNotFoundException e) {
+					log.error(e.getMessage());
+				} catch (IOException e) {
+					log.error(e.getMessage());
+				}
+			}
+		}
+		
 	}
 }

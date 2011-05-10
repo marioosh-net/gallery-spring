@@ -24,7 +24,13 @@ public interface PhotoDAO {
 	public void updateVisibility(Long id, Visibility visibility);
 	public Long getByHash(String hash);
 	public Long getByAlbumAndHash(String albumHash, String hash);
+	public Long getByAlbumAndName(Long albumId, String photoName);
 	public boolean rotate(Long id, boolean left);
+	
+	/**
+	 * przelicz hashe dla wszystkich fotek wg plikow na dysku
+	 */
+	public void updateHashes();
 	
 	/**
 	 * synchronizuj z systemem plikow
