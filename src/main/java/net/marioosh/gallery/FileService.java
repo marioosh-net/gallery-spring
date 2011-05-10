@@ -76,18 +76,24 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 */
 	public int[] scan(String path, boolean refresh) {
 		log.info("SCAN start, path: "+path);
+		photosUpdated = 0;
+		photosCount = 0;
+		albumsCount = 0;
+		
 		File f = null;
 		if(path != null) {
 			f = getDir(settings.getRootPath() + File.separatorChar + path);
-			log.info(settings.getRootPath() + File.pathSeparator + path);
+			log.info(settings.getRootPath() + File.separatorChar + path);
+			if(f == null) {
+				log.error("PATH WRONG");
+				log.info("SCAN done [photos added: " + photosCount + ", photos updated: " + photosUpdated + ", albums added: " + albumsCount + "]");
+				return new int[] {albumsCount, photosCount, photosUpdated};				
+			}
 		}
 		
 		// loadOLD(f, refresh);
 		long start = System.currentTimeMillis();
 		log.info("load("+(f != null ? f.getAbsolutePath() : "null")+")");
-		photosUpdated = 0;
-		photosCount = 0;
-		albumsCount = 0;
 		File root = getDir(settings.getRootPath());
 		if (root != null) {
 			if(f != null) {

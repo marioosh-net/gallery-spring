@@ -1,14 +1,17 @@
 package net.marioosh.gallery.utils;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import net.marioosh.gallery.FileService;
+import net.marioosh.gallery.Settings;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.helpers.AlbumBrowseParams;
 import net.marioosh.gallery.model.helpers.PhotoBrowseParams;
 import net.marioosh.gallery.model.helpers.Visibility;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -33,6 +36,9 @@ public class AdminTool {
 	private PhotoDAO photoDAO;
 	private FileService fileService;
 	
+	@Autowired
+	private Settings settings;
+	
 	/**
 	 * application context
 	 */
@@ -41,7 +47,7 @@ public class AdminTool {
 
 	static public void main(String[] args) {
 		if(args.length > 0) {
-			new AdminTool(args[0]);
+			new AdminTool(args);
 		} else {
 			new AdminTool().syntax();
 		}
@@ -61,20 +67,25 @@ public class AdminTool {
 	
 	public AdminTool() {}
 	
-	public AdminTool(String func) {
+	public AdminTool(String[] args) {
 
+		this.settings = (Settings)ac.getBean("settings");
 		this.photoDAO = (PhotoDAO)ac.getBean("photoDAO");
 		this.albumDAO = (AlbumDAO)ac.getBean("albumDAO");
 		this.fileService = (FileService)ac.getBean("fileService");
 		
 		try {
-			Method m = this.getClass().getMethod("_"+func);
-			
-			long start = System.currentTimeMillis();
-			log.info("START");
-			m.invoke(this);
-			long stop = System.currentTimeMillis();
-			log.info("END "+(stop - start) + "ms");		
+			if(args[0].equals("scan") && args.length > 1) {
+				String path = args[1];
+				scan(path);
+			} else {
+				Method m = this.getClass().getMethod("_"+args[0]);
+				long start = System.currentTimeMillis();
+				log.info("START");
+				m.invoke(this);
+				long stop = System.currentTimeMillis();
+				log.info("END "+(stop - start) + "ms");
+			}
 			
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -116,6 +127,17 @@ public class AdminTool {
 	public void _scan() {
 		int[] s = fileService.scan(null, true);
 		log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
+	}
+	
+	public void scan(String path) {
+		String relPath = UndefinedUtils.relativePath(new File(settings.getRootPath()), new File(path));
+		log.info(relPath);
+		if(relPath == null) {
+			log.info("PATH WRONG. SCAN stopped.");
+		} else {
+			int[] s = fileService.scan(relPath, true);
+			log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
+		}
 	}
 	
 	public void _test() {
