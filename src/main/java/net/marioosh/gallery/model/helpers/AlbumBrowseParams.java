@@ -3,7 +3,7 @@ package net.marioosh.gallery.model.helpers;
 public class AlbumBrowseParams implements BrowseParams {
 	
 	private Range range;
-	private AlbumSortField sort;
+	private AlbumSortField sort = AlbumSortField.NAME_DESC;
 	private Visibility visibility = Visibility.PUBLIC;
 	private String search;
 	
