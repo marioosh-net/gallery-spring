@@ -82,7 +82,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 		
 		File f = null;
 		if(path != null) {
-			f = getDir(settings.getRootPath() + File.separatorChar + path);
+			// f = getDir(settings.getRootPath() + File.separatorChar + path);
+			f = new File(settings.getRootPath(), path);
 			log.info(settings.getRootPath() + File.separatorChar + path);
 			if(f == null) {
 				log.error("PATH WRONG");
@@ -94,7 +95,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 		// loadOLD(f, refresh);
 		long start = System.currentTimeMillis();
 		log.info("load("+(f != null ? f.getAbsolutePath() : "null")+")");
-		File root = getDir(settings.getRootPath());
+		// File root = getDir(settings.getRootPath());
+		File root = new File(settings.getRootPath());
 		if (root != null) {
 			if(f != null) {
 				loadFiles(root, f, true, refresh);
@@ -115,7 +117,8 @@ public class FileService implements Serializable, ApplicationContextAware {
 	public void unload() {
 		long start = System.currentTimeMillis();
 		log.info("unload()");
-		File root = getDir(settings.getDestPath());
+		// File root = getDir(settings.getDestPath());
+		File root = new File(settings.getDestPath());
 		if(root != null) {
 			unloadFiles(root, true);
 		} else {
@@ -142,6 +145,11 @@ public class FileService implements Serializable, ApplicationContextAware {
 	private void loadFiles(File root, File file, boolean createEmptyAlbums, boolean reloadExisting) {
 		log.info("SCAN \""+ file.getAbsolutePath() +"\", reloadExisting:"+reloadExisting);
 		File[] files = file.listFiles();
+		
+		if(files == null) {
+			log.info("PATH WRONG");
+			return;
+		}
 		for (File f : files) {
 			// jest katalog, nie ma albumu w bazie i sa pliki wewnatrz
 			if (f.isDirectory()) {
@@ -277,7 +285,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	public void makePublic(Long albumId) {
 		log.debug("MAKE PUBLIC");
-		File root = getDir(settings.getRootPath());
+		// File root = getDir(settings.getRootPath());
+		File root = new File(settings.getRootPath());
+		
 		Album a = albumDAO.get(albumId);
 		if (a != null) {
 			File f = new File(new File(root, a.getPath()), "pubfiles");
@@ -312,6 +322,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 	}
 
+	/*
 	public File getDir(String path) {
 		try {
 			Resource root = appContext.getResource("file:" + path);
@@ -324,5 +335,6 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 		return null;
 	}
+	*/
 	
 }
