@@ -114,20 +114,6 @@ public class FileService implements Serializable, ApplicationContextAware {
 		return new int[] {albumsCount, photosCount, photosUpdated};
 	}
 	
-	public void unload() {
-		long start = System.currentTimeMillis();
-		log.info("unload()");
-		// File root = getDir(settings.getDestPath());
-		File root = new File(settings.getDestPath());
-		if(root != null) {
-			unloadFiles(root, true);
-		} else {
-			log.error("DEST PATH WRONG!");
-		}
-		long stop = System.currentTimeMillis();
-		log.info((stop - start) + "ms");
-	}
-
 	/**
 	 * przetworz pliki z podanego ktalogu - file
 	 * w tej chwili nie moze byc wiecej niz jeden album o tej samej nazwie
@@ -252,6 +238,20 @@ public class FileService implements Serializable, ApplicationContextAware {
 		}
 	}
 
+	public void unload() {
+		long start = System.currentTimeMillis();
+		log.info("unload()");
+		// File root = getDir(settings.getDestPath());
+		File root = new File(settings.getDestPath());
+		if(root != null) {
+			unloadFiles(root, true);
+		} else {
+			log.error("DEST PATH WRONG!");
+		}
+		long stop = System.currentTimeMillis();
+		log.info((stop - start) + "ms");
+	}
+	
 	private void unloadFiles(File dest, boolean createEmptyDirectories)
 			{
 		String basePath = dest.getAbsolutePath();
