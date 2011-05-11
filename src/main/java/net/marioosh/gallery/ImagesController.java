@@ -143,7 +143,7 @@ public class ImagesController implements ServletContextAware {
 				IOUtils.copy(photoDAO.getStream(albumDAO.getCover(id), 1), response.getOutputStream());
 				return;
 			}
-			if(type.equals("original") || true) {
+			if(type.equals("original") /*|| true*/) {
 				// file system
 				Map<String, Object> m = photoDAO.get(id, new String[]{"file_path", "visibility"});
 				log.debug(m.get("file_path"));
