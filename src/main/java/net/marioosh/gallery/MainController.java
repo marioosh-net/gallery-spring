@@ -31,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,8 +90,18 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping("/albums.html")
-	public String albums(@RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="s",required=false, defaultValue="") String s, Model model) {
+	@RequestMapping("/albums")
+	public String albums(Model model) {
+		return albums(1,"",model);
+	}
+	
+	@RequestMapping("/albums/{page}")
+	public String albums(@PathVariable("page") int p, Model model) {
+		return albums(p,"",model);
+	}
+	
+	@RequestMapping("/albums/{page}/{search}")
+	public String albums(@PathVariable("page") int p, @PathVariable("search") String s, Model model) {
 		AlbumBrowseParams bp = new AlbumBrowseParams();
 		bp.setVisibility(utilService.getCurrentVisibility());
 
@@ -119,11 +130,24 @@ public class MainController {
 		model.addAttribute("apages", apages);
 		model.addAttribute("apagesCount", apages.length);
 		model.addAttribute("apage", p);
+		model.addAttribute("search",s);
 		return "albums";
 	}
+
+	@RequestMapping("/covers")
+	public ModelAndView covers(Model model) {
+		albums(model);
+		return new ModelAndView("covers", model.asMap());		
+	}
 	
-	@RequestMapping("/covers.html")
-	public ModelAndView covers(@RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="s",required=false, defaultValue="") String s, Model model) {
+	@RequestMapping("/covers/{page}")
+	public ModelAndView covers(@PathVariable("page") int p, Model model) {
+		albums(p, model);
+		return new ModelAndView("covers", model.asMap());		
+	}
+	
+	@RequestMapping("/covers/{page}/{search}")
+	public ModelAndView covers(@PathVariable("page") int p, @PathVariable("search") String s, Model model) {
 		albums(p, s, model);
 		return new ModelAndView("covers", model.asMap());
 	}
@@ -189,7 +213,7 @@ public class MainController {
 		return "photos";
 	}
 
-	@RequestMapping("/searches.html")
+	@RequestMapping("/searches")
 	public ModelAndView searches() {
 		return new ModelAndView("searches", "searches", searchDAO.findTop(20));
 	}

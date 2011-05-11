@@ -1,26 +1,26 @@
 function covers(p,s) {
 	if(p != '') {
-		p = '&p='+p;
+		p = '/'+p;
 	}
 	if(s != '') {
-		s = '&s='+s;
+		s = '/'+s;
 	}
 	loading('#photos');
-	jQuery('#photos').load('covers.html?'+p+s);
+	jQuery('#photos').load('covers'+p+s);
 }
 function albums(p,s) {
 	if(p != '') {
-		p = '&p='+p;
+		p = '/'+p;
 	}
 	if(s != '') {
-		s = '&s='+s;
+		s = '/'+s;
 	}
 	loading('#albums');
-	jQuery('#albums').load('albums.html?'+p+s);
+	jQuery('#albums').load('albums'+p+s);
 }
 function searches() {
 	loading('#searches');
-	jQuery('#searches').load('searches.html');
+	jQuery('#searches').load('searches');
 }
 function photos(a,pp) {
 	if(a != '') {

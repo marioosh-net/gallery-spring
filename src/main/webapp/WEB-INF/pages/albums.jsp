@@ -16,9 +16,9 @@
 <c:if test="${apage != 1}">
 	<a href="#" onclick="
 		loadingIcon(this); 
-		jQuery('#albums').load('albums.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');
+		jQuery('#albums').load('albums/${apage == 1 ? apage : apage - 1}/${search}');
 		if(jQuery('#mode').val() == 'covers') {
-			jQuery('#photos').load('covers.html?p=${apage == 1 ? apage : apage - 1}&amp;s=${param.s}');
+			jQuery('#photos').load('covers/${apage == 1 ? apage : apage - 1}/${search}');
 		}
 	"><spring:message code="button.prevAlbum"/></a>
 </c:if>
@@ -34,9 +34,9 @@
 <c:if test="${apage != apagesCount}">
 	<a href="#" onclick="
 		loadingIcon(this); 
-		jQuery('#albums').load('albums.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');
+		jQuery('#albums').load('albums/${apage == apagesCount ? apage : apage + 1}/${search}');
 		if(jQuery('#mode').val() == 'covers') { 
-			jQuery('#photos').load('covers.html?p=${apage == apagesCount ? apage : apage + 1}&amp;s=${param.s}');
+			jQuery('#photos').load('covers/${apage == apagesCount ? apage : apage + 1}/${search}');
 		}
 		"><spring:message code="button.nextAlbum"/></a>
 	</c:if>
