@@ -79,6 +79,11 @@ public class MainController {
 	}
 	*/
 	
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String index() {
+		return "index";
+	}
+	
 	@RequestMapping(value="/index.html", method=RequestMethod.GET)
 	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
 		return "index";
