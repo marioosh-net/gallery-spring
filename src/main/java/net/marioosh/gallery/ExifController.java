@@ -18,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +32,7 @@ import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifReader;
 
 @Controller
-public class ExifController implements ServletContextAware {
+public class ExifController {
 
 	private Logger log = Logger.getLogger(ExifController.class);
 
@@ -43,38 +44,19 @@ public class ExifController implements ServletContextAware {
 	@Autowired
 	private Settings settings;
 
-	private ServletContext servletContext;
-
-	/**
-	 * wykorzystanie exiftool
-	 * @param id
-	 * @return
-	 */
-	private String exifString(Long id) {
-		String path = photoDAO.get(id).getFilePath();
-		try {
-			File fullpath = new File(new File(settings.getRootPath()), path);
-			Process pr = Runtime.getRuntime().exec(new String[]{settings.getExifToolPath(), fullpath.getAbsolutePath()});
-			return "<pre>"+IOUtils.toString(pr.getInputStream())+"</pre>";
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		}
-		return "<div class=\"exif-header\">EXIF</div>No EXIF Data";
-	}
-	
-	@RequestMapping("/exif3.html") 
-	public ModelAndView exif3(@RequestParam("id") Long id) {
+	@RequestMapping("/exif3/{id}") 
+	public ModelAndView exif3(@PathVariable Long id) {
 		return new ModelAndView("exif","exifdata",exifString(id));
 	}
 	
-	@RequestMapping("/exif2.html")
-	public ModelAndView exif2(@RequestParam("id") Long id, @RequestParam(value="full", defaultValue="false", required=false) boolean full) {
-		return new ModelAndView("exif","exifdata",exif(id, true));
+	@RequestMapping("/exif2/{id}/{full}")
+	public ModelAndView exif2(@PathVariable Long id, @PathVariable boolean full) {
+		return new ModelAndView("exif","exifdata",exif(id, full));
 	}
 	
 	@ResponseBody
-	@RequestMapping("/exif.html")
-	public String exif(@RequestParam("id") Long id, @RequestParam(value="full", defaultValue="false", required=false) boolean full) {
+	@RequestMapping("/exif/{id}/{full}")
+	public String exif(@PathVariable Long id, @PathVariable boolean full) {
 		String path = photoDAO.get(id).getFilePath();
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -150,11 +132,23 @@ public class ExifController implements ServletContextAware {
 		return sb.toString().isEmpty() ? "<div class=\"exif-header\">EXIF</div>No EXIF Data" : sb.toString();
 	}
 
-	@Override
-	public void setServletContext(ServletContext arg0) {
-		this.servletContext = arg0;
+	/**
+	 * wykorzystanie exiftool
+	 * @param id
+	 * @return
+	 */
+	private String exifString(Long id) {
+		String path = photoDAO.get(id).getFilePath();
+		try {
+			File fullpath = new File(new File(settings.getRootPath()), path);
+			Process pr = Runtime.getRuntime().exec(new String[]{settings.getExifToolPath(), fullpath.getAbsolutePath()});
+			return "<pre>"+IOUtils.toString(pr.getInputStream())+"</pre>";
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+		return "<div class=\"exif-header\">EXIF</div>No EXIF Data";
 	}
-
+	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
 		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
