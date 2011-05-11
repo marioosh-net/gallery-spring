@@ -50,8 +50,8 @@
 			<div class="thumb_box" title="${a.name}">
 				<a href="#" onclick="jQuery('.tooltip').remove(); jQuery('#photos').load('<t:context/>/photos.html?a=${a.id}');" class="thumb_link">
 						<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
-						<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/p.html?type=2&amp;id=${a.id}); "></div>
-						<img style="display: none;" src="<t:context/>/p.html?type=2&amp;id=${a.id}" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+						<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/a/${a.id}/cover); "></div>
+						<img style="display: none;" src="<t:context/>/a/${a.id}/cover" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
 						<%--
 						<div class="album_cover_info" style="display: block;">
 							<div>

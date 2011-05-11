@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,8 +60,8 @@ public class ImagesController implements ServletContextAware {
 	 * @param response
 	 * @throws IOException
 	 */
-	@RequestMapping("p2.html")
-	public void photo(@RequestParam(value="hash", required=false, defaultValue="-1") String hash, HttpServletResponse response) throws IOException {
+	@RequestMapping("/p2/{hash}")
+	public void photo(@PathVariable("hash") String hash, HttpServletResponse response) throws IOException {
 
 		response.setContentType("image/jpeg");
 		try {
@@ -91,6 +92,31 @@ public class ImagesController implements ServletContextAware {
 	}
 	
 	/**
+	 * cover albumu w postaci miniaturki
+	 * 
+	 * @param id ID albumu
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping("/a/{id}/cover")
+	public void cover(@PathVariable Long id, HttpServletResponse response) throws IOException {
+		Long photoId = albumDAO.getCover(id);
+		photo(photoId, "thumb", response);
+	}
+	
+	/**
+	 * jesli podano samo id, to pociagnij wersje resized
+	 *  
+	 * @param id
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping("/p/{id}")
+	public void photo(@PathVariable Long id, HttpServletResponse response) throws IOException {
+		photo(id, "resized", response);
+	}
+	
+	/**
 	 * pociagnij obrazek by id, ZE sprawdzaniem zalogowanego usera
 	 * 
 	 * @param id
@@ -98,26 +124,26 @@ public class ImagesController implements ServletContextAware {
 	 * @param response
 	 * @throws IOException
 	 */
-	@RequestMapping("p.html")
-	public void photo(@RequestParam(value="id", required=false, defaultValue="-1") Long id, @RequestParam(value="type", required=false, defaultValue="-1") int type, HttpServletResponse response) throws IOException {
+	@RequestMapping("/p/{id}/{type}")
+	public void photo(@PathVariable Long id, @PathVariable String type, HttpServletResponse response) throws IOException {
 		response.setContentType("image/jpeg");
 		try {
-			if(type == 0) {
+			if(type.equals("resized")) {
 				// photo
-				IOUtils.copy(photoDAO.getStream(id, type), response.getOutputStream());
+				IOUtils.copy(photoDAO.getStream(id, 0), response.getOutputStream());
 				return;
 			}
-			if(type == 1) {
+			if(type.equals("thumb")) {
 				// thumb
-				IOUtils.copy(photoDAO.getStream(id, type), response.getOutputStream());
+				IOUtils.copy(photoDAO.getStream(id, 1), response.getOutputStream());
 				return;
 			}
-			if(type == 2) {
+			if(type.equals("cover")) {
 				// cover
 				IOUtils.copy(photoDAO.getStream(albumDAO.getCover(id), 1), response.getOutputStream());
 				return;
 			}
-			if(type == 3 || true) {
+			if(type.equals("original") || true) {
 				// file system
 				Map<String, Object> m = photoDAO.get(id, new String[]{"file_path", "visibility"});
 				log.debug(m.get("file_path"));
@@ -148,8 +174,8 @@ public class ImagesController implements ServletContextAware {
 	 * pull
 	 */
 	/*@Secured("ROLE_ADMIN")*/
-	@RequestMapping(value="/picnik2.html", method=RequestMethod.GET)
-	public String picnik(@RequestParam Long id, @RequestParam("file") String file, HttpServletResponse response) throws IOException {
+	@RequestMapping(value="/picnik2/{id}", method=RequestMethod.GET)
+	public String picnik(@PathVariable Long id, @RequestParam("file") String file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
 		log.info("PICNIK-GET: " + file);
 	
@@ -175,8 +201,8 @@ public class ImagesController implements ServletContextAware {
 	 * @param response
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/picnik.html", method=RequestMethod.POST)
-	public void picnik(@RequestParam Long id, @RequestParam("file") byte[] file, HttpServletResponse response) throws IOException {
+	@RequestMapping(value="/picnik/${id}", method=RequestMethod.POST)
+	public void picnik(@PathVariable Long id, @RequestParam("file") byte[] file, HttpServletResponse response) throws IOException {
 		log.info("PICNIK-GET: " + id);
 		log.info("PICNIK-GET: " + file.length);
 		response.setContentType("image/jpeg");
@@ -185,6 +211,7 @@ public class ImagesController implements ServletContextAware {
 	
 	@ExceptionHandler(Exception.class)
 	public void handleException(Exception ex, HttpServletResponse response) throws IOException {
+		log.error(ex.getMessage());
 		response.setContentType("image/jpeg");
 		InputStream in = servletContext.getResourceAsStream("/images/no_image.jpg");
 		IOUtils.copy(in, response.getOutputStream());
