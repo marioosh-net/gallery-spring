@@ -90,17 +90,17 @@
 	<bean id="settings" class="net.marioosh.gallery.Settings">
 		<property name="photosPerPage" value="24"/>
 		<property name="albumsPerPage" value="24"/>
-		<!-- win32 -->	
+		<!-- win32 	
 		<property name="rootPath" value="C:\moje\download\photos"/>
 		<property name="destPath" value="C:\moje\download\photos_out"/>
         <property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
 		<property name="mogrifyPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\mogrify.exe"/>
-		<!-- linux
+		-->
+		<!-- linux -->
 		<property name="rootPath" value="/mnt/data2/photos"/>
 		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
 		<property name="convertPath" value="/usr/bin/convert"/>
 		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
-		-->
 		<property name="exifToolPath" value="/usr/bin/exiftool"/>
 	</bean>
 

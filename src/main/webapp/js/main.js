@@ -24,13 +24,13 @@ function searches() {
 }
 function photos(a,pp) {
 	if(a != '') {
-		a = '&a='+a;
+		a = '/'+a;
 	}
 	if(pp != '') {
-		pp = '&pp='+pp;
+		pp = '/'+pp;
 	}	
 	loading('#photos');
-	jQuery('#photos').load('photos.html?'+a+pp);
+	jQuery('#photos').load('photos'+a+pp);
 }
 function loadingMainOff() {
 	jQuery('#main-progress').hide();

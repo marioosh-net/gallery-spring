@@ -3,7 +3,7 @@
 
 <c:forEach items="${albums}" var="a" varStatus="i">
 	<%-- <a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}"><div class="oneset" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a> --%>
-	<a href="#" title="${a.name}" onclick="jQuery('.oneset').removeClass('selected'); jQuery('.oneset_${a.id}').addClass('selected'); loading('#photos'); jQuery('#photos').load('<t:context/>/photos.html?a=${a.id}');"><div class="oneset oneset_${a.id} ${a.id == param.a ? 'selected' : ''}" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a>
+	<a href="#" title="${a.name}" onclick="jQuery('.oneset').removeClass('selected'); jQuery('.oneset_${a.id}').addClass('selected'); loading('#photos'); jQuery('#photos').load('<t:context/>/photos/${a.id}/1');"><div class="oneset oneset_${a.id} ${a.id == param.a ? 'selected' : ''}" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a>
 	<%-- <security:authorize ifAnyGranted="ROLE_ADMIN">&#160;<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${a.id}"><img src="images/list_remove_btn.gif"/></a></security:authorize> --%>
 </c:forEach>
 <%-- prev --%> 
@@ -16,9 +16,9 @@
 <c:if test="${apage != 1}">
 	<a href="#" onclick="
 		loadingIcon(this); 
-		jQuery('#albums').load('albums/${apage == 1 ? apage : apage - 1}/${search}');
+		jQuery('#albums').load('<t:context/>/albums/${apage == 1 ? apage : apage - 1}/${search}');
 		if(jQuery('#mode').val() == 'covers') {
-			jQuery('#photos').load('covers/${apage == 1 ? apage : apage - 1}/${search}');
+			jQuery('#photos').load('<t:context/>/covers/${apage == 1 ? apage : apage - 1}/${search}');
 		}
 	"><spring:message code="button.prevAlbum"/></a>
 </c:if>
@@ -34,9 +34,9 @@
 <c:if test="${apage != apagesCount}">
 	<a href="#" onclick="
 		loadingIcon(this); 
-		jQuery('#albums').load('albums/${apage == apagesCount ? apage : apage + 1}/${search}');
+		jQuery('#albums').load('<t:context/>/albums/${apage == apagesCount ? apage : apage + 1}/${search}');
 		if(jQuery('#mode').val() == 'covers') { 
-			jQuery('#photos').load('covers/${apage == apagesCount ? apage : apage + 1}/${search}');
+			jQuery('#photos').load('<t:context/>/covers/${apage == apagesCount ? apage : apage + 1}/${search}');
 		}
 		"><spring:message code="button.nextAlbum"/></a>
 	</c:if>

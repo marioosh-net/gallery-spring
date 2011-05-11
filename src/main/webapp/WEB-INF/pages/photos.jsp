@@ -17,8 +17,8 @@
 				<div>
 					<security:authorize ifAnyGranted="ROLE_ADMIN">
 						<div class="album-buttons">
-						<img class="icon middle" width="16" height="16" src="images/key2.png"/><a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#delalb" rev="loadingMain(); jQuery.get('<t:context/>/visibility.html?id=${album.id}&v=PUBLIC', function(data){if(data == '0') { photos('${param.a}','${ppage}'); } })"><spring:message code="button.publicAllPhotos"/></a>
-						<img class="icon middle" width="16" height="16" src="images/key2.png"/><a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#delalb" rev="loadingMain(); jQuery.get('<t:context/>/visibility.html?id=${album.id}&v=USER', function(data){if(data == '0') { photos('${param.a}','${ppage}'); } })"><spring:message code="button.privateAllPhotos"/></a>
+						<img class="icon middle" width="16" height="16" src="images/key2.png"/><a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#delalb" rev="loadingMain(); jQuery.get('<t:context/>/visibility.html?id=${album.id}&v=PUBLIC', function(data){if(data == '0') { photos('${aid}','${ppage}'); } })"><spring:message code="button.publicAllPhotos"/></a>
+						<img class="icon middle" width="16" height="16" src="images/key2.png"/><a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#delalb" rev="loadingMain(); jQuery.get('<t:context/>/visibility.html?id=${album.id}&v=USER', function(data){if(data == '0') { photos('${aid}','${ppage}'); } })"><spring:message code="button.privateAllPhotos"/></a>
 						<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#delalb" rev="deletealbum.html?id=${album.id}"><img class="icon middle" height="16" width="16" src="images/delete.png"/><spring:message code="button.delete"/></a><br/>
 						<a href="#" onclick="openModal(this); return false;" id="scan-trigger-alb" class="modalInput modalInputClick" rel="#yesnoalbum" rev="loadingIcon('#scan-trigger-alb'); jQuery.get('<t:context/>/scan.html?refresh=1', { path: '${album.path}'}, function(data){openOverlay('#scaned', data); jQuery('#scan-trigger-alb').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
 						<a href="#" onclick="openModal(this); return false;" id="reload-trigger" class="modalInput modalInputClick" rel="#yesnoalbum" rev="loadingIcon('#reload-trigger'); jQuery.get('<t:context/>/reload.html', { id: '${album.id}'}, function(data){openOverlay('#scaned', data); jQuery('#reload-trigger').text('<spring:message code="button.reload"/>');})"><spring:message code="button.reload"/></a>
@@ -60,7 +60,7 @@
 <!-- album name -->
 <div id="photos-header">
 	<div class="left album-title">
-		<c:if test="${album != null}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('covers'); jQuery('#albums').load('albums');"><spring:message code="button.albums"/></a>&#160;&#187;&#160;<%--<a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}');">${album.name}</a>--%><a href="<t:context/>/index.html?a=${param.a}" >${album.name}</a></c:if>
+		<c:if test="${album != null}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('covers'); jQuery('#albums').load('albums');"><spring:message code="button.albums"/></a>&#160;&#187;&#160;<%--<a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos/${aid}/1');">${album.name}</a>--%><a href="<t:context/>/${aid}" >${album.name}</a></c:if>
 	</div>
 	<div class="right">
 	</div>
@@ -71,7 +71,7 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}'); return false;">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
+			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos/${aid}/${p[0]}'); return false;">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
 		</c:forEach>
 	</div>
 	<div class="clear"></div>
@@ -174,7 +174,7 @@
 	<div class="pages">
 		<c:forEach items="${ppages}" var="p" varStatus="i">
 			<%--<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>--%>
-			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos.html?a=${param.a}&amp;pp=${p[0]}'); return false;">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
+			<div><c:if test="${p[0] != ppage}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<t:context/>/photos/${aid}/${p[0]}'); return false;">[${p[0]}]</a></c:if><c:if test="${p[0] == ppage}"><span style="color: #fff;">[${p[0]}]</span></c:if></div>
 		</c:forEach>
 	</div>
 	<div class="clear"></div>

@@ -85,6 +85,19 @@ public class MainController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/{albumid}", method=RequestMethod.GET)
+	public String loadalbum(@PathVariable("albumid") Long albumId, Model model) {
+		model.addAttribute("aid",albumId);
+		return "index";
+	}
+
+	@RequestMapping(value="/{albumid}/{page}", method=RequestMethod.GET)
+	public String loadalbum(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
+		model.addAttribute("aid",albumId);
+		model.addAttribute("ppage", pp);
+		return "index";
+	}
+	
 	@RequestMapping(value="/index.html", method=RequestMethod.GET)
 	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
 		return "index";
@@ -151,9 +164,19 @@ public class MainController {
 		albums(p, s, model);
 		return new ModelAndView("covers", model.asMap());
 	}
+
+	@RequestMapping("/photos")
+	public String index(Model model) {
+		return index(0L, 1, model);
+	}
 	
-	@RequestMapping(value="/photos.html")
-	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
+	@RequestMapping("/photos/{albumid}")
+	public String index(@PathVariable("albumid") Long albumId, Model model) {
+		return index(albumId, 1, model);
+	}
+	
+	@RequestMapping(value="/photos/{albumid}/{page}")
+	public String index(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		bp1.setVisibility(utilService.getCurrentVisibility());
 		
