@@ -135,12 +135,14 @@
 			<a href="<t:context/>/p/${p['id']}/resized" class="lightview" rel="gallery[mygallery]" title="<a href='<t:context/>/p/${p["id"]}/resized' target='_blank'>${p['name']}</a>"></a>		
 		</c:forEach>
 		
-		<t:modalyesno id="yesnophoto">
-			<spring:message code="text.confirmDeletePhoto" />
-		</t:modalyesno>
-		<t:modalyesno id="yesnorefresh">
-			<spring:message code="text.confirmRefreshPhoto" />
-		</t:modalyesno>
+		<security:authorize ifAllGranted="ROLE_ADMIN">
+			<t:modalyesno id="yesnophoto">
+				<spring:message code="text.confirmDeletePhoto" />
+			</t:modalyesno>
+			<t:modalyesno id="yesnorefresh">
+				<spring:message code="text.confirmRefreshPhoto" />
+			</t:modalyesno>
+		</security:authorize>
 		
 		<%--
 		<div class="thumb_box">

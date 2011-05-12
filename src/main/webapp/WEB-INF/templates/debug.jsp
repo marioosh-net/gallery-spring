@@ -15,10 +15,6 @@
 			</c:forEach>
 			</div>
 			<div>
-			<a href="#" onclick="$.get('testalbum.html', function(data){albums();covers();})">test album</a>
-			<a href="#" onclick="$.get('makephotos.html?count=10', function(data){albums();covers();})">make 10 photos</a>
-			<a href="#" onclick="$.get('makephotos.html', function(data){albums();covers();})">make photos</a>
-			<a href="#" onclick="$.get('shuffle.html', function(data){if(data == '0') {albums();covers();}})">shuffle</a>
 			</div>
 		</form:form>
 	</div>
