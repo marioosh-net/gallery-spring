@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN" "urlrewrite3.0.dtd">
 <urlrewrite default-match-type="wildcard">
+
+	<!-- static content -->
 	<rule>
 		<from>/images/**</from>
 		<to>/images/$1</to>
@@ -17,6 +19,8 @@
 		<from>/html/**</from>
 		<to>/html/$1</to>
 	</rule>
+	
+	<!-- dispatcher mapping dispose -->
 	<rule>
 		<from>/**</from>
 		<to>/app/$1</to>
@@ -25,4 +29,5 @@
 		<from>/app/**</from>
 		<to>/$1</to>
 	</outbound-rule>
+	
 </urlrewrite>

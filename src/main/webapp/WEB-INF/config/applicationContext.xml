@@ -86,6 +86,9 @@
 	<mvc:view-controller path="/404.html" view-name="404"/>
 	<mvc:view-controller path="/403.html" view-name="403"/>
 	<mvc:view-controller path="/error.html" view-name="error"/>
+	
+	<!-- static resources -->
+	<mvc:resources mapping="/r/**" location="/WEB-INF"/>
 
 	<bean id="settings" class="net.marioosh.gallery.Settings">
 		<property name="photosPerPage" value="24"/>
@@ -138,9 +141,9 @@
 	<!-- postgresql / localhost -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/gallery?charSet=UTF-8" />
-		<property name="username" value="gallery" />
-		<property name="password" value="gallery" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/gallery2?charSet=UTF-8" />
+		<property name="username" value="gallery2" />
+		<property name="password" value="gallery2" />
 	</bean>
 	
 
