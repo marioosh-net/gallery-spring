@@ -33,7 +33,7 @@
 								<form:options itemLabel="name"/>
 							</form:select><br/>
 							<img class="icon middle" width="16" height="16" src="<t:context/>/images/save.png"/><%--<a href="#" onclick="jQuery('#al').submit();"><spring:message code="button.save"/></a>--%>
-							<a href="#" onclick="jQuery.post('savealbum.html', jQuery('#al').serialize(), function(data){ if(data == '0') {openOverlay('#saved');} else {openOverlay('#error');} });" ><spring:message code="button.save"/></a>
+							<a href="#" onclick="jQuery.post('<t:context/>/savealbum.html', jQuery('#al').serialize(), function(data){ if(data == '0') {openOverlay('#saved');} else {openOverlay('#error');} });" ><spring:message code="button.save"/></a>
 							<input type="submit" class="hiddensubmit"/>
 						</form:form>
 						<t:modalyesno id="delalb">
@@ -102,7 +102,7 @@
 					<div class="thumb_options">
 						<div>
 							<img class="middle" width="16" height="16" src="<t:context/>/images/key2.png">&#160;<a id="v${i.index}" href="#" style="${p['visibility'] == 0 ? 'color: #9fee00; font-weight: bold;' : ''}" onclick="
-							jQuery.get('changevisibility.html?id=${p['id']}',function(data){ 
+							jQuery.get('<t:context/>/changevisibility.html?id=${p['id']}',function(data){ 
 								jQuery('#v${i.index}').text(data); 
 								if(data == 'public') {
 									jQuery('#th${i.index}').css('background-color','#63773c');
@@ -114,16 +114,16 @@
 							}); return false;" >${p['visibility'] == 0 ? 'public' : (p['visibility'] == 1 ? 'private' : (p['visibility'] == 2 ? 'admin' : ' '))}</a>
 						</div>				
 						<div>
-							<img class="middle" height="16" width="16" src="<t:context/>/images/delete.png">&#160;<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rev="jQuery.get('deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a><br/>											
-							<img class="middle" src="<t:context/>/images/rotatel.png" height="16" width="16"/>&#160;<a href="#"  onclick="jQuery.get('rotate.html?id=${p['id']}&amp;left=1',function(data){if(data == '0'){ jQuery('#u${p['id']}').css('background-image', 'url(<t:context/>/p/${p['id']}/thumb.'+(new Date()).getTime()+')'); jQuery('#x${p['id']}').attr('href', '<t:context/>/p/${p['id']}/resized.'+(new Date()).getTime()); }}); return false;" ><spring:message code="button.rotateLeft"/></a><br/>
-							<img class="middle" src="<t:context/>/images/rotater.png" height="16" width="16"/>&#160;<a href="#"  onclick="jQuery.get('rotate.html?id=${p['id']}&amp;left=0',function(data){if(data == '0'){ jQuery('#u${p['id']}').css('background-image', 'url(<t:context/>/p/${p['id']}/thumb.'+(new Date()).getTime()+')'); jQuery('#x${p['id']}').attr('href', '<t:context/>/p/${p['id']}/resized.'+(new Date()).getTime()); /*hrefDate('#x${p['id']}');*/ }}); return false;" ><spring:message code="button.rotateRight"/></a><br/>
+							<img class="middle" height="16" width="16" src="<t:context/>/images/delete.png">&#160;<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rev="jQuery.get('<t:context/>/deletephoto.html?id=${p['id']}',function(data){if(data == '0'){ jQuery('#th${i.index}').remove(); }});" rel="#yesnophoto" ><spring:message code="button.delete"/></a><br/>											
+							<img class="middle" src="<t:context/>/images/rotatel.png" height="16" width="16"/>&#160;<a href="#"  onclick="jQuery.get('<t:context/>/rotate.html?id=${p['id']}&amp;left=1',function(data){if(data == '0'){ jQuery('#u${p['id']}').css('background-image', 'url(<t:context/>/p/${p['id']}/thumb.'+(new Date()).getTime()+')'); jQuery('#x${p['id']}').attr('href', '<t:context/>/p/${p['id']}/resized.'+(new Date()).getTime()); }}); return false;" ><spring:message code="button.rotateLeft"/></a><br/>
+							<img class="middle" src="<t:context/>/images/rotater.png" height="16" width="16"/>&#160;<a href="#"  onclick="jQuery.get('<t:context/>/rotate.html?id=${p['id']}&amp;left=0',function(data){if(data == '0'){ jQuery('#u${p['id']}').css('background-image', 'url(<t:context/>/p/${p['id']}/thumb.'+(new Date()).getTime()+')'); jQuery('#x${p['id']}').attr('href', '<t:context/>/p/${p['id']}/resized.'+(new Date()).getTime()); /*hrefDate('#x${p['id']}');*/ }}); return false;" ><spring:message code="button.rotateRight"/></a><br/>
 							<img class="middle" src="<t:context/>/images/palette.png" height="16" width="16"/>&#160;<a target="_blank" href="<t:context/>/palette.html?id=${p['id']}"><spring:message code="button.palette"/></a><br/>
 							<%-- <img class="middle" src="<t:context/>/images/picnik.png" height="16" width="16"/>&#160;<a target="_blank" href="http://www.picnik.com/service/?_apikey=224466f6d30d0e0887e24bfb017c971d&_export=<t:server/><t:context/>/picnik/${p['id']}&_export_method=POST&_export_field=file&_export_title=save&_import=<t:server/><t:context/>/p2/${p['hash']}${hash2}&_redirect=<t:server/><t:context/>/p2/${p['hash']}${hash2}"><spring:message code="button.picnik"/>-push</a> --%>
 							<img class="middle" src="<t:context/>/images/picnik.png" height="16" width="16"/>&#160;<a target="_blank" href="http://www.picnik.com/service/?_apikey=224466f6d30d0e0887e24bfb017c971d&_export=<t:server/><t:context/>/picnik2/${p['id']}&_export_agent=browser&_export_field=file&_export_title=save&_import=<t:server/><t:context/>/p2/${p['hash']}${hash2}"><spring:message code="button.picnik"/></a>
 							<%--<br/><a href="<t:context/>/exif2/${p['id']}/1" target="_blank">EXIF</a>--%>
 							<br/><img class="middle" src="<t:context/>/images/lupka.png" height="16" width="16"/>&#160;<a href="<t:context/>/exif3/${p['id']}" target="_blank">EXIF [exiftool]</a>
 							<br/><img class="middle" src="<t:context/>/images/refresh.png" height="16" width="16"/>&#160;<a href="#" id="ref_${p['id']}" onclick="openModal(this); return false;" class="modalInput modalInputClick" rev="loadingIcon('#ref_${p['id']}'); jQuery.get('<t:context/>/refreshone.html?id=${p['id']}',function(data){ jQuery('#ref_${p['id']}').text('<spring:message code="button.refreshOne"/>'); if(data == '0'){  jQuery('#u${p['id']}').css('background-image', 'url(<t:context/>/p/${p['id']}/thumb.'+(new Date()).getTime()+')'); jQuery('#x${p['id']}').attr('href', '<t:context/>/p/${p['id']}/resized.'+(new Date()).getTime());   }}); return false;" rel="#yesnorefresh" ><spring:message code="button.refreshOne"/></a>
-							<%-- <a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rev="deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
+							<%-- <a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rev="<t:context/>/deletephoto2.html?id=${p['id']}" rel="#yesnophoto" ><spring:message code="button.delete"/></a> --%>
 						</div>						
 					</div>
 				</security:authorize>

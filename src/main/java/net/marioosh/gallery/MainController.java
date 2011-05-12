@@ -77,7 +77,7 @@ public class MainController {
 		return request.getContextPath();
 	}
 	
-	@RequestMapping(value="/index.html", method=RequestMethod.GET)
+	@RequestMapping(value="/index.html")
 	public String index(Model model) {
 		return home(null, 1, model);
 	}

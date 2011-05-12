@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <%--
 <security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-	<a href="/logout.html"><spring:message code="button.logout"/></a>
+	<a href="<t:context/>/logout.html"><spring:message code="button.logout"/></a>
 </security:authorize>
 --%>
 <security:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
