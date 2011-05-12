@@ -24,7 +24,7 @@
 						<a href="#" onclick="openModal(this); return false;" id="reload-trigger" class="modalInput modalInputClick" rel="#yesnoalbum" rev="loadingIcon('#reload-trigger'); jQuery.get('<t:context/>/reload.html', { id: '${album.id}'}, function(data){openOverlay('#scaned', data); jQuery('#reload-trigger').text('<spring:message code="button.reload"/>');})"><spring:message code="button.reload"/></a>
 						<a href="#" onclick="openModal(this); return false;" id="refresh-trigger" class="modalInput modalInputClick" rel="#yesnoalbum" rev="loadingIcon('#refresh-trigger'); jQuery.get('<t:context/>/refresh.html', { id: '${album.id}'}, function(data){if(data == '0') {openOverlay('#scaned', 'OK');} else {openOverlay('#scaned', 'Error');} jQuery('#refresh-trigger').text('<spring:message code="button.refresh"/>');})"><img class="middle" src="<t:context/>/images/refresh.png" height="16" width="16"/><spring:message code="button.refresh"/></a>
 						</div>
-						<form:form modelAttribute="album" cssClass="sform" id="al" action="index.html">
+						<form:form modelAttribute="album" cssClass="sform" id="al" action="${context}/index.html">
 							<form:hidden path="id"/>
 							<form:hidden path="hash"/>
 							<form:hidden path="path"/>

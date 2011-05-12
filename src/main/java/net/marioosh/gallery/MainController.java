@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -67,6 +69,12 @@ public class MainController {
 	@ModelAttribute("hash2")
 	public String time() {
 		return utilService.getHash2();
+	}
+	
+	@ModelAttribute("context")
+	public String context() {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		return request.getContextPath();
 	}
 	
 	@RequestMapping(value="/index.html", method=RequestMethod.GET)
