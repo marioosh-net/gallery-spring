@@ -1,4 +1,4 @@
-<%@ tag description="Body Wrapper" pageEncoding="UTF-8"%>
+<%@ tag description="Modal Box" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <%@ attribute name="id" required="true" type="java.lang.String" %>
 <%@ attribute name="style" required="false" type="java.lang.String" %>
