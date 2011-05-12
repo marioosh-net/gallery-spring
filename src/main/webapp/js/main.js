@@ -6,7 +6,7 @@ function covers(p,s) {
 		s = '/'+s;
 	}
 	loading('#photos');
-	jQuery('#photos').load('covers'+p+s);
+	jQuery('#photos').load(context+'/'+'covers'+p+s);
 }
 function albums(p,s) {
 	if(p != '') {
@@ -16,11 +16,11 @@ function albums(p,s) {
 		s = '/'+s;
 	}
 	loading('#albums');
-	jQuery('#albums').load('albums'+p+s);
+	jQuery('#albums').load(context+'/'+'albums'+p+s);
 }
 function searches() {
 	loading('#searches');
-	jQuery('#searches').load('searches');
+	jQuery('#searches').load(context+'/'+'searches');
 }
 function photos(a,pp) {
 	if(a != '') {
@@ -30,7 +30,7 @@ function photos(a,pp) {
 		pp = '/'+pp;
 	}	
 	loading('#photos');
-	jQuery('#photos').load('photos'+a+pp);
+	jQuery('#photos').load(context+'/'+'photos'+a+pp);
 }
 function loadingMainOff() {
 	jQuery('#main-progress').hide();
@@ -39,13 +39,13 @@ function loadingMain() {
 	jQuery('#main-progress').show();
 }
 function loading(selector) {
-	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/>&#160;loading...</div>');
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\''+context+'/images/ajax-loader5.gif\'/>&#160;loading...</div>');
 }
 function loadingNoText(selector) {
-	jQuery(selector).html('<div style="padding: 5px;"><img src=\'images/ajax-loader5.gif\'/></div>');
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\''+context+'/images/ajax-loader5.gif\'/></div>');
 }
 function loadingIcon(selector) {
-	jQuery(selector).html('<img src=\'images/ajax-loader5.gif\'/>');
+	jQuery(selector).html('<img src=\''+context+'/images/ajax-loader5.gif\'/>');
 }
 function slimboxstart() {
 	jQuery("a[rel^='lightbox-gal']").slimbox({
@@ -116,7 +116,7 @@ var xhr;
 function exif(id) {
 	loading('#exif');
 	xhr = jQuery.ajax({
-		url: 'exif/'+id+'/0',
+		url: context+'/'+'exif/'+id+'/0',
 		beforeSend: function() {
 			if(xhr && xhr.readystate != 4){
 	            xhr.abort();

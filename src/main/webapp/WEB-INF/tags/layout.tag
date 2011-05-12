@@ -6,6 +6,11 @@
 	<meta name="description" content="gallery" />
 	<meta name="Keywords" lang="pl" content="galeria">
 	<meta name="Keywords" lang="en" content="gallery">
+	
+	<script type="text/javascript">
+		var context = '<t:context/>';
+	</script>
+		
 	<%-- jQuery Library + ALL jQuery Tools --%>
 	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	<script type="text/javascript">jQuery.noConflict();</script>
@@ -41,6 +46,7 @@
 			});
 		</script>
 	</c:if>
+
 <!-- google analytics -->	
 <script type="text/javascript">
 

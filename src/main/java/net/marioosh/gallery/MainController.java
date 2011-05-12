@@ -85,13 +85,13 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/{albumid}", method=RequestMethod.GET)
+	@RequestMapping(value="/home/{albumid}", method=RequestMethod.GET)
 	public String loadalbum(@PathVariable("albumid") Long albumId, Model model) {
 		model.addAttribute("aid",albumId);
 		return "index";
 	}
 
-	@RequestMapping(value="/{albumid}/{page}", method=RequestMethod.GET)
+	@RequestMapping(value="/home/{albumid}/{page}", method=RequestMethod.GET)
 	public String loadalbum(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
 		model.addAttribute("aid",albumId);
 		model.addAttribute("ppage", pp);
