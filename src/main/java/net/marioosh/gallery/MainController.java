@@ -69,37 +69,33 @@ public class MainController {
 		return utilService.getHash2();
 	}
 	
-	/*
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/index.html", method=RequestMethod.POST)
-	public String saveAlbum(@ModelAttribute("album") Album album, HttpServletRequest request) {
-		log.debug(album);
-		album.setModDate(new Date());
-		albumDAO.update(album);
-		return "redirect:/index.html?"+request.getQueryString();
+	@RequestMapping(value="/index.html", method=RequestMethod.GET)
+	public String index(Model model) {
+		return home(null, 1, model);
 	}
-	*/
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String index() {
-		return "index";
+	public String home(Model model) {
+		return home(null, 1, model);
+	}
+
+	@RequestMapping(value="/home", method=RequestMethod.GET)
+	public String home(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
+		return home(null, 1, model);
+		// return "index";
 	}
 	
 	@RequestMapping(value="/home/{albumid}", method=RequestMethod.GET)
-	public String loadalbum(@PathVariable("albumid") Long albumId, Model model) {
-		model.addAttribute("aid",albumId);
-		return "index";
+	public String home(@PathVariable("albumid") Long albumId, Model model) {
+		// model.addAttribute("aid",albumId);
+		//return "index";
+		return home(albumId, 1, model);
 	}
 
 	@RequestMapping(value="/home/{albumid}/{page}", method=RequestMethod.GET)
-	public String loadalbum(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
+	public String home(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
 		model.addAttribute("aid",albumId);
 		model.addAttribute("ppage", pp);
-		return "index";
-	}
-	
-	@RequestMapping(value="/index.html", method=RequestMethod.GET)
-	public String index(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {
 		return "index";
 	}
 	
@@ -166,17 +162,17 @@ public class MainController {
 	}
 
 	@RequestMapping("/photos")
-	public String index(Model model) {
-		return index(0L, 1, model);
+	public String photos(Model model) {
+		return photos(0L, 1, model);
 	}
 	
 	@RequestMapping("/photos/{albumid}")
-	public String index(@PathVariable("albumid") Long albumId, Model model) {
-		return index(albumId, 1, model);
+	public String photos(@PathVariable("albumid") Long albumId, Model model) {
+		return photos(albumId, 1, model);
 	}
 	
 	@RequestMapping(value="/photos/{albumid}/{page}")
-	public String index(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
+	public String photos(@PathVariable("albumid") Long albumId, @PathVariable("page") int pp, Model model) {
 		PhotoBrowseParams bp1 = new PhotoBrowseParams();
 		bp1.setVisibility(utilService.getCurrentVisibility());
 		
@@ -277,7 +273,7 @@ public class MainController {
 			}
 		}
 		albumDAO.delete(id);
-		return "redirect:/index.html";
+		return "redirect:/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -307,14 +303,14 @@ public class MainController {
 	@RequestMapping("/deletephoto2.html")
 	public String deletePhoto2(@RequestParam("id") Long id) {
 		photoDAO.delete(id);
-		return "redirect:/index.html";
+		return "redirect:/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/cleardb.html")
 	public String clearDB() {
 		albumDAO.deleteAll();
-		return "redirect:/index.html";
+		return "redirect:/home";
 	}
 
 	@Secured("ROLE_ADMIN")
@@ -323,7 +319,7 @@ public class MainController {
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
-		return "redirect:/index.html";
+		return "redirect:/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -333,14 +329,14 @@ public class MainController {
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
-		return "redirect:/index.html";
+		return "redirect:/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/unload.html")
 	public String unload() {
 		fileService.unload();
-		return "redirect:/index.html";
+		return "redirect:/home";
 	}
 
 	@ResponseBody
@@ -350,7 +346,7 @@ public class MainController {
 		log.info("scan.html: path = "+path);
 		path = path.equals("-1") ? null : path;
 		int[] s = fileService.scan(path, refresh != -1 ? true : false);
-		// return "redirect:/index.html";
+		// return "redirect:/home";
 		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
 	}
 
@@ -369,7 +365,7 @@ public class MainController {
 			albumDAO.clear(id);
 			String path = a.getPath();
 			int[] s = fileService.scan(path, false);
-			// return "redirect:/index.html";
+			// return "redirect:/home";
 			return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 		} else {
 			return "ALBUMS:0, PHOTOS:0";
@@ -442,7 +438,7 @@ public class MainController {
 		} catch (Exception e) {
 			return "-1";
 		}
-		// return "redirect:/index.html";
+		// return "redirect:/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -453,6 +449,7 @@ public class MainController {
 	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
+		log.error(ex.getMessage(), ex);
 		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
 			if(a.getAuthority().equals("ROLE_ADMIN")) {
 				return new ModelAndView("error", "message", ex.getMessage());

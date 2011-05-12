@@ -15,7 +15,7 @@
 					<a href="#" onclick="jQuery('#searches').load('searches', function(){ jQuery('#searches').toggle('fast'); });">&#187;</a>
 				</div>
 				<div class="right">
-					<img src="images/ajax-loader6.gif" id="search-progress" style="display: none;"/>
+					<img src="<t:context/>/images/ajax-loader6.gif" id="search-progress" style="display: none;"/>
 				</div><div class="clear"></div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 		<%-- albums list --%>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
-			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="images/ajax.gif"/>&#160;Loading...</div> --%>
+			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="<t:context/>/images/ajax.gif"/>&#160;Loading...</div> --%>
 		</div>		
 
 	</div>

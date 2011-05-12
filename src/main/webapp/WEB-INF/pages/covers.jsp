@@ -1,83 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <input type="hidden" id="mode" value="covers"/>
-<%--
-<c:forEach items="${apages}" var="p" varStatus="i">
-	<c:if test="${i.index == 0}"><spring:message code="label.pages"/>&#160;</c:if>
-	<span>
-		<c:if test="${p[0] != apage}"><a href="index.html?a=${aid}&amp;pp=${ppage}&amp;p=${p[0]}">${p[0]}</a></c:if>
-		<c:if test="${p[0] == apage}">${p[0]}</c:if>
-		&#160;
-	</span>
-</c:forEach>
---%>
-<%--
-<c:if test="${apagesCount > 1}">
-	<div class="pages">
-		<c:forEach items="${apages}" var="p" varStatus="i">
-			<span><c:if test="${p[0] != apage}"><a href="index.html?a=${aid}&amp;pp=${ppage}&amp;p=${p[0]}">[${p[0]}]</a></c:if><c:if test="${p[0] == apage}"><span style="color: #fff;">[${p[0]}]</span></c:if></span>		
-		</c:forEach>
-	</div>
-</c:if>
---%>
 
 <div class="covers">
 	<div class="thumbs">
 		<c:forEach items="${albums}" var="a" varStatus="i">
-			<%--
-			<c:if test="${i.index == 0}">
-				<div class="thumb_box">
-					<c:if test="${apage == 1}">
-					<a href="#" class="inactive">
-					</c:if>
-					<c:if test="${apage != 1}">
-					<a href="<t:context/>/index.html?a=${aid}&amp;pp=${ppage}&amp;p=${apage == 1 ? apage : apage - 1}">
-					</c:if>				
-						<div class="thumb prevp ${apage == 1 ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
-							<br>P<br>R<br>E<br>V<br>
-						</div>
-					</a>
-				</div>				
-			</c:if>
-			--%>
-			
-			<%--
-			<c:if test="${(i.index%7 == 0 and i.index != 0)}">
-				<div class="clear"></div>
-			</c:if>
-			--%>
 			
 			<div class="thumb_box" title="${a.name}">
 				<a href="#" onclick="jQuery('.tooltip').remove(); jQuery('#photos').load('<t:context/>/photos/${a.id}/1');" class="thumb_link">
-						<div id="t${i.index}" class="thumb" style="background-image: url(images/ajax-loader5.gif); background-position: 50% 50%; "></div>
-						<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/a/${a.id}/cover); "></div>
-						<img style="display: none;" src="<t:context/>/a/${a.id}/cover" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
-						<%--
-						<div class="album_cover_info" style="display: block;">
-							<div>
-								${a.name}
-							</div>
-							<div><span style="color: silver;">${a.modDate}</span>
-							</div>
+					<div id="t${i.index}" class="thumb" style="background-image: url(<t:context/>/images/ajax-loader5.gif); background-position: 50% 50%; "></div>
+					<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<t:context/>/a/${a.id}/cover); "></div>
+					<img style="display: none;" src="<t:context/>/a/${a.id}/cover" onload="jQuery('#t${i.index}').hide(); jQuery('#u${i.index}').show();">
+					<%--
+					<div class="album_cover_info" style="display: block;">
+						<div>
+							${a.name}
 						</div>
-						--%>				
+						<div><span style="color: silver;">${a.modDate}</span>
+						</div>
+					</div>
+					--%>				
 				</a>
 			</div>
 		</c:forEach>
-		<%--
-		<div class="thumb_box">
-			<c:if test="${apage == apagesCount}">
-			<a href="#" class="inactive">
-			</c:if>
-			<c:if test="${apage != apagesCount}">
-			<a href="<t:context/>/index.html?a=${aid}&amp;pp=${ppage}&amp;p=${apage == apagesCount ? apage : apage + 1}">
-			</c:if>
-				<div class="thumb nextp ${apage == apagesCount or apagesCount == 0 ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
-					<br>N<br>E<br>X<br>T<br>
-				</div></a>
-			</a>
-		</div>
-		--%>		
 		
 	</div>
 
