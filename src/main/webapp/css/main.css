@@ -303,6 +303,9 @@ a.bu:active span {
 .errors {
 	color: red;
 }
+.error-box {
+	margin-left: 5px;
+}
 .block-header {
 	border-bottom: 1px solid #005ebc;
 	margin-bottom: 5px;
@@ -394,6 +397,7 @@ label {
 }
 .error-message {
 	margin-bottom: 10px;
+	font-size: 20px;
 }
 img.icon {
 	margin-right: 2px;
