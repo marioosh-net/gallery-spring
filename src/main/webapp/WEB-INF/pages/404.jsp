@@ -5,7 +5,7 @@
 	<div id="header">
 		<%-- logo --%>
 		<div class="left" style="padding-top: 10px;">
-			<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
+			<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/r/images/logo.png"/></a>
 		</div>
 	</div>
 

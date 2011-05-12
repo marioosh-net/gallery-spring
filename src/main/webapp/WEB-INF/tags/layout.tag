@@ -10,16 +10,16 @@
 	<%-- jQuery Library + ALL jQuery Tools --%>
 	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	<script type="text/javascript">jQuery.noConflict();</script>
-  	<%--<script type="text/javascript" src="<t:context/>/js/slimbox2.js"></script>--%>
+  	<%--<script type="text/javascript" src="<t:context/>/r/js/slimbox2.js"></script>--%>
 		
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2/scriptaculous.js"></script>
-	<script type="text/javascript" src="<t:context/>/js/lightview.js"></script>
+	<script type="text/javascript" src="<t:context/>/r/js/lightview.js"></script>
 		
-	<script type="text/javascript" src="<t:context/>/js/main.js"></script>
-	<link rel="stylesheet" type="text/css" href="<t:context/>/css/main.css" media="screen">
-	<%--<link rel="stylesheet" type="text/css" href="<t:context/>/css/sb/slimbox2.css" />--%> 
-	<link rel="stylesheet" type="text/css" href="<t:context/>/css/lightview.css" />
+	<script type="text/javascript" src="<t:context/>/r/js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="<t:context/>/r/css/main.css" media="screen">
+	<%--<link rel="stylesheet" type="text/css" href="<t:context/>/r/css/sb/slimbox2.css" />--%> 
+	<link rel="stylesheet" type="text/css" href="<t:context/>/r/css/lightview.css" />
 	<title><spring:message code="label.appname"/></title>
 	
 	<c:if test="${aid != null}">

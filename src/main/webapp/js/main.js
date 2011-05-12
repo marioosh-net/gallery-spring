@@ -39,13 +39,13 @@ function loadingMain() {
 	jQuery('#main-progress').show();
 }
 function loading(selector) {
-	jQuery(selector).html('<div style="padding: 5px;"><img src=\''+context+'/images/ajax-loader5.gif\'/>&#160;loading...</div>');
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\''+context+'/r/images/ajax-loader5.gif\'/>&#160;loading...</div>');
 }
 function loadingNoText(selector) {
-	jQuery(selector).html('<div style="padding: 5px;"><img src=\''+context+'/images/ajax-loader5.gif\'/></div>');
+	jQuery(selector).html('<div style="padding: 5px;"><img src=\''+context+'/r/images/ajax-loader5.gif\'/></div>');
 }
 function loadingIcon(selector) {
-	jQuery(selector).html('<img src=\''+context+'/images/ajax-loader5.gif\'/>');
+	jQuery(selector).html('<img src=\''+context+'/r/images/ajax-loader5.gif\'/>');
 }
 function slimboxstart() {
 	jQuery("a[rel^='lightbox-gal']").slimbox({

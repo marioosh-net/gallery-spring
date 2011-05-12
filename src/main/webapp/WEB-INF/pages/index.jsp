@@ -17,7 +17,7 @@
 					<a href="#" onclick="jQuery('#searches').load('searches', function(){ jQuery('#searches').toggle('fast'); });">&#187;</a>
 				</div>
 				<div class="right">
-					<img src="<t:context/>/images/ajax-loader6.gif" id="search-progress" style="display: none;"/>
+					<img src="<t:context/>/r/images/ajax-loader6.gif" id="search-progress" style="display: none;"/>
 				</div><div class="clear"></div>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 		<%-- albums list --%>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
-			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="<t:context/>/images/ajax.gif"/>&#160;Loading...</div> --%>
+			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="<t:context/>/r/images/ajax.gif"/>&#160;Loading...</div> --%>
 		</div>		
 
 	</div>
@@ -38,12 +38,12 @@
 		<div id="header">
 			<%-- logo --%>
 			<div class="left" style="padding-top: 10px;">
-				<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/images/logo.png"/></a>
+				<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/r/images/logo.png"/></a>
 			</div>
 			
 			<%-- user / logout --%>
 			<div class="right" style="margin-top: 10px;">
-				<span id="main-progress" style="display: none;"><img src="<t:context/>/images/ajax-loader5.gif"/></span>
+				<span id="main-progress" style="display: none;"><img src="<t:context/>/r/images/ajax-loader5.gif"/></span>
 				<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 					<span class="username"><security:authentication property="principal.username" /></span>
 					<a href="<t:context/>/logout.html" ><spring:message code="button.logout"/></a>
