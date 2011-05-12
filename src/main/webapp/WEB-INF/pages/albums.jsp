@@ -2,9 +2,7 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 
 <c:forEach items="${albums}" var="a" varStatus="i">
-	<%-- <a href="<t:context/>/index.html?a=${a.id}&amp;p=${apage}"><div class="oneset" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a> --%>
 	<a href="#" title="${a.name}" onclick="jQuery('.oneset').removeClass('selected'); jQuery('.oneset_${a.id}').addClass('selected'); loading('#photos'); jQuery('#photos').load('<t:context/>/photos/${a.id}/1');"><div class="oneset oneset_${a.id} ${a.id == param.a ? 'selected' : ''}" style="${a.id == aid ? 'background-color: #AAA;' : ''}">${a.shortName}<span class="counts">(${ac[i.index]})</span></div></a>
-	<%-- <security:authorize ifAnyGranted="ROLE_ADMIN">&#160;<a href="#" onclick="openModal(this)" class="modalInput modalInputHref" rel="#yesno" rev="deletealbum.html?id=${a.id}"><img src="<t:context/>/images/list_remove_btn.gif"/></a></security:authorize> --%>
 </c:forEach>
 <%-- prev --%> 
 <div class="left" style="margin-top: 3px;">
@@ -42,7 +40,3 @@
 	</c:if>
 </div>
 <div class="clear"></div>
-
-	<t:modalyesno id="yesno">
-		<spring:message code="text.confirmDeleteAlbum" />
-	</t:modalyesno>
