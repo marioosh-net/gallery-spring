@@ -60,7 +60,7 @@
 <!-- album name -->
 <div id="photos-header">
 	<div class="left album-title">
-		<c:if test="${album != null}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('covers'); jQuery('#albums').load('<c:url value="/albums"/>');"><spring:message code="button.albums"/></a>&#160;&#187;&#160;<%--<a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<c:url value="/photos/${aid}/1"/>');">${album.name}</a>--%><a href="<c:url value="/home/${aid}/${ppage}"/>" >${album.name}</a></c:if>
+		<c:if test="${album != null}"><a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<c:url value="/covers"/>'); jQuery('#albums').load('<c:url value="/albums"/>');"><spring:message code="button.albums"/></a>&#160;&#187;&#160;<%--<a href="#" onclick="loadingIcon(this); jQuery('#photos').load('<c:url value="/photos/${aid}/1"/>');">${album.name}</a>--%><a href="<c:url value="/home/${aid}/${ppage}"/>" >${album.name}</a></c:if>
 	</div>
 	<div class="right">
 	</div>
