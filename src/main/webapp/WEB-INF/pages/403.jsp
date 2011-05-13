@@ -4,7 +4,7 @@
 	<div id="header">
 		<%-- logo --%>
 		<div class="left" style="padding-top: 10px;">
-			<a href="<t:context/>/index.html" class="logoref" href=""><img src="<t:context/>/r/images/logo.png"/></a>
+			<a href="<c:url value="/index.html"/>" class="logoref" href=""><img src="<c:url value="/r/images/logo.png"/>"/></a>
 		</div>
 	</div>
 	
@@ -13,7 +13,7 @@
 		403: Permission denied.
 		</div>
 		<div>
-			<a href="<t:context/>/index.html"><spring:message code="page.home"/></a>
+			<a href="<c:url value="/index.html"/>"><spring:message code="page.home"/></a>
 		</div>
 	</div>	
 </t:layout> 
