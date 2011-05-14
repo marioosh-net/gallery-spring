@@ -211,7 +211,7 @@ public class ImagesController implements ServletContextAware {
 	
 	@ExceptionHandler(Exception.class)
 	public void handleException(Exception ex, HttpServletResponse response) throws IOException {
-		log.error(ex.getMessage());
+		log.error(ex.getMessage(), ex);
 		response.setContentType("image/jpeg");
 		InputStream in = servletContext.getResourceAsStream("/images/no_image.jpg");
 		IOUtils.copy(in, response.getOutputStream());
