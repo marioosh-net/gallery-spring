@@ -128,6 +128,7 @@ public class ImagesController implements ServletContextAware {
 	public void photo(@PathVariable Long id, @PathVariable String type, HttpServletResponse response) throws IOException {
 		response.setContentType("image/jpeg");
 		try {
+			if(id != null) {
 			if(type.equals("resized")) {
 				// photo
 				IOUtils.copy(photoDAO.getStream(id, 0), response.getOutputStream());
@@ -162,6 +163,7 @@ public class ImagesController implements ServletContextAware {
 					throw new FileNotFoundException();
 				}
 				return;
+			}
 			}
 			throw new FileNotFoundException();
 		} catch (Exception e) {

@@ -165,7 +165,12 @@ public class AlbumDAOImpl implements AlbumDAO {
 	@Override
 	public Long getCover(Long albumId) {
 		String sql = "select id from tphoto where album_id = ? and visibility <= ? order by random() limit 1";
-		return jdbcTemplate.queryForLong(sql, albumId, utilService.getCurrentVisibility().ordinal());
+		try {
+			return jdbcTemplate.queryForLong(sql, albumId, utilService.getCurrentVisibility().ordinal());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+
 	}
 	
 	@Override
