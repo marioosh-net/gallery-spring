@@ -11,9 +11,9 @@
 	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
 	<script type="text/javascript">jQuery.noConflict();</script>
   	<%--<script type="text/javascript" src="<c:url value="/r/js/slimbox2.js"/>"></script>--%>
-		
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2/scriptaculous.js"></script>
+
+	<script type="text/javascript" src="<c:url value="/r/js/prototype.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/r/js/scriptaculous.js"/>"></script>		
 	<script type="text/javascript" src="<c:url value="/r/js/lightview.js"/>"></script>
 		
 	<script type="text/javascript" src="<c:url value="/r/js/main.js"/>"></script>
