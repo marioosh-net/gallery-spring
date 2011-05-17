@@ -8,7 +8,7 @@
 	<meta name="Keywords" lang="en" content="gallery">
 	<script type="text/javascript">	var context = '<c:url value="/"/>'; if(context == '/') {context = '';}</script>
 	<%-- jQuery Library + ALL jQuery Tools --%>
-	<script src="http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="<c:url value="/r/js/jquery.tools.min.js"/>"></script>
 	<script type="text/javascript">jQuery.noConflict();</script>
   	<%--<script type="text/javascript" src="<c:url value="/r/js/slimbox2.js"/>"></script>--%>
 
