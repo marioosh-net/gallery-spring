@@ -24,7 +24,7 @@
 						<a href="#" onclick="openModal(this); return false;" id="reload-trigger" class="modalInput modalInputClick" rel="#yesnoalbum" rev="loadingIcon('#reload-trigger'); jQuery.get('<c:url value="/reload.html"/>', { id: '${album.id}'}, function(data){openOverlay('#scaned', data); jQuery('#reload-trigger').text('<spring:message code="button.reload"/>');})"><spring:message code="button.reload"/></a>
 						<a href="#" onclick="openModal(this); return false;" id="refresh-trigger" class="modalInput modalInputClick" rel="#yesnoalbum" rev="loadingIcon('#refresh-trigger'); jQuery.get('<c:url value="/refresh.html"/>', { id: '${album.id}'}, function(data){if(data == '0') {openOverlay('#scaned', 'OK');} else {openOverlay('#scaned', 'Error');} jQuery('#refresh-trigger').text('<spring:message code="button.refresh"/>');})"><img class="middle" src="<c:url value="/r/images/refresh.png"/>" height="16" width="16"/><spring:message code="button.refresh"/></a>
 						</div>
-						<form:form modelAttribute="album" cssClass="sform" id="al" action="${context}/index.html">
+						<form:form modelAttribute="album" cssClass="sform" id="al" action="${context}/home">
 							<form:hidden path="id"/>
 							<form:hidden path="hash"/>
 							<form:hidden path="path"/>
@@ -150,7 +150,7 @@
 			<a href="#" class="inactive">
 			</c:if>
 			<c:if test="${ppage != ppagesCount}">
-			<a href="<c:url value="/index.html?a=${aid}&amp;p=${apage}&amp;pp=${ppage == ppagesCount ? ppage : ppage + 1}"/>">
+			<a href="<c:url value="/home?a=${aid}&amp;p=${apage}&amp;pp=${ppage == ppagesCount ? ppage : ppage + 1}"/>">
 			</c:if>
 				<div class="thumb nextp ${ppage == ppagesCount or ppagesCount == 0 ? 'inactive' : ''}" onmouseover="jQuery(this).addClass('over');" onmouseout="jQuery(this).removeClass('over');">
 					<br>N<br>E<br>X<br>T<br>

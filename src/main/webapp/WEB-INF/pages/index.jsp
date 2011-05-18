@@ -6,7 +6,7 @@
 	<div class="left leftfixed">		
 		
     	<div class="setsheader">
-			<%-- <a href="<c:url value="/index.html"/>" style="color: #888888; text-decoration: none;">PHOTOSETS</a> --%>
+			<%-- <a href="<c:url value="/home"/>" style="color: #888888; text-decoration: none;">PHOTOSETS</a> --%>
 			<div id="searchbox">
 				<div class="left">
 					<input type="text" name="search" id="search" value="" onchange="jQuery('#search-progress').show(); jQuery.get('<c:url value="/albums/1/"/>'+jQuery(this).val(), function(data){jQuery('#search-progress').hide(); jQuery('#albums').html(data); jQuery('#search').focus();jQuery('#search').select(); jQuery.post('<c:url value="/addsearch.html"/>', {phrase: jQuery('#search').val()}); });"/>&#160;
@@ -38,7 +38,7 @@
 		<div id="header">
 			<%-- logo --%>
 			<div class="left" style="padding-top: 10px;">
-				<a href="<c:url value="/index.html"/>" class="logoref" href=""><img src="<c:url value="/r/images/logo.png"/>"/></a>
+				<a href="<c:url value="/home"/>" class="logoref" href=""><img src="<c:url value="/r/images/logo.png"/>"/></a>
 			</div>
 			
 			<%-- user / logout --%>

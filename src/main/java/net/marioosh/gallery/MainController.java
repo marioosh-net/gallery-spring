@@ -80,7 +80,7 @@ public class MainController {
 		return request.getContextPath();
 	}
 
-	@RequestMapping(value="/index.html")
+	@RequestMapping(value="/home")
 	public String index(Model model) {
 		return home(null, 1, model);
 	}
