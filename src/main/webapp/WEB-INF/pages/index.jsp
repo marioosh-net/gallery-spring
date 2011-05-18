@@ -82,14 +82,16 @@
 				</t:modal>
 				
 				<%-- testowe --%>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnotest" rev="<c:url value="/cleardb.html"/>">cleardb</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/testalbum.html"/>', function(data){albums();covers();})">test album</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/makephotos.html?count=10"/>', function(data){albums();covers();})">make 10 photos</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/makephotos.html"/>', function(data){albums();covers();})">make photos</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/shuffle.html"/>', function(data){if(data == '0') {albums();covers();}})">shuffle</a>
-				<t:modalyesno id="yesnotest">
-					<spring:message code="text.areYouSure"/>
-				</t:modalyesno>	
+				<c:if test="${servername == 'localhost'}">
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnotest" rev="<c:url value="/cleardb.html"/>">cleardb</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/testalbum.html"/>', function(data){albums();covers();})">test album</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/makephotos.html?count=10"/>', function(data){albums();covers();})">make 10 photos</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/makephotos.html"/>', function(data){albums();covers();})">make photos</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/shuffle.html"/>', function(data){if(data == '0') {albums();covers();}})">shuffle</a>
+					<t:modalyesno id="yesnotest">
+						<spring:message code="text.areYouSure"/>
+					</t:modalyesno>	
+				</c:if>
 								
 			</div>
 		</security:authorize>

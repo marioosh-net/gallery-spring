@@ -66,17 +66,20 @@ public class MainController {
 	@Autowired
 	private UtilService utilService;
 	
-	@ModelAttribute("hash2")
-	public String time() {
-		return utilService.getHash2();
-	}
-	
+	/**
+	 * metoda poleci przy obsludze kazdego requesta, bo @ModelAttribute
+	 * dorzucam do niej inne modelAttributy poprzed parametr model 
+	 * @param model
+	 * @return
+	 */
 	@ModelAttribute("context")
-	public String context() {
+	public String context(Model model) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		model.addAttribute("servername", request.getServerName());
+		model.addAttribute("hash2", utilService.getHash2());
 		return request.getContextPath();
 	}
-	
+
 	@RequestMapping(value="/index.html")
 	public String index(Model model) {
 		return home(null, 1, model);
