@@ -152,8 +152,8 @@
 	<!-- ============================= -->
 	<!-- disable-url-rewriting="true" - prevent appending ;jsessionid=XXX to urls -->
 	<security:http auto-config="true" use-expressions="true" disable-url-rewriting="true">
-		<security:form-login authentication-failure-url="/home?loginfail=1" login-page="/home" />
-		<security:logout logout-success-url="/home" logout-url="/logout.html" />
+		<security:form-login authentication-failure-url="/loginfail" login-page="/home" />
+		<security:logout logout-success-url="/home" logout-url="/logout" />
 		<security:remember-me key="AeVu0mee" />
 	</security:http>
 	<security:authentication-manager>
@@ -163,7 +163,7 @@
 		        <security:user name="admin"     password="c5a6d9190f2633a42f3e9e5544e1c74a" authorities="ROLE_ADMIN" />
 		        <security:user name="marioosh"  password="6fd394b2f8f7e2438ca7f0a87a6db994" authorities="ROLE_USER" />
 		        
-		        <!-- 098f6bcd4621d373cade4e832627b4f6 = test 
+		        <!-- 098f6bcd4621d373cade4e832627b4f6 = test  
 		        <security:user name="a"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_ADMIN" />
 		        <security:user name="u"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" />
 		        -->

@@ -46,7 +46,7 @@
 				<span id="main-progress" style="display: none;"><img src="<c:url value="/r/images/ajax-loader5.gif"/>"/></span>
 				<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 					<span class="username"><security:authentication property="principal.username" /></span>
-					<a href="<c:url value="/logout.html"/>" ><spring:message code="button.logout"/></a>
+					<a href="<c:url value="/logout"/>" ><spring:message code="button.logout"/></a>
 				</security:authorize>
 				<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
 					<a href="#" class="modalInput" onclick="openModal(this); return false;" rel="#loginf"><spring:message code="button.login"/></a>
@@ -59,7 +59,7 @@
 			<t:modal id="loginf">
 				<%@include file="/WEB-INF/templates/login.jsp" %>
 			</t:modal>
-			<c:if test="${!empty param.loginfail}">
+			<c:if test="${!empty loginfail}">
 				<script type="text/javascript">
 				jQuery(window).load(function () {
 					openOverlay('#loginf');

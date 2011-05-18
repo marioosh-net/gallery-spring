@@ -1,12 +1,12 @@
 <%@ include file="/WEB-INF/templates/taglibs.jsp" %>
 <%--
 <security:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-	<a href="<c:url value="/logout.html"/>"><spring:message code="button.logout"/></a>
+	<a href="<c:url value="/logout"/>"><spring:message code="button.logout"/></a>
 </security:authorize>
 --%>
 <security:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
 	<form class="sform" id="jf" name="f" action="<c:url value="/j_spring_security_check"/>" method="post">
-		<c:if test="${!empty param.loginfail}">
+		<c:if test="${!empty loginfail}">
 			<div class="modal-message">
 				<span class="errors"><spring:message code="text.loginError"/></span>
 			</div>
