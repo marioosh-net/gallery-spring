@@ -159,6 +159,28 @@ public class MainController {
 		model.addAttribute("search",s);
 		return "albums";
 	}
+	
+	@RequestMapping("/subalbums/{parentid}")
+	public ModelAndView subalbums(@PathVariable("parentid") Long parentId, Model model) {
+		AlbumBrowseParams bp = new AlbumBrowseParams();
+		bp.setVisibility(utilService.getCurrentVisibility());
+		bp.setParentId(parentId);
+		bp.setSort(AlbumSortField.NAME_DESC);
+		List<Album> subalbums = albumDAO.findAll(bp);
+		int acount = albumDAO.countAll(bp);
+		int[] ac = new int[subalbums.size()];
+		int i = 0;
+		for(Album a: subalbums) {
+			PhotoBrowseParams bp2 = new PhotoBrowseParams();
+			bp2.setAlbumId(a.getId());
+			bp2.setVisibility(utilService.getCurrentVisibility());
+			ac[i++] = photoDAO.countAll(bp2);
+		}
+		model.addAttribute("ac",ac);		
+		model.addAttribute("acount", acount);		
+		model.addAttribute("subalbums", subalbums);
+		return new ModelAndView("subalbums", model.asMap());
+	}
 
 	@RequestMapping("/covers")
 	public ModelAndView covers(Model model) {

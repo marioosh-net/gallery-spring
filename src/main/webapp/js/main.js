@@ -18,6 +18,11 @@ function albums(p,s) {
 	loading('#albums');
 	jQuery('#albums').load(context+'/'+'albums'+p+s);
 }
+function subalbums(id, el) {
+	jQuery.get(context+'/subalbums/'+id, function(data) {
+		jQuery(el).html(data);
+	});
+}
 function searches() {
 	loading('#searches');
 	jQuery('#searches').load(context+'/'+'searches');

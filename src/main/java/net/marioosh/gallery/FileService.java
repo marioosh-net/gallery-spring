@@ -147,6 +147,12 @@ public class FileService implements Serializable, ApplicationContextAware {
 					a.setPath(UndefinedUtils.relativePath(root, f));
 					a.setVisibility(Visibility.USER);
 					a.setHash(DigestUtils.md5Hex(a.getPath()));
+					if(file.getAbsolutePath() != root.getAbsolutePath()) {
+						// podkatalog katalogu w roocie
+						Album parent = albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, file)));
+						log.debug("PARENT:"+parent);
+						a.setParentId(parent != null ? parent.getId() : null);
+					}
 					Long albumId = albumDAO.add(a);
 					log.info("1 Album '" + f.getName() + "' [" + albumId + "] created.");
 					albumsCount++;
@@ -168,6 +174,14 @@ public class FileService implements Serializable, ApplicationContextAware {
 						a.setPath(UndefinedUtils.relativePath(root, file));
 						a.setVisibility(Visibility.USER);
 						a.setHash(DigestUtils.md5Hex(a.getPath()));
+						
+						if(file.getAbsolutePath() != root.getAbsolutePath()) {
+							// podkatalog katalogu w roocie
+							Album parent = albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, file)));
+							log.debug("PARENT:"+parent);
+							a.setParentId(parent != null ? parent.getId() : null);
+						}
+						
 						albumId = albumDAO.add(a);
 						albumHash = a.getHash();
 						log.info("2 Album '" + file.getName() + "' [" + albumId + "] created.");

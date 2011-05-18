@@ -426,6 +426,9 @@ img.icon {
 #albums .selected {
 	background-color: #AAA;
 }
+#albums .subalbums .oneset {
+	padding-left: 15px;
+}
 .oneset:hover {
 	background-color: #AAA;
 }

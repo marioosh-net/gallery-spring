@@ -6,6 +6,7 @@ public class AlbumBrowseParams implements BrowseParams {
 	private AlbumSortField sort = AlbumSortField.NAME_DESC;
 	private Visibility visibility = Visibility.PUBLIC;
 	private String search;
+	private Long parentId = null;
 	
 	@Override
 	public Range getRange() {
@@ -42,5 +43,13 @@ public class AlbumBrowseParams implements BrowseParams {
 	
 	public void setSearch(String search) {
 		this.search = search;
+	}
+	
+	public Long getParentId() {
+		return parentId;
+	}
+	
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 }

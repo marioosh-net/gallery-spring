@@ -23,6 +23,8 @@ public class Album extends AbstractEntity {
 	private Visibility visibility = Visibility.ADMIN;
 	
 	private String hash;
+	
+	private Long parentId;
 
 	public Album(String name) {
 		this.name = name;
@@ -85,4 +87,13 @@ public class Album extends AbstractEntity {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+	
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
 }
