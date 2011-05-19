@@ -273,6 +273,11 @@ public class TestController implements ResourceLoaderAware {
 		return new Date().getTime();
 	}	
 	
+	@RequestMapping("/test")
+	public void test() {
+		log.debug("test");
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
 		return new ModelAndView("error", "message", ex.getMessage());
