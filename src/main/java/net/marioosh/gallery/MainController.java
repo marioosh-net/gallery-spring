@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Null;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
@@ -22,6 +23,9 @@ import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
@@ -114,6 +118,17 @@ public class MainController {
 		model.addAttribute("aid",albumId);
 		model.addAttribute("ppage", pp);
 		return "index";
+	}
+	
+	@RequestMapping("/json/albums")
+	public void jsonAlbums(HttpServletResponse response, Model model) throws JSONException, IOException {
+		albums(1,"",model);
+		JSONArray jsonArray = new JSONArray(((List)model.asMap().get("albums")).toArray());
+		jsonArray.write(response.getWriter());
+		/*
+		JSONObject o = new JSONObject(model.asMap().get("albums"));
+		o.write(response.getWriter());
+		*/
 	}
 	
 	@RequestMapping("/albums")
