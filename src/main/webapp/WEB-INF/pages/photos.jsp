@@ -181,9 +181,8 @@
 	</div>
 	<div class="clear"></div>
 </c:if>
-
+<%--
 <script type="text/javascript">
-	/*modals();*/
 	/* jQuery('.ttip[title]').tooltip({
 		onBeforeShow: function() {
 			var trigger = this.getTrigger();
@@ -197,3 +196,4 @@
 	});
 	*/
 </script>
+--%>

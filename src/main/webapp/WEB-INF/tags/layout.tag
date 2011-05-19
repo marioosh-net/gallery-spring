@@ -25,20 +25,16 @@
 	<c:if test="${aid != null}">
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
-				/*modals();*/
 				photos(${aid != null ? aid : '\'\''},${ppage != null ? ppage : '\'\''});
 				albums(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
-				/*searches();*/
 			});
 		</script>
 	</c:if>
 	<c:if test="${aid == null}">
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
-				/*modals();*/
 				covers(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
 				albums(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
-				/*searches();*/
 			});
 		</script>
 	</c:if>
