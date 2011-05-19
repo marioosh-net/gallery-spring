@@ -251,6 +251,38 @@ public class FileService implements Serializable, ApplicationContextAware {
 			}
 		}
 	}
+	
+	/**
+	 * uaktualnij parent_id w talbum
+	 */
+	public void reloacateAlbums(boolean dryRun) {
+		File root = new File(settings.getRootPath());
+		log.debug("ROOT: "+root.getAbsolutePath());
+		
+		AlbumBrowseParams bp = new AlbumBrowseParams();
+		bp.setVisibility(Visibility.ADMIN);
+		bp.setWithSubalbums(true);
+		
+		for(Album a: albumDAO.findAll(bp)) {
+			File albumDir = new File(root, a.getPath());
+			log.info("ALBUM: "+albumDir.getAbsolutePath());
+			if(albumDir.getParent() != null) {
+				File albumParentDir = new File(albumDir.getParent());
+			
+				if(!albumParentDir.getAbsolutePath().equals(root.getAbsolutePath()) && albumDir.compareTo(root) != 0) {
+					log.info("PARENT: "+albumParentDir.getAbsolutePath());
+					// podkatalog katalogu w roocie
+					Album parent = albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, albumParentDir)));
+					log.info("ALBUM:" + albumDir.getAbsolutePath() +", PARENT:"+parent);
+					a.setParentId(parent != null ? parent.getId() : null);
+					if(!dryRun) {
+						albumDAO.update(a);
+					}
+				}
+			}
+		}
+		
+	}
 
 	public void unload() {
 		long start = System.currentTimeMillis();

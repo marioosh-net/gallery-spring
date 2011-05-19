@@ -486,6 +486,18 @@ public class MainController {
 		return new ModelAndView("pallete", "id", id);
 	}
 	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/relocate")	
+	public void reloacte() {
+		fileService.reloacateAlbums(false);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/relocatedry")	
+	public void reloacteDry() {
+		fileService.reloacateAlbums(true);
+	}	
+	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(Exception ex) throws IOException {
 		log.error(ex.getMessage(), ex);

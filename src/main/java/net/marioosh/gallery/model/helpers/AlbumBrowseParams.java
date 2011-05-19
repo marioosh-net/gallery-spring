@@ -7,6 +7,7 @@ public class AlbumBrowseParams implements BrowseParams {
 	private Visibility visibility = Visibility.PUBLIC;
 	private String search;
 	private Long parentId = null;
+	private boolean withSubalbums = false;
 	
 	@Override
 	public Range getRange() {
@@ -51,5 +52,13 @@ public class AlbumBrowseParams implements BrowseParams {
 	
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}
+	
+	public boolean isWithSubalbums() {
+		return withSubalbums;
+	}
+	
+	public void setWithSubalbums(boolean withSubalbums) {
+		this.withSubalbums = withSubalbums;
 	}
 }

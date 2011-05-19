@@ -93,7 +93,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 		if(browseParams.getParentId() != null) {
 			s += " and parent_id = " + browseParams.getParentId();
 		} else {
-			s += " and parent_id is null";
+			if(!browseParams.isWithSubalbums()) {
+				s += " and parent_id is null";
+			}
 		}
 		
 		String sql = "select count(id) from talbum where 1 = 1 "+s;
@@ -139,7 +141,9 @@ public class AlbumDAOImpl implements AlbumDAO {
 		if(browseParams.getParentId() != null) {
 			s += " and parent_id = " + browseParams.getParentId();
 		} else {
-			s += " and parent_id is null";
+			if(!browseParams.isWithSubalbums()) {
+				s += " and parent_id is null";
+			}
 		}
 		
 		String sql = "select * from talbum where 1 = 1 "+s+" order by "+sort + " " + limit;
@@ -162,7 +166,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 
 	@Override
 	public int update(Album album) {
-		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal(), album.getPath(), album.getHash(), album.getId(), album.getParentId()};
+		Object[] params = {album.getName(), new Date(), album.getVisibility().ordinal(), album.getPath(), album.getHash(), album.getParentId(), album.getId()};
 		int[] types = {Types.VARCHAR, Types.TIMESTAMP, Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.BIGINT, Types.BIGINT};
 		int rows = jdbcTemplate.update("update talbum set name = ?, mod_date = ?, visibility = ?, path = ?, hash = ?, parent_id = ? where id = ?", params, types);
 		return rows;

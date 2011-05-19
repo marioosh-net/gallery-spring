@@ -156,4 +156,12 @@ public class AdminTool {
 	public void _updateHashes() {
 		photoDAO.updateHashes();
 	}
+	
+	public void _relocatedry() {
+		fileService.reloacateAlbums(true);
+	}
+	
+	public void _relocate() {
+		fileService.reloacateAlbums(false);
+	}
 }
