@@ -21,6 +21,7 @@ import net.marioosh.gallery.model.helpers.PhotoSortField;
 import net.marioosh.gallery.model.helpers.Range;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
+import net.marioosh.gallery.utils.WebUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -90,7 +91,8 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, HttpServletRequest request) {
+		WebUtils.logRequestInfo(request);	// access log
 		return home(null, 1, model);
 	}
 	
@@ -123,8 +125,10 @@ public class MainController {
 	@RequestMapping("/json/albums")
 	public void jsonAlbums(HttpServletResponse response, Model model) throws JSONException, IOException {
 		albums(1,"",model);
-		JSONArray jsonArray = new JSONArray(((List)model.asMap().get("albums")).toArray());
-		jsonArray.write(response.getWriter());
+		// JSONArray jsonArray = new JSONArray(((List)model.asMap().get("albums")).toArray()[0]);
+		// jsonArray.write(response.getWriter());
+		JSONObject o = new JSONObject(((List)model.asMap().get("albums")).toArray()[0]);
+		o.write(response.getWriter());
 		/*
 		JSONObject o = new JSONObject(model.asMap().get("albums"));
 		o.write(response.getWriter());
