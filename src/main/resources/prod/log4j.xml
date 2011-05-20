@@ -44,7 +44,7 @@
 	<!-- access log -->
 	<appender name="accesslog" class="org.apache.log4j.DailyRollingFileAppender">
 		<!-- sciezka do pliku loga -->
-		<param name="File" value="${catalina.home}/logs/linkownia_access.log" />
+		<param name="File" value="${catalina.home}/logs/gallery_access.log" />
 		<!-- dodawaj do pliku (przeciwienstwo: truncate) -->
 		<param name="Append" value="true" />
 		<!-- Rollover at midnight each day -->
