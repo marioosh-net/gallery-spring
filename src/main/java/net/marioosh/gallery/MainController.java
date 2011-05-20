@@ -92,7 +92,7 @@ public class MainController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String home(Model model, HttpServletRequest request) {
-		WebUtils.logRequestInfo(request);	// access log
+		// WebUtils.logRequestInfo(request);	// access log
 		return home(null, 1, model);
 	}
 	
