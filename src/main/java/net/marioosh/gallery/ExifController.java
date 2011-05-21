@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import magick.ImageInfo;
 import magick.MagickException;
 import magick.MagickImage;
@@ -50,13 +51,13 @@ public class ExifController {
 	}
 	
 	@RequestMapping("/exif2/{id}/{full}")
-	public ModelAndView exif2(@PathVariable Long id, @PathVariable boolean full) {
-		return new ModelAndView("exif","exifdata",exif(id, full));
+	public ModelAndView exif2(@PathVariable Long id, @PathVariable boolean full, HttpServletRequest r) {
+		return new ModelAndView("exif","exifdata",exif(id, full, r));
 	}
 	
 	@ResponseBody
 	@RequestMapping("/exif/{id}/{full}")
-	public String exif(@PathVariable Long id, @PathVariable boolean full) {
+	public String exif(@PathVariable Long id, @PathVariable boolean full, HttpServletRequest request) {
 		String path = photoDAO.get(id).getFilePath();
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -95,7 +96,7 @@ public class ExifController {
 						if(j++ == 0) {
 							sb.append("<div class=\"exif-header\">EXIF");
 							if(!full) {
-								sb.append("&#160;<a target=\"_blank\" href=\"exif2.html?full=1&id="+id+"\">Full</a>");
+								sb.append("&#160;<a target=\"_blank\" href=\""+request.getContextPath()+"/exif2/"+id+"/1\">Full</a>");
 							}
 							sb.append("</div>");
 						}
