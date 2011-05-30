@@ -96,7 +96,7 @@ public class ExifController {
 						if(j++ == 0) {
 							sb.append("<div class=\"exif-header\">EXIF");
 							if(!full) {
-								sb.append("&#160;<a target=\"_blank\" href=\""+request.getContextPath()+"/exif2/"+id+"/1\">Full</a>");
+								sb.append("&#160;<a target=\"_blank\" href=\""+request.getContextPath()+"/app/exif2/"+id+"/1\">Full</a>");
 							}
 							sb.append("</div>");
 						}
