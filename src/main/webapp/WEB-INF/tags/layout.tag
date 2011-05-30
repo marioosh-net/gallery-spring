@@ -6,20 +6,20 @@
 	<meta name="description" content="gallery" />
 	<meta name="Keywords" lang="pl" content="galeria">
 	<meta name="Keywords" lang="en" content="gallery">
-	<script type="text/javascript">	var context = '<c:url value="/"/>'; if(context == '/') {context = '';}</script>
+	<script type="text/javascript">	var context = '<c:url value="/"/>';	if(context.substring(context.length-1,context.length) == '/') { context = context.substring(0, context.length - 1);} </script>
 	<%-- jQuery Library + ALL jQuery Tools --%>
-	<script type="text/javascript" src="<c:url value="/r/js/jquery.tools.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery.tools.min.js"/>"></script>
 	<script type="text/javascript">jQuery.noConflict();</script>
-  	<%--<script type="text/javascript" src="<c:url value="/r/js/slimbox2.js"/>"></script>--%>
+  	<%--<script type="text/javascript" src="<c:url value="/js/slimbox2.js"/>"></script>--%>
 
-	<script type="text/javascript" src="<c:url value="/r/js/prototype.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/r/js/scriptaculous.js"/>"></script>		
-	<script type="text/javascript" src="<c:url value="/r/js/lightview.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/prototype.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/scriptaculous.js"/>"></script>		
+	<script type="text/javascript" src="<c:url value="/js/lightview.js"/>"></script>
 		
-	<script type="text/javascript" src="<c:url value="/r/js/main.js"/>"></script>
-	<link rel="stylesheet" type="text/css" href="<c:url value="/r/css/main.css"/>" media="screen">
-	<%--<link rel="stylesheet" type="text/css" href="<c:url value="/r/css/sb/slimbox2.css"/>" />--%> 
-	<link rel="stylesheet" type="text/css" href="<c:url value="/r/css/lightview.css"/>" />
+	<script type="text/javascript" src="<c:url value="/js/main.js"/>"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>" media="screen">
+	<%--<link rel="stylesheet" type="text/css" href="<c:url value="/css/sb/slimbox2.css"/>" />--%> 
+	<link rel="stylesheet" type="text/css" href="<c:url value="/css/lightview.css"/>" />
 	<title><spring:message code="label.appname"/></title>
 	
 	<c:if test="${aid != null}">
@@ -38,7 +38,7 @@
 			});
 		</script>
 	</c:if>
-
+<c:if test="${servername != 'localhost'}">
 <!-- google analytics -->	
 <script type="text/javascript">
 
@@ -68,6 +68,7 @@
 
 </script>
 --%>
+</c:if>
 </head>
 <body id="body">
 	<%@include file="/WEB-INF/templates/debug.jsp" %>

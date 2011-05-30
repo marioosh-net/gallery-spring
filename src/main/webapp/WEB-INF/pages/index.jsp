@@ -6,10 +6,10 @@
 	<div class="left leftfixed">		
 		
     	<div class="setsheader">
-			<%-- <a href="<c:url value="/home"/>" style="color: #888888; text-decoration: none;">PHOTOSETS</a> --%>
+			<%-- <a href="<c:url value="/app/home"/>" style="color: #888888; text-decoration: none;">PHOTOSETS</a> --%>
 			<div id="searchbox">
 				<div class="left">
-					<input type="text" name="search" id="search" value="" onchange="jQuery('#search-progress').show(); jQuery.get('<c:url value="/albums/1/"/>'+jQuery(this).val(), function(data){jQuery('#search-progress').hide(); jQuery('#albums').html(data); jQuery('#search').focus();jQuery('#search').select(); jQuery.post('<c:url value="/addsearch.html"/>', {phrase: jQuery('#search').val()}); });"/>&#160;
+					<input type="text" name="search" id="search" value="" onchange="jQuery('#search-progress').show(); jQuery.get('<c:url value="/app/albums/1/"/>'+jQuery(this).val(), function(data){jQuery('#search-progress').hide(); jQuery('#albums').html(data); jQuery('#search').focus();jQuery('#search').select(); jQuery.post('<c:url value="/app/addsearch.html"/>', {phrase: jQuery('#search').val()}); });"/>&#160;
 					<a href="#" onclick="jQuery('#search').trigger('onchange');"><spring:message code="button.search"/></a>
 					|
 					<a href="#" onclick="jQuery('#search').val(''); jQuery('#search').trigger('onchange');"><spring:message code="button.showAll"/></a>
@@ -17,7 +17,7 @@
 					<a href="#" onclick="jQuery('#searches').load('searches', function(){ jQuery('#searches').toggle('fast'); });">&#187;</a>
 				</div>
 				<div class="right">
-					<img src="<c:url value="/r/images/ajax-loader6.gif"/>" id="search-progress" style="display: none;"/>
+					<img src="<c:url value="/images/ajax-loader6.gif"/>" id="search-progress" style="display: none;"/>
 				</div><div class="clear"></div>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 		<%-- albums list --%>
 		<div id="albums">
 			<%@ include file="/WEB-INF/pages/albums.jsp" %>
-			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="<c:url value="/r/images/ajax.gif"/>"/>&#160;Loading...</div> --%>
+			<%-- <div style="padding-left: 10px; padding-top: 10px;"><img src="<c:url value="/images/ajax.gif"/>"/>&#160;Loading...</div> --%>
 		</div>		
 
 	</div>
@@ -38,15 +38,15 @@
 		<div id="header">
 			<%-- logo --%>
 			<div class="left" style="padding-top: 10px;">
-				<a href="<c:url value="/home"/>" class="logoref" href=""><img src="<c:url value="/r/images/logo.png"/>"/></a>
+				<a href="<c:url value="/app/home"/>" class="logoref" href=""><img src="<c:url value="/images/logo.png"/>"/></a>
 			</div>
 			
 			<%-- user / logout --%>
 			<div class="right" style="margin-top: 10px;">
-				<span id="main-progress" style="display: none;"><img src="<c:url value="/r/images/ajax-loader5.gif"/>"/></span>
+				<span id="main-progress" style="display: none;"><img src="<c:url value="/images/ajax-loader5.gif"/>"/></span>
 				<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 					<span class="username"><security:authentication property="principal.username" /></span>
-					<a href="<c:url value="/logout"/>" ><spring:message code="button.logout"/></a>
+					<a href="<c:url value="/app/logout"/>" ><spring:message code="button.logout"/></a>
 				</security:authorize>
 				<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
 					<a href="#" class="modalInput" onclick="openModal(this); return false;" rel="#loginf"><spring:message code="button.login"/></a>
@@ -71,10 +71,10 @@
 		<%-- admin global functions --%>
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
-				<a href="#" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<c:url value="/scan.html?refresh=1"/>', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/load.html"/>">load</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/makepublic.html"/>">make public</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/unload.html"/>">unload</a>
+				<a href="#" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<c:url value="/app/scan.html?refresh=1"/>', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
+				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/load.html"/>">load</a>
+				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/makepublic.html"/>">make public</a>
+				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/unload.html"/>">unload</a>
 				<t:modalyesno id="yesnoadmin">
 					<spring:message code="text.areYouSure"/>
 				</t:modalyesno>
@@ -83,11 +83,11 @@
 				
 				<%-- testowe --%>
 				<c:if test="${servername == 'localhost'}">
-					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnotest" rev="<c:url value="/cleardb.html"/>">cleardb</a>
-					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/testalbum.html"/>', function(data){albums();covers();})">test album</a>
-					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/makephotos.html?count=10"/>', function(data){albums();covers();})">make 10 photos</a>
-					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/makephotos.html"/>', function(data){albums();covers();})">make photos</a>
-					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/shuffle.html"/>', function(data){if(data == '0') {albums();covers();}})">shuffle</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnotest" rev="<c:url value="/app/cleardb.html"/>">cleardb</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/app/testalbum.html"/>', function(data){albums();covers();})">test album</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/app/makephotos.html?count=10"/>', function(data){albums();covers();})">make 10 photos</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/app/makephotos.html"/>', function(data){albums();covers();})">make photos</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/app/shuffle.html"/>', function(data){if(data == '0') {albums();covers();}})">shuffle</a>
 					<t:modalyesno id="yesnotest">
 						<spring:message code="text.areYouSure"/>
 					</t:modalyesno>	

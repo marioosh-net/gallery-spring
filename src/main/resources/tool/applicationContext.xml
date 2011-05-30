@@ -127,7 +127,6 @@
 	<bean id="fileService" class="net.marioosh.gallery.FileService">
 	</bean>
 
-
 	<!-- Spring Web Flow 
 	<import resource="flowConfig.xml" />
 	-->
@@ -143,27 +142,4 @@
 		<property name="password" value="gallery2" />
 	</bean>
 	
-
-	<!-- ============================= -->
-	<!-- Spring Security               -->
-	<!-- ============================= 
-	<security:http auto-config="true" use-expressions="true">
-		<security:form-login authentication-failure-url="/loginfail" login-page="/home" />
-		<security:logout logout-success-url="/home" logout-url="/logout" />
-		<security:remember-me key="AeVu0mee" />
-	</security:http>
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:password-encoder hash="md5" />
-			<security:user-service>
-		        <security:user name="admin"     password="c5a6d9190f2633a42f3e9e5544e1c74a" authorities="ROLE_ADMIN" />
-		        <security:user name="marioosh"  password="6fd394b2f8f7e2438ca7f0a87a6db994" authorities="ROLE_USER" />
-		        
-		        <security:user name="a"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_ADMIN" />
-		        <security:user name="u"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
-	-->
-
 </beans>

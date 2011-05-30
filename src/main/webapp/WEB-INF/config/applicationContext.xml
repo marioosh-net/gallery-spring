@@ -88,12 +88,12 @@
 	<mvc:view-controller path="/error.html" view-name="error"/>
 	
 	<!-- static resources -->
-	<mvc:resources mapping="/r/**" location="/WEB-INF"/>
+	<mvc:resources mapping="/**" location="/WEB-INF"/>
 
 	<bean id="settings" class="net.marioosh.gallery.Settings">
 		<property name="photosPerPage" value="24"/>
 		<property name="albumsPerPage" value="24"/>
-		<!-- win32 	
+		<!-- win32
 		<property name="rootPath" value="C:\moje\download\photos"/>
 		<property name="destPath" value="C:\moje\download\photos_out"/>
         <property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
@@ -103,7 +103,8 @@
 		<property name="rootPath" value="/mnt/data2/photos"/>
 		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
 		<property name="convertPath" value="/usr/bin/convert"/>
-		<property name="mogrifyPath" value="/usr/bin/mogrify"/> 
+		<property name="mogrifyPath" value="/usr/bin/mogrify"/>
+		 
 		<property name="exifToolPath" value="/usr/bin/exiftool"/>
 	</bean>
 
@@ -152,8 +153,8 @@
 	<!-- ============================= -->
 	<!-- disable-url-rewriting="true" - prevent appending ;jsessionid=XXX to urls -->
 	<security:http auto-config="true" use-expressions="true" disable-url-rewriting="true">
-		<security:form-login authentication-failure-url="/loginfail" login-page="/home" />
-		<security:logout logout-success-url="/home" logout-url="/logout" />
+		<security:form-login authentication-failure-url="/app/loginfail" login-page="/app/home" />
+		<security:logout logout-success-url="/app/home" logout-url="/app/logout" />
 		<security:remember-me key="AeVu0mee" />
 	</security:http>
 	<security:authentication-manager>
@@ -163,7 +164,7 @@
 		        <security:user name="admin"     password="c5a6d9190f2633a42f3e9e5544e1c74a" authorities="ROLE_ADMIN" />
 		        <security:user name="marioosh"  password="6fd394b2f8f7e2438ca7f0a87a6db994" authorities="ROLE_USER" />
 		        
-		        <!-- 098f6bcd4621d373cade4e832627b4f6 = test  
+		        <!-- 098f6bcd4621d373cade4e832627b4f6 = test 
 		        <security:user name="a"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_ADMIN" />
 		        <security:user name="u"     password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" />
 		        -->

@@ -5,7 +5,7 @@
 	<div id="header">
 		<%-- logo --%>
 		<div class="left" style="padding-top: 10px;">
-			<a href="<c:url value="/home"/>" class="logoref" href=""><img src="<c:url value="/r/images/logo.png"/>"/></a>
+			<a href="<c:url value="/app/home"/>" class="logoref" href=""><img src="<c:url value="/images/logo.png"/>"/></a>
 		</div>
 	</div>
 
@@ -14,7 +14,7 @@
 		404: Page not found.
 		</div>
 		<div>
-			<a href="<c:url value="/home"/>"><spring:message code="page.home"/></a>
+			<a href="<c:url value="/app/home"/>"><spring:message code="page.home"/></a>
 		</div>
 	</div>	
 
