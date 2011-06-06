@@ -82,7 +82,7 @@
 	
 		<%-- before --%>
 		<c:forEach items="${before}" var="p" varStatus="i">
-			<a href="<c:url value="/app/p/${p['id']}/resized"/>" class="lightview" rel="gallery[mygallery]" title="<a href='<c:url value="/app/p/${p['id']}/resized"/>' target='_blank'>${p['name']}</a>"></a>
+			<a href="<c:url value="/app/p/${p['id']}/resized"/>" class="lightview" rel="gallery[mygallery]" title="<a href='<c:url value="/app/p/${p['id']}/original"/>' target='_blank'>${p['name']}</a>"></a>
 		</c:forEach>
 		
 		<%-- thumbs --%>
@@ -90,12 +90,12 @@
 		<c:forEach items="${photos}" var="p" varStatus="i">
 			<c:if test="${i.index == 0}"></c:if>
 			<div id="th${i.index}" class="thumb_box" style="<security:authorize ifAllGranted='ROLE_ADMIN'>height: auto; ${p['visibility'] == 0 ? 'background-color: #63773c;' : ''}</security:authorize>">
-				<a id="x${p['id']}" href='<c:url value="/app/p/${p['id']}/resized"/>' class="lightview" rel="gallery[mygallery]" title="<a href='<c:url value="/app/p/${p['id']}/resized"/>' target='_blank'>${p['name']}</a>">
+				<a id="x${p['id']}" href='<c:url value="/app/p/${p['id']}/resized"/>' class="lightview" rel="gallery[mygallery]" title="<a href='<c:url value="/app/p/${p['id']}/original"/>' target='_blank'>${p['name']}</a>">
 					<div id="t${i.index}" class="thumb" style="background-image: url(<c:url value='/images/ajax-loader5.gif'/>); background-position: 50% 50%; "></div>
 					<div id="u${p['id']}" class="thumb ttip" onmouseover="exif(${p['id']});" style="float: none; display: none; background-image: url(<c:url value='/app/p/${p["id"]}/thumb'/>); "></div>
 					<img style="display: none;" src="<c:url value="/app/p/${p['id']}/thumb"/>" onload="jQuery('#t${i.index}').hide(); jQuery('#u${p['id']}').show();">
 				</a>
-				<a href="<c:url value="/app/p/${p['id']}/original"/>" title="full size" target="_blank"><img class="full" src="<c:url value="/images/n3.png"/>" alt="full size"></a>
+				<a href="<c:url value="/app/p/${p['id']}/resized"/>" title="open in new window" target="_blank"><img class="full" src="<c:url value="/images/n3.png"/>" alt="full size"></a>
 
 				<%-- admin funcs --%>				
 				<security:authorize ifAllGranted="ROLE_ADMIN">
@@ -132,7 +132,7 @@
 		
 		<%-- after --%>
 		<c:forEach items="${after}" var="p" varStatus="i">
-			<a href='<c:url value="/app/p/${p['id']}/resized"/>' class="lightview" rel="gallery[mygallery]" title="<a href='<c:url value="/app/p/${p['id']}/resized"/>' target='_blank'>${p['name']}</a>"></a>		
+			<a href='<c:url value="/app/p/${p['id']}/resized"/>' class="lightview" rel="gallery[mygallery]" title="<a href='<c:url value="/app/p/${p['id']}/original"/>' target='_blank'>${p['name']}</a>"></a>		
 		</c:forEach>
 		
 		<security:authorize ifAllGranted="ROLE_ADMIN">
