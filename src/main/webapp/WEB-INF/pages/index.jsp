@@ -14,7 +14,7 @@
 					|
 					<a href="#" onclick="jQuery('#search').val(''); jQuery('#search').trigger('onchange');"><spring:message code="button.showAll"/></a>
 					|
-					<a href="#" onclick="jQuery('#searches').load('<c:url value="/app/searches"/>', function(){ jQuery('#searches').toggle('fast'); });">&#187;</a>
+					<a href="#" onclick="jQuery('#searches').load('<c:url value="/app/searches"/>', function(){ jQuery('#searches').toggle('fast'); });"><spring:message code="button.expandSearches"/></a>
 				</div>
 				<div class="right">
 					<img src="<c:url value="/images/ajax-loader6.gif"/>" id="search-progress" style="display: none;"/>

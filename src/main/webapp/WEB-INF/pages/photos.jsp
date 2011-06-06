@@ -95,7 +95,7 @@
 					<div id="u${p['id']}" class="thumb ttip" onmouseover="exif(${p['id']});" style="float: none; display: none; background-image: url(<c:url value='/app/p/${p["id"]}/thumb'/>); "></div>
 					<img style="display: none;" src="<c:url value="/app/p/${p['id']}/thumb"/>" onload="jQuery('#t${i.index}').hide(); jQuery('#u${p['id']}').show();">
 				</a>
-				<a href="<c:url value="/app/p/${p['id']}/resized"/>" title="open in new window" target="_blank"><img class="full" src="<c:url value="/images/n3.png"/>" alt="full size"></a>
+				<a href="<c:url value="/app/p/${p['id']}/resized"/>" title="<spring:message code="button.openInNewWindow"/>" target="_blank"><img class="full" src="<c:url value="/images/n3.png"/>" alt="full size"></a>
 
 				<%-- admin funcs --%>				
 				<security:authorize ifAllGranted="ROLE_ADMIN">
