@@ -70,6 +70,8 @@ public class BundlesEditorController {
 		ServletContextResource messagesen = new ServletContextResource(servletContext, "/WEB-INF/messages/messages_en.properties");
 		model.addAttribute("messagespl", UndefinedUtils.convertStreamToString(messagespl.getInputStream()));
 		model.addAttribute("messagesen", UndefinedUtils.convertStreamToString(messagesen.getInputStream()));
+		model.addAttribute("plpath", messagespl.getFile().getAbsolutePath());
+		model.addAttribute("enpath", messagesen.getFile().getAbsolutePath());
 		return request.getContextPath();
 	}
 	

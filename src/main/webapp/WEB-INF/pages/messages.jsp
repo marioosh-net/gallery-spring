@@ -16,6 +16,7 @@
 			<input type="hidden" value="pl" name="savedlang">
 		</div>
 	</form>
+	<span>${plpath}</span>
 	
 	<div style="height: 20px;"></div>
 	
@@ -27,6 +28,7 @@
 			<input type="hidden" value="en" name="savedlang">
 		</div>		
 	</form>
+	<span>${enpath}</span>
 	
 	<t:modalyesno id="yesnotexts">
 		<spring:message code="text.areYouSure"/>
