@@ -76,6 +76,7 @@
 				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/load.html"/>">load</a>
 				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/makepublic.html"/>">make public</a>
 				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/unload.html"/>">unload</a>
+				<a href="<c:url value='/app/messages' />"><spring:message code="button.messages"/></a>				
 				<t:modalyesno id="yesnoadmin">
 					<spring:message code="text.areYouSure"/>
 				</t:modalyesno>
