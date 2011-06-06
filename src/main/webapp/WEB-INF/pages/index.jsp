@@ -20,8 +20,9 @@
 					<img src="<c:url value="/images/ajax-loader6.gif"/>" id="search-progress" style="display: none;"/>
 				</div><div class="clear"></div>
 			</div>
-		</div>
-		<div id="searches" style="display:none;">
+			<div id="searches" style="display:none;">
+			</div>
+			
 		</div>
 
 		<%-- albums list --%>
