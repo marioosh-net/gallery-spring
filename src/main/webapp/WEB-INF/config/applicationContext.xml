@@ -153,9 +153,16 @@
 	<!-- ============================= -->
 	<!-- disable-url-rewriting="true" - prevent appending ;jsessionid=XXX to urls -->
 	<security:http auto-config="true" use-expressions="true" disable-url-rewriting="true">
-		<security:form-login authentication-failure-url="/app/loginfail" login-page="/app/home" />
+		<security:form-login authentication-failure-url="/app/loginfail" login-page="/app/home" default-target-url="/app/home" />
 		<security:logout logout-success-url="/app/home" logout-url="/app/logout" />
+		<security:intercept-url pattern="/app/login"  requires-channel="https"/>
+		<security:intercept-url pattern="/app/home"  requires-channel="http"/>
+		<security:intercept-url pattern="/"  requires-channel="http"/>		
 		<security:remember-me key="AeVu0mee" />
+		<!-- niestandardowe porty http / https -->
+		<security:port-mappings>
+			<security:port-mapping http="8080" https="8443"/>
+		</security:port-mappings>		
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>

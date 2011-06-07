@@ -121,10 +121,19 @@
 				<version>6.1.26</version>
 				<configuration>
 					<connectors>
+						<!-- http -->
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8081</port>
+							<port>8080</port>
 							<maxIdleTime>60000</maxIdleTime>
 						</connector>
+						<!-- https -->
+			            <connector implementation="org.mortbay.jetty.security.SslSocketConnector">
+			                <port>8443</port>
+			                <maxIdleTime>60000</maxIdleTime>
+			                <keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
+			                <password>jetty6</password>
+			                <keyPassword>jetty6</keyPassword>
+			            </connector>						
 					</connectors>
 					<reload>manual</reload>
 					<scanIntervalSeconds>2</scanIntervalSeconds>
@@ -139,6 +148,36 @@
 					</scanTargetPatterns>						
 				</configuration>
 			</plugin>
+			
+			<!-- key generator -->
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>keytool-maven-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <phase>generate-resources</phase>
+			            <id>clean</id>
+			            <goals>
+			                <goal>clean</goal>
+			            </goals>
+			        </execution>
+			        <execution>
+			            <phase>generate-resources</phase>
+			            <id>genkey</id>
+			            <goals>
+			                <goal>genkey</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			    <configuration>
+			        <keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
+			        <dname>cn=marioosh.net</dname>
+			        <keypass>jetty6</keypass>
+			        <storepass>jetty6</storepass>
+			        <alias>jetty6</alias>
+			        <keyalg>RSA</keyalg>
+			    </configuration>
+			</plugin>			
 		</plugins>
 	</build>
 
@@ -322,6 +361,13 @@
 		    <artifactId>json</artifactId>
 		    <version>20090211</version>
 		</dependency>
+		<!--
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib</artifactId>
+		    <version>2.4</version>
+		</dependency>		
+		-->		
 		
 		<!-- hours ago -->
 		<dependency>
