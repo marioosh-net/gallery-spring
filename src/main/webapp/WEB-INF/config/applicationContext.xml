@@ -162,6 +162,8 @@
 		<!-- niestandardowe porty http / https -->
 		<security:port-mappings>
 			<security:port-mapping http="8080" https="8443"/>
+			<!-- przy przekierowaniu z apache'a na tomcata -->
+			<!-- <security:port-mapping http="80" https="443"/> -->
 		</security:port-mappings>		
 	</security:http>
 	<security:authentication-manager>
