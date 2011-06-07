@@ -101,6 +101,12 @@ public class MainController {
 		model.addAttribute("loginfail", 1);
 		return home(null, 1, model);
 	}
+	
+	@RequestMapping(value="/login")
+	public String login(Model model) {
+		model.addAttribute("login", 1);
+		return home(null, 1, model);
+	}	
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home(@RequestParam(value="a", required=false, defaultValue="0") Long albumId, @RequestParam(value="p",required=false, defaultValue="1") int p, @RequestParam(value="pp",required=false, defaultValue="1") int pp, Model model) {

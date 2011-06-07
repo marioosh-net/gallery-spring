@@ -50,7 +50,8 @@
 					<a href="<c:url value="/app/logout"/>" ><spring:message code="button.logout"/></a>
 				</security:authorize>
 				<security:authorize ifNotGranted="ROLE_ADMIN, ROLE_USER">
-					<a href="#" class="modalInput" onclick="openModal(this); return false;" rel="#loginf"><spring:message code="button.login"/></a>
+					<%--<a href="#" class="modalInput" onclick="openModal(this); return false;" rel="#loginf"><spring:message code="button.login"/></a>--%>
+					<a href="<c:url value="/app/login"/>"><spring:message code="button.login"/></a>
 				</security:authorize>
 				&#160;<a href="?lang=pl">PL</a>|<a href="?lang=en">EN</a>					
 			</div>
@@ -60,7 +61,7 @@
 			<t:modal id="loginf">
 				<%@include file="/WEB-INF/templates/login.jsp" %>
 			</t:modal>
-			<c:if test="${!empty loginfail}">
+			<c:if test="${!empty loginfail or !empty login}">
 				<script type="text/javascript">
 				jQuery(window).load(function () {
 					openOverlay('#loginf');
