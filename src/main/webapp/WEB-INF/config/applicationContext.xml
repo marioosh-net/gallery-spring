@@ -130,9 +130,20 @@
 	
 	<bean id="fileService" class="net.marioosh.gallery.FileService">
 	</bean>
-
-
-	<!-- Spring Web Flow 
+	
+	<!-- jawnie zdefiniowany, zeby ustawic order i zeby dzialaly w pierwszej kolejnosci adnotacje @ExceptionHandler, tutaj specjalnie dla ImagesController -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+		<property name="order" value="0"/>
+	</bean>
+	<!-- dziala na poziomie controllerów, nie zadziała np. przy 404: page not found -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="order" value="1"/>
+		<property name="defaultErrorView" value="error"/>
+	</bean> 
+	
+	<!-- ============================= -->
+	<!-- Spring Web Flow               -->
+	<!-- ============================= 
 	<import resource="flowConfig.xml" />
 	-->
 

@@ -9,7 +9,7 @@
 	</div>
 	<div class="error-box">
 		<div class="error-message">
-			ERROR ${message}
+			ERROR<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">: ${exception.message}</security:authorize>
 		</div>
 		<div>
 			<a href="<c:url value="/app/home"/>"><spring:message code="page.home"/></a>

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.Null;
 import net.marioosh.gallery.model.dao.AlbumDAO;
 import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.model.dao.SearchDAO;
@@ -21,20 +20,15 @@ import net.marioosh.gallery.model.helpers.PhotoSortField;
 import net.marioosh.gallery.model.helpers.Range;
 import net.marioosh.gallery.model.helpers.Visibility;
 import net.marioosh.gallery.utils.UndefinedUtils;
-import net.marioosh.gallery.utils.WebUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -521,17 +515,6 @@ public class MainController {
 	@RequestMapping("/relocatedry")	
 	public void reloacteDry() {
 		fileService.reloacateAlbums(true);
-	}	
-	
-	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception ex) throws IOException {
-		log.error(ex.getMessage(), ex);
-		for(GrantedAuthority a: SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-			if(a.getAuthority().equals("ROLE_ADMIN")) {
-				return new ModelAndView("error", "message", ex.getMessage());
-			}
-		}
-		return new ModelAndView("error");
 	}	
 
 }

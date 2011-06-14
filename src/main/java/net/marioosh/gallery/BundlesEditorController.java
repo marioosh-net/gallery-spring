@@ -1,51 +1,24 @@
 package net.marioosh.gallery;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Iterator;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import magick.ImageInfo;
-import magick.MagickException;
-import magick.MagickImage;
-import magick.MagickInfo;
-import net.marioosh.gallery.model.dao.PhotoDAO;
 import net.marioosh.gallery.utils.UndefinedUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.ResourceBundleEditor;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.ServletContextResource;
-import org.springframework.web.servlet.ModelAndView;
-import com.drew.imaging.jpeg.JpegProcessingException;
-import com.drew.metadata.Directory;
-import com.drew.metadata.Metadata;
-import com.drew.metadata.MetadataException;
-import com.drew.metadata.Tag;
-import com.drew.metadata.exif.ExifReader;
 
 /**
  * edytor messages'ow
@@ -109,14 +82,4 @@ public class BundlesEditorController {
 		return "messages";
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception ex) throws IOException {
-		for (GrantedAuthority a : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-			if (a.getAuthority().equals("ROLE_ADMIN")) {
-				return new ModelAndView("error", "message", ex.getMessage());
-			}
-		}
-		return new ModelAndView("error");
-	}
-
 }
