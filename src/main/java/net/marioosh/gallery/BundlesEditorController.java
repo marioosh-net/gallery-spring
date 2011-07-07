@@ -33,11 +33,11 @@ public class BundlesEditorController {
 	@Autowired
 	private Settings settings;
 
-	@Autowired
-	private ServletContext servletContext;
+	// @Autowired
+	// private ServletContext servletContext;
 
 	@ModelAttribute("context")
-	public String context(Model model) throws IOException {
+	public String context(Model model, ServletContext servletContext) throws IOException {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		ServletContextResource messagespl = new ServletContextResource(servletContext, "/WEB-INF/messages/messages_pl.properties");
 		ServletContextResource messagesen = new ServletContextResource(servletContext, "/WEB-INF/messages/messages_en.properties");
@@ -57,7 +57,7 @@ public class BundlesEditorController {
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/save-messages", method=RequestMethod.POST)
-	public String save(@RequestParam("savedlang") String lang, @RequestParam String text, Model model) throws IOException {
+	public String save(@RequestParam("savedlang") String lang, @RequestParam String text, Model model, ServletContext servletContext) throws IOException {
 		log.debug("save");
 		log.debug(text);
 		ServletContextResource messages = null;
