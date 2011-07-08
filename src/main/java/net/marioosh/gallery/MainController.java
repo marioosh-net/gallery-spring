@@ -408,6 +408,7 @@ public class MainController {
 		path = path.equals("-1") ? null : path;
 		int[] s = fileService.scan(path, refresh != -1 ? true : false);
 		// return "redirect:/home";
+		logService.log("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
 	}
 

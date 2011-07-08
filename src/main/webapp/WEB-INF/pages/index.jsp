@@ -73,7 +73,7 @@
 		<%-- admin global functions --%>
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
-				<a href="#" title="<spring:message code='text.description.scan'/>" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<c:url value="/app/scan.html?refresh=1"/>', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
+				<a href="#" title="<spring:message code='text.description.scan'/>" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); openOverlay('#logmodal', null); jQuery.get('<c:url value="/app/scan.html?refresh=1"/>', function(data){/*openOverlay('#scaned', data);*/ jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
 				<a href="<c:url value='/app/messages' />"><spring:message code="button.messages"/></a>				
 				<t:modalyesno id="yesnoadmin">
 					<spring:message code="text.areYouSure"/>
@@ -124,9 +124,11 @@
 		</div>
 		
 		<%-- admin log --%>
-		<div id="logdiv" style="height: 200px; overflow: auto;">
-			<pre id="log"></pre>
-		</div>		
+		<t:modal id="logmodal" close="true" wide="true" alignleft="true">
+			<div id="logdiv" style="height: 200px; overflow: auto;">
+				<pre id="log"></pre>
+			</div>		
+		</t:modal>
 	</div>
 	<div class="clear"></div>
 </t:layout>

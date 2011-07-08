@@ -350,7 +350,7 @@ a.bu:active span {
 .logoref {
 	border: none;
 }
-.modal {
+.modal, .modal-wide {
 	color: #fff;
 	background-color:#000;
 	display:none;
@@ -364,12 +364,15 @@ a.bu:active span {
 	-moz-box-shadow: 0 0 50px #ccc;
 	-webkit-box-shadow: 0 0 50px #ccc;
 }
-.modal .buttons {
+.modal .buttons, .modal-wide .buttons{
 	overflow: hidden;
 	width: 100%;
 }
-.modal .modal-message {
+.modal .modal-message, .modal-wide .modal-message {
 	margin-bottom: 6px;
+}
+.modal-wide {
+	width:650px;
 }
 /*
 .modal .close {
