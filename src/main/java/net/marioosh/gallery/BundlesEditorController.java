@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.ServletContextResource;
@@ -26,18 +27,22 @@ import org.springframework.web.context.support.ServletContextResource;
  *
  */
 @Controller
-public class BundlesEditorController {
+public class BundlesEditorController implements ServletContextAware {
 
 	private Logger log = Logger.getLogger(BundlesEditorController.class);
 
 	@Autowired
 	private Settings settings;
 
-	// @Autowired
-	// private ServletContext servletContext;
+	private ServletContext servletContext;
+	
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 
 	@ModelAttribute("context")
-	public String context(Model model, ServletContext servletContext) throws IOException {
+	public String context(Model model) throws IOException {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		ServletContextResource messagespl = new ServletContextResource(servletContext, "/WEB-INF/messages/messages_pl.properties");
 		ServletContextResource messagesen = new ServletContextResource(servletContext, "/WEB-INF/messages/messages_en.properties");
@@ -57,7 +62,7 @@ public class BundlesEditorController {
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/save-messages", method=RequestMethod.POST)
-	public String save(@RequestParam("savedlang") String lang, @RequestParam String text, Model model, ServletContext servletContext) throws IOException {
+	public String save(@RequestParam("savedlang") String lang, @RequestParam String text, Model model) throws IOException {
 		log.debug("save");
 		log.debug(text);
 		ServletContextResource messages = null;
