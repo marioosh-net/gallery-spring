@@ -74,9 +74,6 @@
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
 				<a href="#" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<c:url value="/app/scan.html?refresh=1"/>', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/load.html"/>">load</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/makepublic.html"/>">make public</a>
-				<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/unload.html"/>">unload</a>
 				<a href="<c:url value='/app/messages' />"><spring:message code="button.messages"/></a>				
 				<t:modalyesno id="yesnoadmin">
 					<spring:message code="text.areYouSure"/>
@@ -86,6 +83,10 @@
 				
 				<%-- testowe --%>
 				<c:if test="${servername == 'localhost'}">
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/load.html"/>">load</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/makepublic.html"/>">make public</a>
+					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnoadmin" rev="<c:url value="/app/unload.html"/>">unload</a>
+				
 					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputHref" rel="#yesnotest" rev="<c:url value="/app/cleardb.html"/>">cleardb</a>
 					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/app/testalbum.html"/>', function(data){albums();covers();})">test album</a>
 					<a href="#" onclick="openModal(this); return false;" class="modalInput modalInputClick" rel="#yesnotest" rev="jQuery.get('<c:url value="/app/makephotos.html?count=10"/>', function(data){albums();covers();})">make 10 photos</a>

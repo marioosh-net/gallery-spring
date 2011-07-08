@@ -15,6 +15,9 @@
 					<resource>
 						<directory>src/main/resources/dev</directory>
 					</resource>
+					<resource>
+						<directory>src/main/resources/shared</directory>
+					</resource>					
 				</resources>			
 			</build>
 		</profile>
@@ -29,6 +32,9 @@
 					<resource>
 						<directory>src/main/resources/prod</directory>
 					</resource>
+					<resource>
+						<directory>src/main/resources/shared</directory>
+					</resource>					
 				</resources>		
 				<plugins>
 					<!-- js compressor yuicompressor -->
@@ -70,6 +76,9 @@
 					<resource>
 						<directory>src/main/resources/tool</directory>
 					</resource>
+					<resource>
+						<directory>src/main/resources/shared</directory>
+					</resource>					
 				</resources>		
 				<plugins>
 					<!-- zmieniona konfiguracja defaultowego plugina -->

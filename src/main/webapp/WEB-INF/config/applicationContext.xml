@@ -27,6 +27,11 @@
 	<!-- ============================= -->
 	<!-- Spring MVC                    -->
 	<!-- ============================= -->
+	<!-- rozne settingsy z settings.properties -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="locations" value="classpath:settings.properties"/>
+	</bean>
+	
 	<!-- Auto-detecting components, dla wykrytych komponentow tworzone sa beany -->
 	<!-- bedziemy korzystac z adnotacji @Component, @Controller, @Repository, @Service ... -->
 	<context:component-scan base-package="net.marioosh.gallery" />
@@ -91,21 +96,13 @@
 	<mvc:resources mapping="/**" location="/WEB-INF"/>
 
 	<bean id="settings" class="net.marioosh.gallery.Settings">
-		<property name="photosPerPage" value="24"/>
-		<property name="albumsPerPage" value="24"/>
-		<!-- win32
-		<property name="rootPath" value="C:\moje\download\photos"/>
-		<property name="destPath" value="C:\moje\download\photos_out"/>
-        <property name="convertPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\convert.exe"/>
-		<property name="mogrifyPath" value="c:\\moje\\progs\\ImageMagick-6.6.7-5\\mogrify.exe"/>
-		-->
-		<!-- linux -->
-		<property name="rootPath" value="/mnt/data2/photos"/>
-		<property name="destPath" value="/home/marioosh/my/photos_cameras/copy"/>
-		<property name="convertPath" value="/usr/bin/convert"/>
-		<property name="mogrifyPath" value="/usr/bin/mogrify"/>
-		 
-		<property name="exifToolPath" value="/usr/bin/exiftool"/>
+		<property name="photosPerPage" value="${settings.photosPerPage}"/>
+		<property name="albumsPerPage" value="${settings.albumsPerPage}"/>
+		<property name="rootPath" value="${settings.rootPath}"/>
+		<property name="destPath" value="${settings.destPath}"/>
+		<property name="convertPath" value="${settings.convertPath}"/>
+		<property name="mogrifyPath" value="${settings.mogrifyPath}"/>
+		<property name="exifToolPath" value="${settings.exifToolPath}"/>
 	</bean>
 
 	<!-- scheduler
@@ -153,9 +150,9 @@
 	<!-- postgresql / localhost -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/gallery2?charSet=UTF-8" />
-		<property name="username" value="gallery2" />
-		<property name="password" value="gallery2" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />		
 	</bean>
 	
 
