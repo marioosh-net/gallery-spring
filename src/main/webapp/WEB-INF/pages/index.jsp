@@ -123,12 +123,6 @@
 			<div id="exif"></div>
 		</div>
 		
-		<%-- admin log --%>
-		<t:modal id="logmodal" close="true" wide="true" alignleft="true">
-			<div id="logdiv" style="height: 200px; overflow: auto;">
-				<pre id="log"></pre>
-			</div>		
-		</t:modal>
 	</div>
 	<div class="clear"></div>
 </t:layout>
