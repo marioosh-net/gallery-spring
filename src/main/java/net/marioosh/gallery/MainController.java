@@ -54,6 +54,9 @@ public class MainController {
 	private FileService fileService;
 	
 	@Autowired
+	private LogService logService;
+	
+	@Autowired
 	private PhotoDAO photoDAO;
 
 	@Autowired
@@ -517,4 +520,10 @@ public class MainController {
 		fileService.reloacateAlbums(true);
 	}	
 
+	@ResponseBody
+	@RequestMapping("/log")
+	public String getLogMessage() {
+		String m = logService.getMessage();
+		return m != null ? m : "";
+	}
 }

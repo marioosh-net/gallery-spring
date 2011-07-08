@@ -138,6 +138,18 @@ function hrefDate(selector) {
 	var old = jQuery(selector).attr('href');
 	jQuery(selector).attr('href', old+'&dummy='+(new Date()).getTime());
 }
+function log() {
+	jQuery.get(context+'/app/log', function(response){
+		if(response != '') {
+			/*
+			jQuery('#log').val(jQuery('#log').val()+'\n'+response);
+			jQuery('#log').scrollTop(500000);
+			*/
+			jQuery('#log').html(jQuery('#log').html()+'\n'+response);
+			jQuery('#logdiv').scrollTop(jQuery('#logdiv')[0].scrollHeight);
+		}
+	});
+}
 
 /**
  * NOT USED

@@ -27,6 +27,9 @@
 			jQuery(document).ready(function(){
 				photos(${aid != null ? aid : '\'\''},${ppage != null ? ppage : '\'\''});
 				albums(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
+				<security:authorize ifAnyGranted="ROLE_ADMIN">
+					setInterval("log()",1000);
+				</security:authorize>
 			});
 		</script>
 	</c:if>
@@ -35,6 +38,9 @@
 			jQuery(document).ready(function(){
 				covers(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
 				albums(${param.p != null ? param.p : '\'\''},${param.s != null ? param.s : '\'\''});
+				<security:authorize ifAnyGranted="ROLE_ADMIN">
+					setInterval("log()",1000);
+				</security:authorize>
 			});
 		</script>
 	</c:if>

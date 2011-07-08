@@ -55,6 +55,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 
 	@Autowired
 	private UtilService utilService;
+	
+	@Autowired
+	private LogService logService;
 
 	@Override
 	public void setApplicationContext(ApplicationContext appContext)
@@ -130,10 +133,13 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 */
 	private void loadFiles(File root, File file, boolean createEmptyAlbums, boolean reloadExisting) {
 		log.info("SCAN \""+ file.getAbsolutePath() +"\", reloadExisting:"+reloadExisting);
+		logService.log("SCAN \""+ file.getAbsolutePath() +"\", reloadExisting:"+reloadExisting);
+		
 		File[] files = file.listFiles();
 		
 		if(files == null) {
 			log.info("PATH WRONG");
+			logService.log("PATH WRONG");
 			return;
 		}
 		for (File f : files) {
@@ -155,6 +161,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					}
 					Long albumId = albumDAO.add(a);
 					log.info("1 Album '" + f.getName() + "' [" + albumId + "] created.");
+					logService.log("1 Album '" + f.getName() + "' [" + albumId + "] created.");
 					albumsCount++;
 				}
 				// przerob podkatalogi
@@ -185,6 +192,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 						albumId = albumDAO.add(a);
 						albumHash = a.getHash();
 						log.info("2 Album '" + file.getName() + "' [" + albumId + "] created.");
+						logService.log("2 Album '" + file.getName() + "' [" + albumId + "] created.");
 						albumsCount++;
 					} else {
 						albumId = a.getId();
@@ -222,6 +230,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 							p.setName(f.getName());
 							photoDAO.add(p);
 							log.info("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
+							logService.log("Photo '" + f.getName() + "' created in album '" + a.getName() + "' [" + a.getId() + "].");
 							photosCount++;
 						} else {
 							// jest to przeladowuje jesli hash sie zmienil
@@ -230,6 +239,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 								String oldHash = (String) m.get("hash");
 								if(!oldHash.equals(hash)) {
 									log.info("reload ID: "+ id);
+									logService.log("reload ID: "+ id);
 									photoDAO.synchronize(id);
 									photosUpdated++;
 								} else {

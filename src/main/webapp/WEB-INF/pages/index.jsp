@@ -122,6 +122,11 @@
 		<div id="exif-container">
 			<div id="exif"></div>
 		</div>
+		
+		<%-- admin log --%>
+		<div id="logdiv" style="height: 200px; overflow: auto;">
+			<pre id="log"></pre>
+		</div>		
 	</div>
 	<div class="clear"></div>
 </t:layout>
