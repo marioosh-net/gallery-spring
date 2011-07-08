@@ -409,7 +409,7 @@ public class MainController {
 	}
 
 	/**
-	 * delete i reload (usuwa i przeloadowuje cala zawartosc katalogu)
+	 * delete i reload (usuwa fotki z bazy i przeloadowuje cala zawartosc katalogu)
 	 * DODAJE NOWE
 	 * @param id
 	 * @return
@@ -432,7 +432,7 @@ public class MainController {
 
 	/**
 	 * tylko reload, nie usuwa zdjec
-	 * NIE dodaje nowych
+	 * NIE dodaje nowych, sprawdza te ktore istnieja i przeladowuje jesli jest zmiana
 	 * @param id
 	 * @return
 	 */

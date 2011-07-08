@@ -73,7 +73,7 @@
 		<%-- admin global functions --%>
 		<security:authorize ifAnyGranted="ROLE_ADMIN">
 			<div id="main-funcs">
-				<a href="#" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<c:url value="/app/scan.html?refresh=1"/>', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
+				<a href="#" title="<spring:message code='text.description.scan'/>" onclick="openModal(this); return false;" id="scan-trigger" class="modalInput modalInputClick" rel="#yesnoadmin" rev="loadingIcon('#scan-trigger'); jQuery.get('<c:url value="/app/scan.html?refresh=1"/>', function(data){openOverlay('#scaned', data); jQuery('#scan-trigger').text('<spring:message code="button.scan"/>');})"><spring:message code="button.scan"/></a>
 				<a href="<c:url value='/app/messages' />"><spring:message code="button.messages"/></a>				
 				<t:modalyesno id="yesnoadmin">
 					<spring:message code="text.areYouSure"/>
