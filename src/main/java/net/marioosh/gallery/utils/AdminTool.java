@@ -110,7 +110,7 @@ public class AdminTool {
 	}
 	
 	public void _load() {
-		int[] s = fileService.scan(null, false);
+		int[] s = fileService.scan(null, false, false);
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
@@ -125,7 +125,7 @@ public class AdminTool {
 	 * pelny scan nowych plikow
 	 */
 	public void _scan() {
-		int[] s = fileService.scan(null, true);
+		int[] s = fileService.scan(null, true, false);
 		log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 	}
 	
@@ -135,9 +135,14 @@ public class AdminTool {
 		if(relPath == null) {
 			log.info("PATH WRONG. SCAN stopped.");
 		} else {
-			int[] s = fileService.scan(relPath, true);
+			int[] s = fileService.scan(relPath, true, false);
 			log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 		}
+	}
+	
+	public void _scannew() {
+		int[] s = fileService.scan(null, true, true);
+		log.info("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);		
 	}
 	
 	public void _test() {

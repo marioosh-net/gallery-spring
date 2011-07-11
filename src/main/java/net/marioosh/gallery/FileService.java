@@ -3,6 +3,7 @@ package net.marioosh.gallery;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -77,7 +81,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * skanuj ktalog w poszukiwaniu nowych albumow
 	 * [utworz albumy w bazie na podstawie systemu plikow na dysku]
 	 */
-	public int[] scan(String path, boolean refresh) {
+	public int[] scan(String path, boolean refresh, boolean onlyNewAlbums) {
 		log.info("SCAN start, path: "+path);
 		photosUpdated = 0;
 		photosCount = 0;
@@ -102,9 +106,9 @@ public class FileService implements Serializable, ApplicationContextAware {
 		File root = new File(settings.getRootPath());
 		if (root != null) {
 			if(f != null) {
-				loadFiles(root, f, true, refresh);
+				loadFiles(root, f, true, refresh, onlyNewAlbums);
 			} else {
-				loadFiles(root, root, true, refresh);
+				loadFiles(root, root, true, refresh, onlyNewAlbums);
 			}
 		} else {
 			log.error("ROOT PATH WRONG!");
@@ -131,11 +135,41 @@ public class FileService implements Serializable, ApplicationContextAware {
 	 * @throws IOException
 	 * @throws EntityVersionException
 	 */
-	private void loadFiles(File root, File file, boolean createEmptyAlbums, boolean reloadExisting) {
+	private void loadFiles(final File root, File file, boolean createEmptyAlbums, boolean reloadExisting, boolean onlyNewAlbums) {
 		log.info("SCAN \""+ file.getAbsolutePath() +"\", reloadExisting:"+reloadExisting);
 		logService.log("SCAN \""+ file.getAbsolutePath() +"\", reloadExisting:"+reloadExisting);
 		
 		File[] files = file.listFiles();
+		
+		if(onlyNewAlbums) {
+			// wywal wszystkie istniejace katalogi z listy, dla ktorych istnieja albumy w bazie
+			
+			// sortuj - katalogi pierwsze
+			/*
+			Arrays.sort(files, new Comparator<File>() {
+				public int compare(File f1, File f2) {
+					if(f1.isDirectory() && f2.isDirectory()) {
+						return 0;
+					} else if(f1.isDirectory() && !f2.isDirectory()) {
+						return -1;
+					} else if(!f1.isDirectory() && f2.isDirectory()) {
+						return 1;
+					}
+					return 0;
+				}
+			});
+			*/
+ 
+			files = file.listFiles(new FileFilter() {
+				@Override
+				public boolean accept(File pathname) {
+					if(pathname.isDirectory() && albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, pathname))) == null) {					
+						return true;
+					}
+					return false;
+				}
+			});
+		}
 		
 		if(files == null) {
 			log.info("PATH WRONG");
@@ -165,7 +199,7 @@ public class FileService implements Serializable, ApplicationContextAware {
 					albumsCount++;
 				}
 				// przerob podkatalogi
-				loadFiles(root, f, createEmptyAlbums, reloadExisting);
+				loadFiles(root, f, createEmptyAlbums, reloadExisting, onlyNewAlbums);
 			} else {
 				// make fotki
 				String contentType = new MimetypesFileTypeMap().getContentType(f);

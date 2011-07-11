@@ -386,7 +386,7 @@ public class MainController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/load.html")
 	public String load() {
-		fileService.scan(null, false);
+		fileService.scan(null, false, false);
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
@@ -406,12 +406,24 @@ public class MainController {
 	public String scan(@RequestParam(defaultValue="-1", required=false, value="path") String path, @RequestParam(defaultValue="-1", required=false, value="refresh") int refresh) {
 		log.info("scan.html: path = "+path);
 		path = path.equals("-1") ? null : path;
-		int[] s = fileService.scan(path, refresh != -1 ? true : false);
+		int[] s = fileService.scan(path, refresh != -1 ? true : false, false);
 		// return "redirect:/home";
 		logService.log("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
 	}
 
+	@ResponseBody
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("/scanOnlyNew.html")
+	public String scan(@RequestParam(defaultValue="-1", required=false, value="path") String path) {
+		log.info("scanOnlyNew.html: path = "+path);
+		path = path.equals("-1") ? null : path;
+		int[] s = fileService.scan(path, false, true);
+		// return "redirect:/home";
+		logService.log("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
+		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
+	}
+	
 	/**
 	 * delete i reload (usuwa fotki z bazy i przeloadowuje cala zawartosc katalogu)
 	 * DODAJE NOWE
@@ -426,7 +438,7 @@ public class MainController {
 		if(a != null) {
 			albumDAO.clear(id);
 			String path = a.getPath();
-			int[] s = fileService.scan(path, false);
+			int[] s = fileService.scan(path, false, false);
 			// return "redirect:/home";
 			return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 		} else {
