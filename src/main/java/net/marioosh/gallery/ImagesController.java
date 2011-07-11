@@ -193,7 +193,7 @@ public class ImagesController implements ServletContextAware {
 		response.setContentType("image/jpeg");
 		IOUtils.copy(in, response.getOutputStream());
 		*/
-		return "redirect:/palette.html?id="+id;
+		return "redirect:/app/palette.html?id="+id;
 	}
 	
 	/**
