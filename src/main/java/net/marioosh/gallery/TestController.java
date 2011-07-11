@@ -150,7 +150,7 @@ public class TestController implements ResourceLoaderAware {
 		Album a = new Album(UndefinedUtils.randomWord() + " " + UndefinedUtils.randomWord() + " "+ UndefinedUtils.randomWord());
 		a.setVisibility(Visibility.PUBLIC);
 		albumDAO.add(a);
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 
 	/**

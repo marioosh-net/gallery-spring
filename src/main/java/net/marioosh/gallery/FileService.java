@@ -163,12 +163,17 @@ public class FileService implements Serializable, ApplicationContextAware {
 			files = file.listFiles(new FileFilter() {
 				@Override
 				public boolean accept(File pathname) {
-					if(pathname.isDirectory() && albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, pathname))) == null) {					
+					if((pathname.isDirectory() && albumDAO.getByHash(DigestUtils.md5Hex(UndefinedUtils.relativePath(root, pathname))) == null) || pathname.isFile()) {					
 						return true;
 					}
 					return false;
 				}
 			});
+		}
+		
+		log.debug("FILES: ");
+		for(File f: files) {
+			log.debug("FILE: "+f.getAbsolutePath());
 		}
 		
 		if(files == null) {

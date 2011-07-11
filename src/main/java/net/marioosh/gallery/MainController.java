@@ -334,7 +334,7 @@ public class MainController {
 			}
 		}
 		albumDAO.delete(id);
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -364,14 +364,14 @@ public class MainController {
 	@RequestMapping("/deletephoto2.html")
 	public String deletePhoto2(@RequestParam("id") Long id) {
 		photoDAO.delete(id);
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/cleardb.html")
 	public String clearDB() {
 		albumDAO.deleteAll();
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 
 	@Secured("ROLE_ADMIN")
@@ -380,7 +380,7 @@ public class MainController {
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -390,14 +390,14 @@ public class MainController {
 		for(Long id: albumDAO.listAllId()) {
 			fileService.makePublic(id);
 		}
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("/unload.html")
 	public String unload() {
 		fileService.unload();
-		return "redirect:/home";
+		return "redirect:/app/home";
 	}
 
 	@ResponseBody
@@ -407,7 +407,7 @@ public class MainController {
 		log.info("scan.html: path = "+path);
 		path = path.equals("-1") ? null : path;
 		int[] s = fileService.scan(path, refresh != -1 ? true : false, false);
-		// return "redirect:/home";
+		// return "redirect:/app/home";
 		logService.log("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
 	}
@@ -419,7 +419,7 @@ public class MainController {
 		log.info("scanOnlyNew.html: path = "+path);
 		path = path.equals("-1") ? null : path;
 		int[] s = fileService.scan(path, false, true);
-		// return "redirect:/home";
+		// return "redirect:/app/home";
 		logService.log("ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2]);
 		return "ALBUMS:"+s[0]+", PHOTOS NEW:"+s[1]+", PHOTOS REFRESHED:"+s[2];
 	}
@@ -439,7 +439,7 @@ public class MainController {
 			albumDAO.clear(id);
 			String path = a.getPath();
 			int[] s = fileService.scan(path, false, false);
-			// return "redirect:/home";
+			// return "redirect:/app/home";
 			return "ALBUMS:"+s[0]+", PHOTOS:"+s[1];
 		} else {
 			return "ALBUMS:0, PHOTOS:0";
@@ -512,7 +512,7 @@ public class MainController {
 		} catch (Exception e) {
 			return "-1";
 		}
-		// return "redirect:/home";
+		// return "redirect:/app/home";
 	}
 	
 	@Secured("ROLE_ADMIN")
