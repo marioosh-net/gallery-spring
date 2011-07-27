@@ -65,7 +65,7 @@ public class ExifController {
 							|| tag.getTagName().equals("Date/Time")
 							|| tag.getTagName().equals("Make")
 							|| tag.getTagName().equals("F-Number")
-							|| tag.getTagName().equals("ISO Speed Ratings")
+							|| tag.getTagName().contains("ISO")
 							|| tag.getTagName().equals("Shutter Speed Value")
 							|| tag.getTagName().equals("Aperture Value")
 							|| tag.getTagName().equals("Flash")
