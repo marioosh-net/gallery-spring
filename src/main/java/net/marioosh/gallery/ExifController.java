@@ -49,7 +49,37 @@ public class ExifController {
 		if(full) {
 			return exifString(id, null);
 		} else {
-			return exifString(id, "-EXIF:MeteringMode -EXIF:Flash -EXIF:ExposureMode -EXIF:WhiteBalance -EXIF:LightSource -EXIF:Model -EXIF:Make -EXIF:ModifyDate -EXIF:ExposureTime -EXIF:FNumber -EXIF:ExposureProgram -EXIF:ISO -EXIF:DateTimeOriginal -EXIF:CreateDate -EXIF:ExposureCompensation -EXIF:FocalLength -EXIF:FocalLengthIn35mmFormat -XMP-dc:title -XMP-iptcExt:PersonInImage -XMP-iptcExt:Event -XMP-xmp:Rating -EXIF:GPSLatitudeRef -EXIF:GPSLatitude -EXIF:GPSLongitudeRef -EXIF:GPSLongitude -EXIF:GPSAltitudeRef -EXIF:GPSAltitude -File:FileSize -File:FileName -File:ImageWidth -File:ImageHeight -ICC_Profile:ProfileDescription -EXIF:ColorSpace");
+			return exifString(id,
+					"-EXIF:CreateDate " +					
+					"-File:FileName " +
+					"-File:FileSize " +
+					"-EXIF:Model " +
+					"-EXIF:FNumber " +					
+					"-EXIF:ExposureTime " +
+					"-EXIF:ISO " +					
+					"-EXIF:ExposureProgram " +
+					"-EXIF:ExposureMode " +					
+					"-EXIF:MeteringMode " +					
+					"-EXIF:WhiteBalance " +
+					"-EXIF:Flash " +					
+					"-EXIF:LightSource " +
+					"-EXIF:ExposureCompensation " +
+					"-EXIF:FocalLength " +
+					"-EXIF:FocalLengthIn35mmFormat " +
+					"-File:ImageWidth " +
+					"-File:ImageHeight " +
+					"-EXIF:ColorSpace" +					
+					"-XMP-dc:title " +
+					"-XMP-iptcExt:PersonInImage " +
+					"-XMP-iptcExt:Event " +
+					"-XMP-xmp:Rating " +
+					"-EXIF:GPSLatitudeRef " +
+					"-EXIF:GPSLatitude " +
+					"-EXIF:GPSLongitudeRef " +
+					"-EXIF:GPSLongitude " +
+					"-EXIF:GPSAltitudeRef " +
+					"-EXIF:GPSAltitude "
+					);
 		}
 	}
 	
