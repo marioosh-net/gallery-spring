@@ -35,12 +35,22 @@ public class ExifController {
 
 	@RequestMapping("/exif3/{id}") 
 	public ModelAndView exif3(@PathVariable Long id) {
-		return new ModelAndView("exif","exifdata",exifString(id));
+		return new ModelAndView("exif","exifdata",exifString(id, null));
 	}
 	
 	@RequestMapping("/exif2/{id}/{full}")
 	public ModelAndView exif2(@PathVariable Long id, @PathVariable boolean full, HttpServletRequest r) {
 		return new ModelAndView("exif","exifdata",exif(id, full, r));
+	}
+
+	@ResponseBody
+	@RequestMapping("/exiftool/{id}/{full}") 
+	public String exiftool(@PathVariable Long id, @PathVariable boolean full) {
+		if(full) {
+			return exifString(id, null);
+		} else {
+			return exifString(id, "-EXIF:MeteringMode -EXIF:Flash -EXIF:ExposureMode -EXIF:WhiteBalance -EXIF:LightSource -EXIF:Model -EXIF:Make -EXIF:ModifyDate -EXIF:ExposureTime -EXIF:FNumber -EXIF:ExposureProgram -EXIF:ISO -EXIF:DateTimeOriginal -EXIF:CreateDate -EXIF:ExposureCompensation -EXIF:FocalLength -EXIF:FocalLengthIn35mmFormat -XMP-dc:title -XMP-iptcExt:PersonInImage -XMP-iptcExt:Event -XMP-xmp:Rating -EXIF:GPSLatitudeRef -EXIF:GPSLatitude -EXIF:GPSLongitudeRef -EXIF:GPSLongitude -EXIF:GPSAltitudeRef -EXIF:GPSAltitude -File:FileSize -File:FileName -File:ImageWidth -File:ImageHeight -ICC_Profile:ProfileDescription -EXIF:ColorSpace");
+		}
 	}
 	
 	@ResponseBody
@@ -126,12 +136,17 @@ public class ExifController {
 	 * @param id
 	 * @return
 	 */
-	private String exifString(Long id) {
+	private String exifString(Long id, String exiftoolParams) {
 		String path = photoDAO.get(id).getFilePath();
 		try {
 			File fullpath = new File(new File(settings.getRootPath()), path);
-			Process pr = Runtime.getRuntime().exec(new String[]{settings.getExifToolPath(), fullpath.getAbsolutePath()});
-			return "<pre>"+IOUtils.toString(pr.getInputStream())+"</pre>";
+			if(exiftoolParams != null) {
+				Process pr = Runtime.getRuntime().exec(settings.getExifToolPath() + " " + exiftoolParams + " " + fullpath.getAbsolutePath());
+				return "<pre>"+IOUtils.toString(pr.getInputStream())+"</pre>";
+			} else {
+				Process pr = Runtime.getRuntime().exec(new String[]{settings.getExifToolPath(), fullpath.getAbsolutePath()});
+				return "<pre>"+IOUtils.toString(pr.getInputStream())+"</pre>";
+			}
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}

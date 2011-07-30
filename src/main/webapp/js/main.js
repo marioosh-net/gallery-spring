@@ -121,7 +121,7 @@ var xhr;
 function exif(id) {
 	loading('#exif');
 	xhr = jQuery.ajax({
-		url: context+'/app/'+'exif/'+id+'/0',
+		url: context+'/app/'+'exiftool/'+id+'/0',
 		beforeSend: function() {
 			if(xhr && xhr.readystate != 4){
 	            xhr.abort();
