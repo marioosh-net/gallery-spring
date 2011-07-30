@@ -54,7 +54,9 @@ public class ExifController {
 					"-File:FileName " +
 					"-File:FileSize " +
 					"-EXIF:Model " +
-					"-EXIF:FNumber " +					
+					"-EXIF:FNumber " +
+					"-EXIF:FocalLength " +
+					"-EXIF:FocalLengthIn35mmFormat " +					
 					"-EXIF:ExposureTime " +
 					"-EXIF:ISO " +					
 					"-EXIF:ExposureProgram " +
@@ -64,8 +66,6 @@ public class ExifController {
 					"-EXIF:Flash " +					
 					"-EXIF:LightSource " +
 					"-EXIF:ExposureCompensation " +
-					"-EXIF:FocalLength " +
-					"-EXIF:FocalLengthIn35mmFormat " +
 					"-File:ImageWidth " +
 					"-File:ImageHeight " +
 					"-EXIF:ColorSpace" +					
