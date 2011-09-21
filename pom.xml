@@ -5,7 +5,7 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gallery</name>
-	<url>http://marioosh.net</url>
+	<url>http://gallery.marioosh.net</url>
 
 	<profiles>
 		<profile>
