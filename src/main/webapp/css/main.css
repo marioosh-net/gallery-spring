@@ -12,10 +12,9 @@ body,html {
 	background-color: #333333;
 	color: #888;
 	
-	/*
 	background-image: url('../images/gr1.png');
 	background-repeat: repeat-x;
-	*/
+	background-color: #000;
 }
 div {
 	/* overflow: hidden; /* IE6: div height */
