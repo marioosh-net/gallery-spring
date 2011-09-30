@@ -419,7 +419,15 @@ img.icon {
 #albums a {
 	text-decoration: none;
 }
-.oneset, .setsheader {
+.frame-albums {
+	background-image: url('../images/aframe.png');
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	
+}
+.oneset /*, .setsheader*/ {
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 2px;
@@ -451,7 +459,10 @@ img.icon {
 	font-size: 18px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 	cursor: default;
+	margin-top: 15px;
 }
 #searchbox {
 	font-size: 12px;
