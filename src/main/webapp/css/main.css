@@ -12,8 +12,10 @@ body,html {
 	background-color: #333333;
 	color: #888;
 	
+	/*
 	background-image: url('../images/gr1.png');
 	background-repeat: repeat-x;
+	*/
 }
 div {
 	/* overflow: hidden; /* IE6: div height */
@@ -51,14 +53,13 @@ form {
 }
 .fixedwidth {
 	/*float: none;*/
-	width: 1000px;
+	width: 1020px;
 	margin: 0 auto;
 	text-align: left;
 }
 
 /* header */
 #header {
-	background-color: #000;
 	color: #fff;
 	height: 80px;
 }
@@ -341,7 +342,7 @@ a.bu:active span {
 	width: 300px;
 }
 .rightfixed {
-	width: 680px;
+	width: 700px;
 }
 .leftfixed50 {
 	margin-right: 15px; 
@@ -607,9 +608,13 @@ ul.albums_list {
 }
 .thumb_box {
 	float: left;
-	margin: 3px;
+	/*margin: 3px;*/
 	overflow: hidden;
-	height: 106px;			
+	height: 116px; /*106px;*/
+	
+	width: 116px;
+	background-image: url('../images/frame.png');
+	background-repeat: no-repeat;			
 }
 .thumb {
 	border: 3px solid #fff;

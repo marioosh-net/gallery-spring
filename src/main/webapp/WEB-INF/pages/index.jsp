@@ -44,7 +44,7 @@
 			
 			<%-- user / logout --%>
 			<div class="right" style="margin-top: 10px;">
-				<span id="main-progress" style="display: none;"><img src="<c:url value="/images/ajax-loader5.gif"/>"/></span>
+				<span id="main-progress" style="display: none;"><img src="<c:url value="/images/ajax-loader7.gif"/>"/></span>
 				<security:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">	
 					<span class="username"><security:authentication property="principal.username" /></span>
 					<a href="<c:url value="/app/logout"/>" ><spring:message code="button.logout"/></a>
