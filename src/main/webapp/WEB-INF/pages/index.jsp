@@ -5,7 +5,7 @@
 	<%-- LEFT: albums --%>
 	<div class="left leftfixed">		
 		
-		<div class="frame-albums">
+		<div class="frame-albums" style="padding-bottom: 0px;">
     	<div class="setsheader">
 			<%-- <a href="<c:url value="/app/home"/>" style="color: #888888; text-decoration: none;">PHOTOSETS</a> --%>
 			<div id="searchbox">
