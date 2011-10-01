@@ -453,6 +453,9 @@ img.icon {
 	margin-left: 3px;
 	color: #909090;
 }
+.oneset .pub {
+	color: #5CCCCC;
+}
 .setsheader {
 	background-color: #444;
 	font-size: 18px;

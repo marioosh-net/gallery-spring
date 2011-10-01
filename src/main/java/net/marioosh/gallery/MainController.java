@@ -164,13 +164,16 @@ public class MainController {
 		int acount = albumDAO.countAll(bp);
 		List<Album> albums = albumDAO.findAll(bp);
 		model.addAttribute("albums", albums);
-		int[] ac = new int[albums.size()];
+		Object[][] ac = new Object[albums.size()][2];
 		int i = 0;
 		for(Album a: albums) {
 			PhotoBrowseParams bp2 = new PhotoBrowseParams();
 			bp2.setAlbumId(a.getId());
 			bp2.setVisibility(utilService.getCurrentVisibility());
-			ac[i++] = photoDAO.countAll(bp2);
+			ac[i][0] = photoDAO.countAll(bp2);
+			bp2.setVisibility(Visibility.PUBLIC);
+			ac[i][1] = photoDAO.countAll(bp2);
+			i++;
 		}
 		model.addAttribute("ac",ac);
 		model.addAttribute("acount",acount);
