@@ -58,7 +58,7 @@
 
 	<!-- LOGGERY -->
 	<logger name="org.springframework">
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	<logger name="net.marioosh.gallery.utils.WebUtils">
 		<level value="info" />

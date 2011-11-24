@@ -192,8 +192,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<springVersion>3.0.5.RELEASE</springVersion>
-		<springSecurityVersion>3.0.4.RELEASE</springSecurityVersion>
+		<springVersion>3.0.6.RELEASE</springVersion>
+		<springSecurityVersion>3.0.7.RELEASE</springSecurityVersion>
 	</properties>
 
 	<repositories>
@@ -258,48 +258,32 @@
 			<version>1.1.1</version>
 		</dependency>
 
+		<!-- SPRING -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.context</artifactId>
-			<version>${springVersion}</version>
-		</dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		    <version>${springVersion}</version>
+		</dependency>		
+		
+		<!-- spring jdbc / db / etc -->		
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.context.support</artifactId>
-			<version>${springVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.web.servlet</artifactId>
-			<version>${springVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.jdbc</artifactId>
-			<version>${springVersion}</version>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>${springVersion}</version>
 		</dependency>
 		
 		<!-- spring security -->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>org.springframework.security.core</artifactId>
-			<version>${springSecurityVersion}</version>
-		</dependency>		
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${springSecurityVersion}</version>
+		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>org.springframework.security.config</artifactId>
-			<version>${springSecurityVersion}</version>
-		</dependency>		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>org.springframework.security.web</artifactId>
-			<version>${springSecurityVersion}</version>
-		</dependency>		
-	    <dependency>
-	        <groupId>org.springframework.security</groupId>
-	        <artifactId>org.springframework.security.taglibs</artifactId>
-	        <version>${springSecurityVersion}</version>
-	    </dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${springSecurityVersion}</version>
+		</dependency>
+
 		<!-- AOP dependency -->
 		<dependency>
 			<groupId>cglib</groupId>
