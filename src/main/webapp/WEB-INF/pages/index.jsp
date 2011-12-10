@@ -112,7 +112,7 @@
 
 		<%-- footer --%>		
 		<div id="footer-right">
-			Inspired by <a href="http://minishowcase.net">minishowcase</a>. Powered by <a href="http://www.nickstakenburg.com/projects/lightview/">Lightview</a>&nbsp;|&nbsp;<a href="http://marioosh.net">marioosh.net</a><%-- &nbsp;|&nbsp;<a href="<t:server-https/><c:url value='/'/>">https</a>--%>
+			Inspired by <a href="http://minishowcase.net">minishowcase</a>. Powered by <a href="http://www.springsource.org/"><img style="vertical-align: text-bottom;" src="<c:url value="/images/spring.png"/>"/></a>&nbsp;|&nbsp;<a href="http://marioosh.net">marioosh.net</a><%-- &nbsp;|&nbsp;<a href="<t:server-https/><c:url value='/'/>">https</a>--%>
 			<br/><spring:message code="text.photos_license"/>
 			<%--<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a><br />Page content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img class="middle" alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/80x15.png" /></a>--%>
 			  
