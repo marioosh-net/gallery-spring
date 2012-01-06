@@ -794,11 +794,17 @@ a.inactive {
 	padding-right: 5px; 
 }
 .tooltip {
-	background-color: #444;
+	/*background-color: #444;*/
 	color: #fff;
-	border: 3px solid #fff;
+	/*border: 3px solid #fff;*/
 	border-top: none;
-	width: 100px;
+	
+	padding: 5px;
+	padding-left: 12px;
+	padding-right: 12px;
+	background: transparent url('../images/tt.png');
+	background-repeat: no-repeat;
+	height: 35px;
 }
 .middle {
 	vertical-align: middle;
