@@ -808,7 +808,7 @@ a.inactive {
 	padding: 5px;
 	padding-left: 12px;
 	padding-right: 12px;
-
+    height: 20px;
 }
 .middle {
 	vertical-align: middle;
