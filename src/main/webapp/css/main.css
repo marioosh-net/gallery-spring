@@ -798,13 +798,17 @@ a.inactive {
 	color: #fff;
 	/*border: 3px solid #fff;*/
 	border-top: none;
-	
-	padding: 5px;
-	padding-left: 12px;
-	padding-right: 12px;
+	padding: 0px;
 	background: transparent url('../images/tt.png');
 	background-repeat: no-repeat;
 	height: 35px;
+}
+.tt {
+	border-right: 1px solid #828282;
+	padding: 5px;
+	padding-left: 12px;
+	padding-right: 12px;
+
 }
 .middle {
 	vertical-align: middle;
