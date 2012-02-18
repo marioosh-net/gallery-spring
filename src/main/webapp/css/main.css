@@ -440,7 +440,7 @@ img.icon {
 }
 #albums .selected {
 	background-color: #AAA;
-  border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 #albums .subalbums .oneset {
 	padding-left: 15px;
@@ -450,6 +450,7 @@ img.icon {
 }
 .oneset:hover {
 	background-color: #AAA;
+    border-bottom: 1px solid #ddd;
 }
 .oneset .counts {
 	margin-left: 3px;
