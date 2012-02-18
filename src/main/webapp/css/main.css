@@ -440,6 +440,7 @@ img.icon {
 }
 #albums .selected {
 	background-color: #AAA;
+  border-bottom: 1px solid #ddd;
 }
 #albums .subalbums .oneset {
 	padding-left: 15px;
