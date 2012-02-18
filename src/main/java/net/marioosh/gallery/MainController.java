@@ -193,13 +193,17 @@ public class MainController {
 		bp.setSort(AlbumSortField.NAME_DESC);
 		List<Album> subalbums = albumDAO.findAll(bp);
 		int acount = albumDAO.countAll(bp);
-		int[] ac = new int[subalbums.size()];
+		// int[] ac = new int[subalbums.size()];
+		Object[][] ac = new Object[subalbums.size()][2];
 		int i = 0;
 		for(Album a: subalbums) {
 			PhotoBrowseParams bp2 = new PhotoBrowseParams();
 			bp2.setAlbumId(a.getId());
 			bp2.setVisibility(utilService.getCurrentVisibility());
-			ac[i++] = photoDAO.countAll(bp2);
+			// ac[i++] = photoDAO.countAll(bp2);
+			ac[i][0] = photoDAO.countAll(bp2);
+			ac[i][1] = photoDAO.countAll(bp2);
+            i++;
 		}
 		model.addAttribute("ac",ac);		
 		model.addAttribute("acount", acount);		
