@@ -436,6 +436,7 @@ img.icon {
 	background-color: #666;
 	cursor: pointer;
 	border-top: 1px solid #111;
+	border-bottom: 1px solid #888;
 }
 #albums .selected {
 	background-color: #AAA;
