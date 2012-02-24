@@ -5,8 +5,9 @@
 <div class="covers">
 	<div class="thumbs">
 		<c:forEach items="${albums}" var="a" varStatus="i">
-			
-			<div class="thumb_box" title="<div class='tt'>${a.name}</div>">
+
+            <%-- tooltips	<div class="thumb_box" title="<div class='tt'>${a.name}</div>"> --%>
+			<div class="thumb_box" title="${a.name}">
 				<a href="#" onclick="jQuery('.tooltip').remove(); jQuery('#photos').load('<c:url value="/app/photos/${a.id}/1"/>');" class="thumb_link">
 					<div id="t${i.index}" class="thumb" style="background-image: url(<c:url value="/images/ajax-loader7.gif"/>); background-position: 50% 50%; "></div>
 					<div id="u${i.index}" class="thumb thumb_box_cover" style="display: none; float: none; background-image: url(<c:url value="/app/a/${a.id}/cover"/>); "></div>
@@ -27,7 +28,7 @@
 	</div>
 
 	<div style="clear: both;"></div>
-	<%-- tooltips --%>
+	<%-- tooltips 
 	<script type="text/javascript">jQuery('.thumb_box').tooltip({ position: 'bottom right', offset: [-143, -131], effect: 'slide'});</script>
-
+    --%>
 </div>
