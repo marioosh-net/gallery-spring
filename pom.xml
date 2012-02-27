@@ -424,7 +424,21 @@
 		    <artifactId>urlrewritefilter</artifactId>
 		    <version>3.1.0</version>
 		</dependency>
-		
+
+        <!--
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>jtidy</artifactId>
+		    <version>r8-21122004</version>
+		</dependency>
+        <dependency>
+            <groupId>org.w3c.tidy</groupId>
+            <artifactId>jtidy</artifactId>
+            <version>r8</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jtidyservlet-r8-SNAPSHOT.jar</systemPath>
+        </dependency>
+        -->       
 				
 	</dependencies>
 
