@@ -1,0 +1,2 @@
+AdminTool
+java -cp target/gallery/WEB-INF/lib/*:/opt/tomcat7/lib/* net.marioosh.gallery.utils.AdminTool
